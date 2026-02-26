@@ -1,0 +1,7 @@
+.last-news-container .last-news {
+  display: flex;
+  gap: 20px;
+}
+.last-news-container .last-news .main-news {
+  flex: 300px;
+}

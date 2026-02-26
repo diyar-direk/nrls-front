@@ -1,0 +1,6 @@
+.read-more-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  align-items: center;
+}

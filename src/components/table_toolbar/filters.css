@@ -1,0 +1,44 @@
+.table-toolbar .filters {
+  width: 100%;
+  background: var(--section-color);
+  padding: 10px 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  height: 0px;
+  overflow: hidden;
+  padding: 0;
+}
+.table-toolbar .filters.open {
+  padding: 10px 20px;
+  height: auto;
+  overflow: visible;
+}
+.table-toolbar .filters > div {
+  flex: 300px;
+}
+.table-toolbar .filters .inp .input-wrapper,
+.table-toolbar .filters .select-input .placeholder {
+  background-color: var(--body-color);
+}
+
+.table-toolbar .add-popup {
+  width: 90%;
+  max-width: 700px;
+}
+.table-toolbar .add-popup .add-popup-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  margin-top: 20px;
+}
+.table-toolbar .add-popup .add-popup-actions .btn {
+  flex: 150px;
+}
+
+@media (max-width: 800px) {
+  .table-toolbar .filters.open {
+    padding: 10px;
+  }
+}

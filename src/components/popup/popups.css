@@ -1,0 +1,169 @@
+.overlay {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background-color: rgb(0 0 0 / 10%);
+  top: 0;
+  left: 0;
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  padding-inline: 30px;
+}
+
+.overlay .popup {
+  padding: 20px 30px;
+  border-radius: 4px;
+  background-color: var(--body-color);
+  max-height: 90vh;
+  overflow: auto;
+  position: relative;
+  animation: popup 0.3s;
+}
+
+.overlay .popup .close-btn {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 5px;
+}
+
+.overlay .popup img {
+  max-height: 500px;
+}
+.overlay .popup h1 {
+  text-transform: capitalize;
+  text-align: center;
+  font-weight: 500;
+  font-size: 25px;
+}
+.overlay .popup > div:not(.close-btn) {
+  display: flex;
+  gap: 10px;
+}
+
+table .overlay {
+  background-color: transparent;
+  backdrop-filter: blur(1px);
+}
+
+.confirm-popup.popup {
+  padding: 0;
+  width: 90%;
+  max-width: 500px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.confirm-popup .close {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  background-color: var(--aside-color);
+  padding: 10px 20px;
+  align-items: center;
+  gap: 10px 20px;
+  justify-content: space-between;
+  color: var(--font-color);
+}
+.confirm-popup .close h1 {
+  font-size: 18px;
+}
+
+.confirm-popup .close svg {
+  cursor: pointer;
+}
+.confirm-popup .close svg:hover {
+  color: red;
+}
+
+.confirm-popup .close h1::after {
+  content: " ? ";
+}
+.confirm-popup.popup .undone {
+  padding: 20px 20px;
+  border-bottom: solid 1px var(--aside-color);
+  color: var(--font-color);
+  text-transform: capitalize;
+}
+.confirm-popup.popup .btns {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px 20px;
+  margin: 0;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 1000px) {
+  .overlay .popup {
+    padding: 20px;
+  }
+  .confirm-popup.popup {
+    padding: 0;
+  }
+  .confirm-popup .close {
+    padding: 10px;
+  }
+  .confirm-popup .close h1 {
+    font-size: 15px;
+  }
+  .confirm-popup.popup .undone {
+    padding: 10px;
+    font-size: 16px;
+  }
+  .overlay .popup > div:not(.close-btn) {
+    margin-top: 10px;
+  }
+}
+@media (max-width: 700px) {
+  .overlay .popup {
+    padding: 10px 15px;
+  }
+  .confirm-popup.popup {
+    padding: 0;
+  }
+  .confirm-popup .close h1 {
+    font-size: 13px;
+  }
+  .confirm-popup .close svg {
+    font-size: 14px;
+  }
+  .confirm-popup.popup .undone {
+    font-size: 14px;
+  }
+  .overlay .popup > div:not(.close-btn) {
+    margin-top: 0;
+  }
+  .confirm-popup.popup .btns {
+    padding: 10px;
+  }
+}
+@media (max-width: 500px) {
+  .overlay .popup {
+    padding: 10px;
+  }
+  .confirm-popup.popup {
+    padding: 0;
+  }
+  .confirm-popup .close h1 {
+    font-size: 11px;
+  }
+  .confirm-popup .close svg {
+    font-size: 12px;
+  }
+  .confirm-popup.popup .undone {
+    font-size: 12px;
+  }
+}
+
+@keyframes popup {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(1);
+  }
+}

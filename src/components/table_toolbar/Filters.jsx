@@ -1,0 +1,150 @@
+import { Fragment, useCallback, useEffect, useState } from "react";
+import IconButton from "../buttons/IconButton";
+import "./filters.css";
+import Input from "../inputs/Input";
+import { useAuth } from "../../context/AuthContext";
+import { useTranslation } from "react-i18next";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFilter } from "@fortawesome/free-solid-svg-icons";
+import SelectInputApi from "../inputs/SelectInputApi";
+import { endPoints } from "../../constants/endPoints";
+import { useDebounce } from "use-debounce";
+import { roles } from "../../constants/enums";
+
+/**
+ * @typedef {Object} FromToFieldsProps
+ * @property {string} name
+ * @property {string} label
+ * @property {"datetime-local" | "date" | "time" | "number"} [type]
+ * @property {Array} [roles]
+ */
+
+/**
+ * @typedef {Object} FilerProps
+ * @property {object} filters
+ * @property {React.SetStateAction} setFilters
+ * @property {boolean} [hideCreatedAtInputs]
+ * @property {boolean} [hideCreatedByInputs]
+ * @property {FromToFieldsProps[]} FromToFields
+ */
+
+/**
+ * @param {FilerProps} props
+ */
+
+const Filters = ({
+  children,
+  filters,
+  setFilters,
+  hideCreatedAtInputs = false,
+  hideCreatedByInputs = false,
+  FromToFields,
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleOpen = useCallback(() => setIsOpen((prev) => !prev), []);
+
+  const { user } = useAuth();
+  const { role } = user || {};
+
+  const { t } = useTranslation();
+
+  const [localFilters, setLocalFilters] = useState(filters || {});
+
+  const [debouncedValue] = useDebounce(localFilters, 500);
+
+  useEffect(() => {
+    setFilters(debouncedValue);
+  }, [debouncedValue, setFilters]);
+
+  const handleChange = useCallback((e) => {
+    const { value, name } = e.target;
+    setLocalFilters((prev) => ({ ...prev, [name]: value }));
+  }, []);
+
+  return (
+    <>
+      <IconButton
+        title={t("filters")}
+        color={isOpen ? "main" : "secondry-color"}
+        onClick={toggleOpen}
+      >
+        <FontAwesomeIcon icon={faFilter} />
+      </IconButton>
+
+      <div className={`${isOpen ? "open" : ""} filters`}>
+        {!hideCreatedAtInputs && (
+          <>
+            <Input
+              label={`${t("enums.from")} ${t("date")}`}
+              type="date"
+              value={localFilters?.["createdAt_gte"]}
+              name="createdAt_gte"
+              onInput={handleChange}
+              notRequired
+            />
+            <Input
+              label={`${t("enums.to")} ${t("date")}`}
+              type="date"
+              value={localFilters?.["createdAt_lte"]}
+              name="createdAt_lte"
+              onInput={handleChange}
+              notRequired
+            />
+          </>
+        )}
+        {!hideCreatedByInputs && role === roles.admin && (
+          <SelectInputApi
+            label={t("created_by")}
+            endPoint={endPoints.users}
+            notRequired
+            optionLabel={(e) => e?.username}
+            placeholder={localFilters?.createdBy?.username || t("all")}
+            onChange={(e) =>
+              setLocalFilters((prev) => ({ ...prev, createdBy: e }))
+            }
+            customOptions={[
+              {
+                onChange: () =>
+                  setLocalFilters((prev) => ({ ...prev, createdBy: "" })),
+                title: t("all"),
+              },
+            ]}
+            params={{ role: roles.admin }}
+          />
+        )}
+
+        {FromToFields?.map(
+          (e, i) =>
+            (!e?.roles || e?.roles?.includes(role)) && (
+              <Fragment key={i}>
+                <Input
+                  {...e}
+                  label={`${t("enums.from")} ${t(e.label)}`}
+                  placeholder={`${t("enums.from")} ${t(e.label)}`}
+                  type={e.type || "date"}
+                  value={localFilters?.[`${e.name}_gte`]}
+                  name={`${e.name}_gte`}
+                  notRequired
+                  onInput={handleChange}
+                />
+                <Input
+                  {...e}
+                  label={`${t("enums.to")} ${t(e.label)}`}
+                  placeholder={`${t("enums.to")} ${t(e.label)}`}
+                  type={e.type || "date"}
+                  value={localFilters?.[`${e.name}_lte`]}
+                  name={`${e.name}_lte`}
+                  notRequired
+                  onInput={handleChange}
+                />
+              </Fragment>
+            ),
+        )}
+
+        {children}
+      </div>
+    </>
+  );
+};
+
+export default Filters;

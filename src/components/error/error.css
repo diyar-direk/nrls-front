@@ -1,0 +1,16 @@
+.status-error {
+  display: flex;
+  justify-content: flex-end;
+  background-color: rgba(255, 0, 0, 0.158);
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  align-items: center;
+  flex-wrap: wrap-reverse;
+  gap: 10px;
+}
+.status-error h3 {
+  color: red;
+  font-size: 90%;
+  flex: 200px;
+}

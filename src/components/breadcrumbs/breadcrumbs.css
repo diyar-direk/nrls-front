@@ -1,0 +1,77 @@
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  text-transform: capitalize;
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+.breadcrumbs.home {
+  background: var(--aside-color);
+  padding-block: 10px;
+  margin: 0;
+}
+
+.breadcrumbs a {
+  color: var(--font-color);
+  opacity: 0.8;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.breadcrumbs a:hover {
+  opacity: 1;
+  color: var(--main-color);
+  font-weight: bold;
+}
+
+.breadcrumbs a::after {
+  content: "/";
+  font-weight: bold;
+}
+
+.breadcrumbs .current {
+  color: var(--main-color);
+  font-weight: bold;
+}
+
+@media (max-width: 1000px) {
+  .breadcrumbs {
+    font-size: 17px;
+    gap: 8px;
+  }
+  .breadcrumbs a {
+    gap: 8px;
+  }
+}
+@media (max-width: 800px) {
+  .breadcrumbs {
+    font-size: 16px;
+    gap: 7px;
+    margin-bottom: 10px;
+  }
+  .breadcrumbs a {
+    gap: 7px;
+  }
+}
+@media (max-width: 600px) {
+  .breadcrumbs {
+    font-size: 14px;
+    gap: 6px;
+  }
+  .breadcrumbs a {
+    gap: 6px;
+  }
+}
+@media (max-width: 500px) {
+  .breadcrumbs {
+    font-size: 13px;
+  }
+}
+@media (max-width: 400px) {
+  .breadcrumbs {
+    font-size: 12px;
+  }
+}
