@@ -1,30 +1,48 @@
 .last-news-container .breacking-news {
   margin-bottom: 20px;
-  background-color: var(--hover-color);
-  padding: 10px;
+  background-color: #535353;
+  padding: 0;
   border-radius: 10px;
   display: flex;
-  gap: 10px;
+  gap: 0;
   color: white;
-  align-items: center;
+  align-items: stretch;
+  box-shadow: 0 10px 30px -10px #00000080;
+  transform: translateY(0);
+  transition: transform 0.3s;
 }
+
+.last-news-container .breacking-news:hover {
+  transform: translateY(-3px);
+}
+
 .last-news-container .breacking-news h3 {
-  font-weight: 500;
-  font-size: 16px;
-  background-color: var(--main-color);
-  padding: 8px 10px;
-  border-radius: 4px;
+  font-weight: 600;
+  font-size: 15px;
+  background-color: #e74c3c;
+  padding: 15px 25px;
+  border-radius: 10px 0 0 10px;
+  color: white;
+  text-transform: uppercase;
+  margin: 0;
+  clip-path: polygon(0 0, 85% 0, 100% 100%, 0 100%);
 }
 
 .last-news-container .breacking-news .ticker {
   flex: 1;
   overflow: hidden;
+  padding: 15px 20px;
+  background: #535353;
+  border-radius: 0 10px 10px 0;
 }
+
 .last-news-container .breacking-news .ticker .ticker-content {
   display: flex;
-  gap: 25px;
-  animation: ticker 15s linear infinite;
+  gap: 35px;
+  animation: ticker 18s linear infinite;
   white-space: nowrap;
+  font-size: 14px;
+  font-weight: 400;
 }
 
 .last-news-container .last-news {
@@ -334,4 +352,104 @@
 }
 .documentaries .documentary:hover img {
   transform: scale(1.1);
+}
+
+.news-style-2 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  color: var(--font-color);
+  align-items: flex-start;
+}
+
+.news-style-2 .sub-news {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px 10px;
+  flex: 200px;
+  margin-top: 20px;
+}
+.news-style-2 .sub-news > a:not(:last-of-type) {
+  border-bottom: solid 1px var(--border-color);
+  padding-bottom: 10px;
+}
+
+.news-style-2 .sub-news article {
+  flex: calc(90% - 200px);
+}
+.news-style-2 .sub-news .icons {
+  margin-top: 0;
+  font-size: 11px;
+  gap: 6px;
+}
+.news-style-2 .sub-news .icons .icon {
+  gap: 3px;
+}
+
+.news-style-2 .sub-news h3 {
+  line-height: 1.6;
+  font-size: 14px;
+  font-weight: 600;
+}
+.news-style-2 .sub-news > a:hover h3 {
+  text-decoration: underline;
+}
+
+.news-style-2 .main-news {
+  flex: 400px 5;
+}
+
+.news-style-2 .main-news .img {
+  height: 400px;
+  display: flex;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.news-style-2 img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.news-style-2 .icons {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 14px;
+}
+.news-style-2 .icons .icon {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  opacity: 0.6;
+}
+
+.news-style-2 .main-news h3 {
+  font-size: 16px;
+  line-height: 1.5;
+}
+.news-style-2 .main-news p {
+  font-size: 14px;
+}
+
+.news-style-2 .main-news .button {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 15px;
+}
+.news-style-2 .main-news .button .read-more {
+  background-color: transparent;
+  text-transform: capitalize;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--main-color);
+}
+
+.news-style-2 .main-news:hover .read-more {
+  gap: 15px;
+}
+.news-style-2 .main-news:hover h3 {
+  text-decoration: underline;
 }

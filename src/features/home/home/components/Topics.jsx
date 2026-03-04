@@ -10,7 +10,7 @@ import RepeatChildren from "../../../../components/RepeatChildren";
 
 const Topics = () => {
   return (
-    <mian className="topics-container grid-2">
+    <main className="topics-container grid-2">
       <RepeatChildren count={4}>
         <Link className="topic">
           <div className="img">
@@ -44,7 +44,7 @@ const Topics = () => {
           </article>
         </Link>
       </RepeatChildren>
-    </mian>
+    </main>
   );
 };
 

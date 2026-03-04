@@ -36,19 +36,15 @@ const Header = () => {
             <FontAwesomeIcon icon={faCalendarAlt} />
           </div>
           <div className="language">
-            <Tooltip text={"language"}>
+            <Tooltip text={"language"} placement="bottom">
               <span className="current-language">
                 AR <FontAwesomeIcon icon={faChevronDown} />
               </span>
             </Tooltip>
           </div>
 
-          <Tooltip text={"mode"}>
-            <FontAwesomeIcon
-              icon={faMoon}
-              className="mode"
-              onClick={changeMode}
-            />
+          <Tooltip text={"mode"} placement="bottom" onClick={changeMode}>
+            <FontAwesomeIcon icon={faMoon} className="mode" />
           </Tooltip>
         </div>
         <Link className="logo" to={"/"}>

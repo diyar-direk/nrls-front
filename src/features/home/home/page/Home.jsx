@@ -3,10 +3,11 @@ import BreakingNews from "../components/BreakingNews";
 import MainNews from "../components/MainNews";
 import SubNews from "../components/SubNews";
 import MainTitle from "./../../../../components/main_title/MainTitle";
-import Img from "../../../../assets/1.jpg";
 import ReportNews from "../components/ReportNews";
 import Topics from "../components/Topics";
 import Documentaries from "../components/Documentaries";
+import Infographic from "../components/Infographic";
+import Publications from "../components/Publications";
 
 const Home = () => {
   return (
@@ -35,6 +36,16 @@ const Home = () => {
       <section className="container main-section documentaries">
         <MainTitle> وثائقيات ولقاءات</MainTitle>
         <Documentaries />
+      </section>
+
+      <section className="container main-section">
+        <MainTitle>اينفوغرافيك</MainTitle>
+        <Infographic />
+      </section>
+
+      <section className="container main-section body-color">
+        <MainTitle>اصدارات</MainTitle>
+        <Publications />
       </section>
     </>
   );
