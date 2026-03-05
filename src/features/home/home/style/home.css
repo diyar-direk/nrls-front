@@ -1,38 +1,59 @@
 .last-news-container .breacking-news {
   margin-bottom: 20px;
-  background-color: #535353;
+  background-color: var(--body-color);
   padding: 0;
   border-radius: 10px;
   display: flex;
   gap: 0;
-  color: white;
+  color: var(--font-color);
   align-items: stretch;
-  box-shadow: 0 10px 30px -10px #00000080;
+  box-shadow: 0 10px 10px -10px var(--transparent-color);
   transform: translateY(0);
-  transition: transform 0.3s;
-}
-
-.last-news-container .breacking-news:hover {
-  transform: translateY(-3px);
 }
 
 .last-news-container .breacking-news h3 {
   font-weight: 600;
   font-size: 15px;
-  background-color: #e74c3c;
+  background-color: var(--main-color);
   padding: 15px 25px;
   border-radius: 10px 0 0 10px;
   color: white;
   text-transform: uppercase;
   margin: 0;
   clip-path: polygon(0 0, 85% 0, 100% 100%, 0 100%);
+  display: flex;
+  position: relative;
+  gap: 6px;
+  align-items: center;
+}
+.last-news-container .breacking-news h3::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: white;
+  position: relative;
+  display: flex;
+  animation: pulse-ring 1.5s infinite;
+}
+
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(255, 255, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
 }
 
 .last-news-container .breacking-news .ticker {
   flex: 1;
   overflow: hidden;
   padding: 15px 20px;
-  background: #535353;
+  background: var(--body-color);
   border-radius: 0 10px 10px 0;
 }
 
@@ -43,6 +64,27 @@
   white-space: nowrap;
   font-size: 14px;
   font-weight: 400;
+}
+
+.last-news-container .breacking-news .ticker .ticker-content:hover {
+  animation-play-state: paused;
+}
+
+.last-news-container .breacking-news .ticker a {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.last-news-container .breacking-news .ticker a::before {
+  content: "";
+  border: solid 5px;
+  border-color: transparent transparent transparent var(--main-color);
+}
+
+.last-news-container .breacking-news .ticker a:hover {
+  color: var(--main-color);
+  font-weight: 600;
 }
 
 .last-news-container .last-news {
@@ -290,7 +332,7 @@
 }
 
 .documentaries {
-  background-color: #1f2024;
+  background-color: #080b0e;
 }
 .documentaries .main-title {
   color: white;
@@ -397,6 +439,9 @@
 
 .news-style-2 .main-news {
   flex: 400px 5;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: var(--body-color);
 }
 
 .news-style-2 .main-news .img {
@@ -409,6 +454,9 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+.news-style-2 .main-news:hover img {
+  scale: 1.1;
 }
 .news-style-2 .icons {
   margin-top: 10px;
@@ -452,4 +500,8 @@
 }
 .news-style-2 .main-news:hover h3 {
   text-decoration: underline;
+}
+
+.publications .main-news {
+  background-color: var(--section-color);
 }
