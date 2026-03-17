@@ -177,11 +177,11 @@ const SelectInputApi = ({
 
             {items?.map((itm, i) => (
               <h3
-                key={itm._id}
+                key={itm.id}
                 onClick={() => handleChange(itm)}
                 ref={i === items?.length - 1 ? loadMoreRef : null}
                 className={`${isArray ? "array" : ""} ${
-                  isArray && value?.some((v) => v._id === itm._id)
+                  isArray && value?.some((v) => v.id === itm.id)
                     ? "selected"
                     : ""
                 }`}

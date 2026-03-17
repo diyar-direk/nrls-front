@@ -15,6 +15,10 @@ import Add from "./../../../../../components/table_toolbar/Add";
 import Table from "../../../../../components/table/Table";
 import { colors } from "../../../../../constant/colors";
 import UsersFilter from "../components/UsersFilter";
+import { Link } from "react-router";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { icons } from "../../../../../constant/icons";
+import Button from "../../../../../components/buttons/Button";
 
 const column = [
   {
@@ -23,7 +27,7 @@ const column = [
     getCell: ({ row, user, t }) => (
       <div className="center gap-10">
         {row.username}
-        {user?._id === row._id && <p>( {t("user.me")} )</p>}
+        {user?.id === row.id && <p>( {t("user.me")} )</p>}
       </div>
     ),
     sort: true,
@@ -71,6 +75,19 @@ const column = [
     sort: true,
     getCell: ({ row }) => dateFormatter(row.created_at, "fullDate"),
   },
+  {
+    name: "actions",
+    headerName: "actions",
+    getCell: ({ row }) => (
+      <div className="center">
+        <Link to={dashboardRouts.user.update(row.id)}>
+          <Button btnStyleType="transparent">
+            <FontAwesomeIcon icon={icons.update} />
+          </Button>
+        </Link>
+      </div>
+    ),
+  },
 ];
 
 const AllUsers = () => {
@@ -87,13 +104,12 @@ const AllUsers = () => {
     endPoints: endPoints.users,
     page,
     page_size,
-    sort,
+    order: sort,
     search,
     ...formatInputsData(filter),
   });
 
   const { t } = useTranslation();
-
 
   return (
     <>
@@ -104,7 +120,7 @@ const AllUsers = () => {
           <Search setSearch={setSearch} />
           <Delete
             data={data?.data}
-            endPoint={endPoints.users}
+            endPoint={`${endPoints.users}bulk-deleted/`}
             selectedItems={selectedItems}
             setPage={setPage}
             setSelectedItems={setSelectedItems}
@@ -125,7 +141,7 @@ const AllUsers = () => {
           selectable
           error={error}
           onRefetch={refetch}
-          notSelectIf={(row) => row?._id === user?._id}
+          notSelectIf={(row) => row?.id === user?.id}
           addBtnProps={{ to: dashboardRouts.user.add }}
         />
       </div>

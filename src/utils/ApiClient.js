@@ -4,9 +4,9 @@ class APIClient {
   constructor(endPoint) {
     this.endPoint = endPoint;
   }
-  getAll = async ({ page = 1, sort = {}, page_size = 10, ...params }) => {
-    const sortStatus = sort
-      ? Object.values(sort)
+  getAll = async ({ page = 1, order = {}, page_size = 10, ...params }) => {
+    const sortStatus = order
+      ? Object.values(order)
           .filter((v) => v && v.trim() !== "")
           .join(",")
       : "";
@@ -17,7 +17,7 @@ class APIClient {
       page_size,
     };
 
-    if (sortStatus) allParams.sort = sortStatus;
+    if (sortStatus) allParams.order = sortStatus;
 
     const paramFilters = new URLSearchParams();
 
@@ -26,14 +26,14 @@ class APIClient {
 
       if (Array.isArray(value)) {
         const cleanedArray = value
-          .map((v) => v?._id ?? v?.value ?? v)
+          .map((v) => v?.id ?? v?.value ?? v)
           .filter((v) => v !== null && v !== undefined && v !== "");
 
         if (cleanedArray.length > 0) {
           paramFilters.append(key, cleanedArray.join(","));
         }
       } else {
-        paramFilters.append(key, value._id || value);
+        paramFilters.append(key, value.id || value);
       }
     });
 
@@ -52,7 +52,7 @@ class APIClient {
   };
 
   getOne = async (id) => {
-    const { data } = await axiosInstance.get(`${this.endPoint}/${id}`);
+    const { data } = await axiosInstance.get(`${this.endPoint}${id}`);
     return data?.data || data;
   };
   deleteAll = async ({ ids }) => {
@@ -67,7 +67,7 @@ class APIClient {
   };
   updateData = async ({ data, id }) => {
     const { data: res } = await axiosInstance.patch(
-      `${this.endPoint}/${id}`,
+      `${this.endPoint}${id}/`,
       data,
     );
 

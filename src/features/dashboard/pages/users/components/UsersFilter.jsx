@@ -1,6 +1,5 @@
 import SelectOptionInput from "../../../../../components/inputs/SelectOptionInput";
 import Filters from "./../../../../../components/table_toolbar/Filters";
-import { roles } from "../../../../../constant/enums";
 import Input from "../../../../../components/inputs/Input";
 import { useCallback, useEffect, useState } from "react";
 import { useDebounce } from "use-debounce";
@@ -29,20 +28,7 @@ const UsersFilter = ({ filters, setFilters }) => {
         onChange={handleChange}
         label="username"
       />
-      <SelectOptionInput
-        customOptions={[
-          {
-            title: "all",
-            onChange: () => setLocal((p) => ({ ...p, role: "" })),
-          },
-        ]}
-        label="role"
-        placeholder="all"
-        options={Object.values(roles)?.map((e) => ({ text: e, value: e }))}
-        onSelectOption={(e) => setLocal((p) => ({ ...p, role: e.value }))}
-        value={local?.role}
-        notRequired
-      />
+
       <Input
         name="full_name"
         placeholder="search by full_name"

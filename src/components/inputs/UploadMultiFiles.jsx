@@ -118,7 +118,7 @@ const UploadMultiFiles = ({
     !(deletedFile instanceof File) && URL.revokeObjectURL(deletedFile.preview);
 
     setUploadedFiles(filtered);
-    onDelete(deletedFile._id ? deletedFile._id : deletedFile.file);
+    onDelete(deletedFile.id ? deletedFile.id : deletedFile.file);
     onChange(filtered.map((f) => (!(f instanceof File) ? f : f.file)));
     setDeletedFile(null);
   }, [deletedFile, uploadedFiles, onDelete, onChange]);
@@ -178,7 +178,7 @@ const UploadMultiFiles = ({
         <div className="uploaded-images">
           {uploadedFiles.map((f) => (
             <div
-              key={`${f.file?.name}-${f.file?.size || f._id}`}
+              key={`${f.file?.name}-${f.file?.size || f.id}`}
               className="itm"
             >
               {f.file?.type.startsWith("image") ? (

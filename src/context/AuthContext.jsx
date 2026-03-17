@@ -73,11 +73,20 @@ export const AuthProvider = () => {
       (error) => {
         setLoading(false);
 
-        const message = extarctErrorMessage(error);
+        const { message: err } = error.response.data;
 
-        console.log(message);
+        if (typeof err === "string") {
+          const message = extarctErrorMessage(error);
+          enqueueSnackbar(message, { variant: "error" });
+        } else if (typeof err === "object") {
+          Object.values(err)?.map((e) => {
+            if (typeof e === "string") enqueueSnackbar(e, { variant: "error" });
+            else if (Array.isArray(e)) {
+              e.map((m) => enqueueSnackbar(m, { variant: "error" }));
+            }
+          });
+        }
 
-        enqueueSnackbar(message, { variant: "error" });
         if (error.response?.status === 401) {
           logout();
         }

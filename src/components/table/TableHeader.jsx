@@ -44,8 +44,8 @@ const TableHeader = ({
       if (notSelectIf)
         allIds = data
           .filter((item) => !notSelectIf(item))
-          .map((item) => item?._id);
-      else allIds = data.map((item) => item?._id);
+          .map((item) => item?.id);
+      else allIds = data.map((item) => item?.id);
 
       if (prev.size === allIds.length) {
         return new Set();

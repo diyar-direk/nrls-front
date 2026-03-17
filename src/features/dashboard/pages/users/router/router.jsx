@@ -3,6 +3,7 @@ import { dashboardRouts } from "../../../../../constant/pageRoutes";
 import PageFallback from "../../../../../components/PageFallBack";
 const AllUsers = lazy(() => import("../pages/AllUsers"));
 const AddUser = lazy(() => import("../pages/AddUser"));
+const UpdateUser = lazy(() => import("../pages/UpdateUser"));
 
 export const usersRouter = [
   {
@@ -18,6 +19,14 @@ export const usersRouter = [
     element: (
       <PageFallback>
         <AddUser />
+      </PageFallback>
+    ),
+  },
+  {
+    path: dashboardRouts.user.update(),
+    element: (
+      <PageFallback>
+        <UpdateUser />
       </PageFallback>
     ),
   },

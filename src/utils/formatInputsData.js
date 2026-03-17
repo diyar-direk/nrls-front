@@ -3,9 +3,9 @@ export const formatInputsData = (data = {}) => {
 
   for (const [key, value] of Object.entries(data)) {
     if (Array.isArray(value)) {
-      formatted[key] = value.map((item) => item?._id ?? item?.value ?? item);
+      formatted[key] = value.map((item) => item?.id ?? item?.value ?? item);
     } else {
-      if (value !== null) formatted[key] = value?._id ?? value?.value ?? value;
+      if (value !== null) formatted[key] = value?.id ?? value?.value ?? value;
     }
   }
 

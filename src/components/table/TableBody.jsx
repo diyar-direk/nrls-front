@@ -22,7 +22,7 @@ const TableBody = ({
         return newIds;
       });
     },
-    [setSelectedItems]
+    [setSelectedItems],
   );
 
   const { t } = useTranslation();
@@ -30,7 +30,7 @@ const TableBody = ({
   return (
     <tbody>
       {data?.map((row, i) => {
-        const _id = row?._id;
+        const _id = row?.id;
 
         const className = `checkbox ${selectedItems?.has(_id) ? "active" : ""}`;
 
