@@ -85,6 +85,7 @@ body {
   background-color: var(--section-color);
   overflow-x: hidden;
   font-family: "Changa", sans-serif;
+  color: var(--font-color);
 }
 
 body.dark {

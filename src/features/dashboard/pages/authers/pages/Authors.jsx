@@ -12,7 +12,7 @@ import Delete from "../../../../../components/table_toolbar/Delete";
 import { dashboardRouts } from "../../../../../constant/pageRoutes";
 import Add from "../../../../../components/table_toolbar/Add";
 import Table from "../../../../../components/table/Table";
-import UsersFilter from "../components/UsersFilter";
+import AuthorFilter from "../components/AuthorFilter";
 import { Link } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { icons } from "../../../../../constant/icons";
@@ -122,7 +122,7 @@ const Authors = () => {
             setSelectedItems={setSelectedItems}
           />
           <Add path={dashboardRouts.author.add} />
-          <UsersFilter filters={filter} setFilters={setFilters} />
+          <AuthorFilter filters={filter} setFilters={setFilters} />
         </TableToolBar>
         <Table
           colmuns={column}

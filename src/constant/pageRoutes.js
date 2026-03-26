@@ -5,6 +5,9 @@ const homeRoutes = {
   contact: "/contact_us",
   login: "/login",
   dashboard: "/dashboard",
+  author: {
+    view: (id = ":id") => `/author/${id}`,
+  },
 };
 
 const dashboardRouts = {
