@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Skeleton from "./../skeleton/Skeleton";
 import RepeatChildren from "./../RepeatChildren";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
-import { icons } from "../../constants/icons";
+import { icons } from "./../../constant/icons";
 
 /**
 

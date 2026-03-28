@@ -3,6 +3,7 @@ import "../style/dashboard.css";
 import DashboardSidebar from "./DashboardSidebar";
 import { useCallback, useState } from "react";
 import DashboardHeader from "./DashboardHeader";
+import { DashboardProvider } from "../../../context/DashboardContext";
 
 const DasboardLayout = () => {
   const [isClosed, setIsClosed] = useState(
@@ -20,7 +21,7 @@ const DasboardLayout = () => {
   );
 
   return (
-    <>
+    <DashboardProvider>
       <DashboardHeader isClosed={isClosed} toggleClose={toggleClose} />
 
       <main className={`dashboard-container ${isClosed ? "closed" : ""}`}>
@@ -30,7 +31,7 @@ const DasboardLayout = () => {
           <Outlet />
         </div>
       </main>
-    </>
+    </DashboardProvider>
   );
 };
 

@@ -35,6 +35,12 @@ const dashboardRouts = {
     add: `${homeRoutes.dashboard}/categories/add`,
     update: (id = ":id") => `${homeRoutes.dashboard}/categories/${id}`,
   },
+  post: {
+    page: `${homeRoutes.dashboard}/posts`,
+    add: `${homeRoutes.dashboard}/posts/add`,
+    view: (id = ":id") => `${homeRoutes.dashboard}/posts/${id}`,
+    update: (id = ":id") => `${homeRoutes.dashboard}/posts/${id}/update`,
+  },
 };
 
 const dashboardPages = [
@@ -47,6 +53,16 @@ const dashboardPages = [
     title: "add user",
     to: dashboardRouts.user.add,
     icon: icons.addUser,
+  },
+  {
+    title: "posts",
+    to: dashboardRouts.post.page,
+    icon: icons.posts,
+  },
+  {
+    title: "add post",
+    to: dashboardRouts.post.add,
+    icon: icons.add,
   },
   {
     title: "tags",

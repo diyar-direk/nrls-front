@@ -5,6 +5,7 @@ import {
   faFeather,
   faHashtag,
   faMagnifyingGlass,
+  faNewspaper,
   faPenToSquare,
   faPlus,
   faTags,
@@ -26,4 +27,5 @@ export const icons = {
   author: faFeather,
   view: faEye,
   email: faEnvelope,
+  posts: faNewspaper,
 };
