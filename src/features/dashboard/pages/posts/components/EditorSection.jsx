@@ -1,10 +1,23 @@
 import { Editor } from "primereact/editor";
 import Input from "../../../../../components/inputs/Input";
 import { editorHeader } from "../../../../../constant/editor";
+import endPoints from "../../../../../constant/endPoints";
+import SelectInputApi from "../../../../../components/inputs/SelectInputApi";
 
 const EditorSection = ({ formik, t }) => {
   return (
     <div className="post-inputs editor-container">
+      <SelectInputApi
+        endPoint={endPoints.posts}
+        onChange={(e) => formik.setFieldValue("original_post", e)}
+        placeholder={
+          formik.values.original_post?.title || "select original_post"
+        }
+        errorText={formik.errors.original_post}
+        label="original_post"
+        optionLabel={(e) => e?.title}
+        notRequired
+      />
       <Input
         name="title"
         value={formik.values.title}

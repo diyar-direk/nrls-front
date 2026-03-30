@@ -11,7 +11,7 @@
   border: 0.5px solid var(--border-color);
   display: flex;
   flex-direction: column;
-  text-decoration: none;
+  cursor: pointer;
 }
 
 .post-view-card:hover {
@@ -35,15 +35,11 @@
 }
 
 .post-view-card .post-status {
-  position: absolute;
-  top: 12px;
-  right: 12px;
   padding: 4px 10px;
   border-radius: 20px;
   font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
-  z-index: 1;
   letter-spacing: 1px;
 }
 
@@ -139,4 +135,23 @@
 .post-view-card:hover .card-footer span {
   opacity: 1;
   transform: translateX(0);
+}
+
+.post-view-card .post-actions {
+  display: flex;
+  flex-wrap: wrap;
+  position: absolute;
+  top: 12px;
+  left: 0;
+  gap: 8px;
+  width: 100%;
+  z-index: 1;
+  align-items: center;
+  justify-content: flex-end;
+  padding-inline: 10px;
+}
+.post-view-card .post-actions .action-icons {
+  display: flex;
+  gap: 5px;
+  flex: 1;
 }

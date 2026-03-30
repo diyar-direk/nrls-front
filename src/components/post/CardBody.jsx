@@ -6,12 +6,7 @@ import { Link } from "react-router";
 const CardBody = ({ isDraft, data, authorPage, language }) => {
   const background = useMemo(() => {
     const type = data?.content_type?.toLowerCase();
-
-    return `color-mix(
-                      in oklab,
-                      var(--color-${type}) 90%,
-                      transparent
-            )`;
+    return `color-mix(in oklab,var(--color-${type}) 90%,transparent)`;
   }, [data?.content_type]);
 
   return (

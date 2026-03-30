@@ -9,20 +9,20 @@ import Skeleton from "../../../../../components/skeleton/Skeleton";
 import "../style/style.css";
 import { formatInputsData } from "./../../../../../utils/formatInputsData";
 import "../../../../home/posts/style/style.css";
-import PopUp from "../../../../../components/popup/PopUp";
-import Input from "../../../../../components/inputs/Input";
-import Button from "../../../../../components/buttons/Button";
 import PostTyps from "../components/PostTyps";
 import AllPostsHeader from "../components/AllPostsHeader";
+import DeletePost from "../components/DeletePost";
+import PostFilters from "../components/PostFilters";
 
 const AllPosts = () => {
   const [filters, setFilters] = useState({});
-  const [sort, setSort] = useState("-created_at");
+  const [sort, setSort] = useState({ created_at: "-created_at" });
 
   const { data, isLoading, loadMoreRef } = useInfiniteFetch({
     endPoint: endPoints.posts,
     page_size: 5,
     ...formatInputsData(filters),
+    ordering: sort,
   });
 
   const results = useMemo(
@@ -37,6 +37,8 @@ const AllPosts = () => {
 
   const toggleFilters = useCallback(() => setOpenFilters((p) => !p), []);
 
+  const [deletedId, setDeletedId] = useState(null);
+
   return (
     <>
       <Breadcrumbs />
@@ -44,7 +46,7 @@ const AllPosts = () => {
       <PostTyps filters={filters} setFilters={setFilters} />
 
       <div className="post-filters">
-        <h1 data-count={results?.count}>results</h1>
+        <h1 data-count={results?.count || 0}>results</h1>
         <AllPostsHeader
           setSort={setSort}
           toggleFilters={toggleFilters}
@@ -60,6 +62,8 @@ const AllPosts = () => {
             authorPage={dashboardRouts.author.view}
             postPage={dashboardRouts.post.view}
             showStatus
+            showActions
+            setDeletedId={(id) => setDeletedId(id)}
           />
         ))}
         {isLoading && (
@@ -70,34 +74,15 @@ const AllPosts = () => {
       </div>
       <div ref={loadMoreRef} />
 
-      <PopUp
-        isOpen={openFilters}
-        className="filters-popup"
-        onClose={toggleFilters}
-      >
-        <div className="filters-container">
-          <Input placeholder="dasdas" />
-          <Input placeholder="dasdas" />
-          <Input placeholder="dasdas" />
-          <Input placeholder="dasdas" />
-          <Input placeholder="dasdas" />
-          <Input placeholder="dasdas" />
-          <Input placeholder="dasdas" />
-          <Input placeholder="dasdas" />
-          <Input placeholder="dasdas" />
-          <Input placeholder="dasdas" />
-        </div>
-        <div className="btns">
-          <Button>save</Button>
-          <Button
-            btnStyleType="transparent"
-            btnType="cancel"
-            onClick={toggleFilters}
-          >
-            cancel
-          </Button>
-        </div>
-      </PopUp>
+      <DeletePost deletedId={deletedId} setDeletedId={setDeletedId} />
+
+      {openFilters && (
+        <PostFilters
+          onClose={toggleFilters}
+          filters={filters}
+          setFilters={setFilters}
+        />
+      )}
     </>
   );
 };

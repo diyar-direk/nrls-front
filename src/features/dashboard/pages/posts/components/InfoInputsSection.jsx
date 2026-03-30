@@ -6,17 +6,6 @@ import { allTyps } from "../../../../../constant/enums";
 const InfoInputsSection = ({ formik, language }) => {
   return (
     <div className="post-inputs">
-      <SelectInputApi
-        endPoint={endPoints.posts}
-        onChange={(e) => formik.setFieldValue("original_post", e)}
-        placeholder={
-          formik.values.original_post?.title || "select original_post"
-        }
-        errorText={formik.errors.original_post}
-        label="original_post"
-        optionLabel={(e) => e?.title}
-        notRequired
-      />
       <SelectOptionInput
         label="content_type"
         onSelectOption={(e) => formik.setFieldValue("content_type", e.value)}

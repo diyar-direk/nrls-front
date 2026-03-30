@@ -1,26 +1,48 @@
-import { Link } from "react-router";
+import { useNavigate } from "react-router";
 import "./style.css";
 import imgServerSrc from "./../../utils/imgServerSrc";
 import CardBody from "./CardBody";
 import CardFooter from "./CardFooter";
 import { useTranslation } from "react-i18next";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
+import PostActions from "./PostActions";
 
-const PostCard = ({ data, isDraft, authorPage, postPage, img, showStatus }) => {
+const PostCard = ({
+  data,
+  isDraft,
+  authorPage,
+  postPage,
+  img,
+  showStatus,
+  showActions,
+  setDeletedId,
+}) => {
   const { i18n } = useTranslation();
   const language = useMemo(() => i18n.language, [i18n]);
 
+  const nav = useNavigate();
+  const handleCardClick = useCallback(() => {
+    if (!isDraft) nav(postPage(data?.id));
+  }, [isDraft, nav, postPage, data]);
+
   return (
-    <Link className="post-view-card" to={!isDraft && postPage(data?.id)}>
+    <div className="post-view-card" onClick={handleCardClick}>
       <div className="img">
-        {showStatus && (
-          <p
-            className={`post-status ${data?.is_published ? "published" : "draft"}`}
-          >
-            {data?.is_published ? "Published" : "Draft"}
-          </p>
-        )}
-        <img src={img || imgServerSrc(data?.featured_image)} alt="" />
+        <PostActions
+          data={data}
+          showStatus={showStatus}
+          showActions={showActions}
+          setDeletedId={setDeletedId}
+        />
+        <img
+          src={
+            img ||
+            imgServerSrc(
+              data?.featured_image || data?.original_post?.featured_image,
+            )
+          }
+          alt=""
+        />
       </div>
 
       <CardBody
@@ -31,7 +53,7 @@ const PostCard = ({ data, isDraft, authorPage, postPage, img, showStatus }) => {
       />
 
       <CardFooter data={data} isDraft={isDraft} />
-    </Link>
+    </div>
   );
 };
 

@@ -60,7 +60,7 @@
 }
 
 .dashboard-form .post-inputs .editor {
-  min-height: 200px;
+  min-height: 300px;
   flex: 1;
   display: flex;
   flex-direction: column;

@@ -1,8 +1,8 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import endPoints from "../../../../../constant/endPoints";
 import APIClient from "../../../../../utils/ApiClient";
 import { useFormik } from "formik";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useTranslation } from "react-i18next";
 import Breadcrumbs from "../../../../../components/breadcrumbs/Breadcrumbs";
 import Button from "../../../../../components/buttons/Button";
@@ -16,30 +16,40 @@ import PostTabs from "./../components/PostTabs";
 import UploadPhoto from "../../../../../components/inputs/UploadPhoto";
 import { formatInputsData } from "./../../../../../utils/formatInputsData";
 import PostCard from "../../../../../components/post/PostCard";
+import Skeleton from "../../../../../components/skeleton/Skeleton";
+import HandleError from "./../../../../../components/error/HandleError";
 import imgServerSrc from "../../../../../utils/imgServerSrc";
+import dateFormatter from "../../../../../utils/dateFormatter";
 
 const api = new APIClient(endPoints.posts);
 
-const AddPost = () => {
+const UpdatePost = () => {
+  const { id } = useParams();
+
   const [tab, setTab] = useState("format");
   const { t, i18n } = useTranslation();
+
+  const { data, isLoading, error, refetch } = useQuery({
+    queryKey: [endPoints.posts, id],
+    queryFn: () => api.getOne(id),
+  });
 
   const language = useMemo(() => i18n.language, [i18n]);
 
   const formik = useFormik({
     initialValues: {
       featured_image: "",
-      title: "",
-      excerpt: "",
-      content: "",
-      original_post: "",
-      content_type: "",
-      category: "",
-      author: "",
-      language,
-      published_at: "",
-      is_published: true,
-      tags: [],
+      title: data?.title || "",
+      excerpt: data?.excerpt || "",
+      content: data?.content || "",
+      original_post: data?.original_post || "",
+      content_type: data?.content_type || "",
+      category: data?.category || "",
+      author: data?.author || "",
+      language: data?.language || language,
+      published_at: data?.published_at ? dateFormatter(data.published_at) : "",
+      is_published: data?.is_published || true,
+      tags: data?.tags || [],
     },
     validationSchema: postSchema,
     onSubmit: (d) => {
@@ -58,12 +68,13 @@ const AddPost = () => {
 
       handleConfirm.mutate(form);
     },
+    enableReinitialize: true,
   });
   const query = useQueryClient();
   const nav = useNavigate();
 
   const handleConfirm = useMutation({
-    mutationFn: (d) => api.addData(d),
+    mutationFn: (data) => api.updateData({ data, id }),
     onSuccess: () => {
       query.invalidateQueries([endPoints.posts]);
       nav(-1);
@@ -88,9 +99,19 @@ const AddPost = () => {
     });
   }, [formik.values.original_post]);
 
+  const defaultImg = useMemo(() => {
+    const dataImg = data?.featured_image || data?.original_post?.featured_image;
+    const { featured_image } = formik.values;
+    return featured_image || dataImg;
+  }, [data, formik.values]);
+
+  if (isLoading) return <Skeleton height="300px" />;
+
+  if (error) return <HandleError error={error} refetch={refetch} />;
+
   return (
     <>
-      <Breadcrumbs />
+      <Breadcrumbs replace={[{ from: id, text: data?.title }]} />
 
       <PostTabs errors={formik.errors} setTab={setTab} tab={tab} />
 
@@ -112,10 +133,7 @@ const AddPost = () => {
             onChange={(e) => formik.setFieldValue("featured_image", e)}
             className="post-cover-img"
             revoke={false}
-            defaultImage={
-              formik.values?.original_post?.featured_image &&
-              imgServerSrc(formik.values?.original_post?.featured_image)
-            }
+            defaultImage={imgServerSrc(defaultImg)}
           />
         )}
 
@@ -124,10 +142,7 @@ const AddPost = () => {
             <PostCard
               data={formik.values}
               isDraft
-              img={
-                formik.values?.featured_image?.url ||
-                imgServerSrc(formik.values?.original_post?.featured_image)
-              }
+              img={formik.values?.featured_image?.url}
               showStatus={true}
             />
           </div>
@@ -139,4 +154,4 @@ const AddPost = () => {
   );
 };
 
-export default AddPost;
+export default UpdatePost;

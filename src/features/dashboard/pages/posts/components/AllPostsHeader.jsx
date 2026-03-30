@@ -5,24 +5,31 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import IconButton from "../../../../../components/buttons/IconButton";
 import { useClickOutside } from "../../../../../hooks/useClickOutside";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { icons } from "../../../../../constant/icons";
+import { Link } from "react-router";
+import { dashboardRouts } from "../../../../../constant/pageRoutes";
 const postSortOptions = [
   {
     title: "latest",
     set: "-created_at",
+    name: "created_at",
   },
   {
     title: "oldest",
     set: "created_at",
+    name: "created_at",
   },
   {
     title: "most liked",
     set: "-view_count",
+    name: "view_count",
   },
   {
     title: "least liked",
     set: "view_count",
+    name: "view_count",
   },
 ];
 
@@ -37,8 +44,14 @@ const AllPostsHeader = ({ sort, setSort, toggleFilters }) => {
     [toggleOpen, setSort],
   );
 
+  const value = useMemo(() => Object.values(sort)?.[0], [sort]);
+
   return (
     <div className="icons" ref={ref}>
+      <Link to={dashboardRouts.post.add}>
+        <IconButton icon={icons.add} color="secondry-color" title="add" />
+      </Link>
+
       <IconButton
         icon={faFilter}
         color="secondry-color"
@@ -51,16 +64,17 @@ const AllPostsHeader = ({ sort, setSort, toggleFilters }) => {
         title="sort"
         onClick={toggleOpen}
       />
+
       {isOpen && (
         <div className="post-sort">
           {postSortOptions?.map((e) => (
             <h3
               key={e.set}
-              className={`${sort === e.set ? "active" : ""}`}
-              onClick={() => handleSetSort(e.set)}
+              className={`${value === e.set ? "active" : ""}`}
+              onClick={() => handleSetSort({ [e.name]: e.set })}
             >
               {e.title}
-              {sort === e.set && <FontAwesomeIcon icon={faCheck} />}
+              {value === e.set && <FontAwesomeIcon icon={faCheck} />}
             </h3>
           ))}
         </div>

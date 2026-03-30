@@ -3,11 +3,7 @@ import { allTyps } from "../constant/enums";
 import { languages } from "../constant/languages";
 
 export const postSchema = yup.object({
-  featured_image: yup.mixed().when("original_post", {
-    is: (val) => !val,
-    then: (schema) => schema.required(),
-    otherwise: (schema) => schema.notRequired(),
-  }),
+  featured_image: yup.mixed().notRequired(),
 
   title: yup.string().required().max(500),
   excerpt: yup.string().notRequired(),

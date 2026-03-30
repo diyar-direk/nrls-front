@@ -1,14 +1,14 @@
 export const editorHeader = (
   <>
     <span className="ql-formats">
-      <select className="ql-header">
+      <select className="ql-header" defaultValue="">
+        <option value=""></option>
         <option value="1"></option>
         <option value="2"></option>
         <option value="3"></option>
         <option value="4"></option>
         <option value="5"></option>
         <option value="6"></option>
-        <option selected></option>
       </select>
     </span>
 
