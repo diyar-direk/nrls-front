@@ -134,6 +134,7 @@
   padding: 15px;
   border-radius: 10px;
   border: solid 1px var(--border-color);
+  align-items: center;
 }
 
 .post-view-container .post-info .author {
@@ -185,12 +186,285 @@
 .post-view-container .ql-editor {
   height: auto !important;
 }
-
-.post-view-container aside.post-sidebar {
-  flex: 300px;
+.post-view-container .tags {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
 }
+.post-view-container .tags p {
+  width: 100%;
+  opacity: 0.6;
+  text-transform: uppercase;
+}
+.post-view-container .tags button {
+  color: var(--font-color);
+  padding: 10px 20px;
+  white-space: nowrap;
+  border: solid 1px var(--border-color);
+  background-color: var(--body-color);
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 10px;
+}
+.post-view-container .tags button:hover {
+  background-color: var(--main-color);
+  color: white;
+}
+
+.post-view-container .comments .title-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.post-view-container .comments .title-container h3 {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.post-view-container .comments .title-container h3 svg {
+  color: var(--main-color);
+  opacity: 0.7;
+}
+
+.post-view-container .comments .title-container p {
+  opacity: 0.7;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 15px;
+}
+.post-view-container .comments .title-container p::before {
+  content: attr(data-count);
+  color: var(--main-color);
+}
+.post-view-container .comments form {
+  padding: 20px;
+  background-color: var(--body-color);
+  border-radius: 10px;
+}
+.post-view-container .comments form .flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.post-view-container .comments form .flex-container .inp {
+  flex: 200px;
+}
+.post-view-container .comments form .btn-container {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+.post-view-container .comment-container {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: solid 2px var(--border-color);
+  border-radius: 6px;
+  padding-block: 10px;
+}
+.post-view-container .comment-container .comment {
+  padding-inline: 15px;
+}
+.post-view-container .comment .actions {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+}
+.post-view-container .comment .actions .menu {
+  cursor: pointer;
+}
+.post-view-container .comment .actions div {
+  position: absolute;
+  background-color: var(--body-color);
+  top: 100%;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.post-view-container .comment .actions div p {
+  font-size: 14px;
+  padding: 4px;
+  cursor: pointer;
+  line-height: 1.4;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.post-view-container .comment .actions p:hover {
+  background-color: rgba(255, 0, 0, 0.123);
+}
+.post-view-container .comment .actions p svg {
+  font-size: 12px;
+  color: red;
+}
+.post-view-container .comment .actions .accept svg {
+  color: green;
+}
+.post-view-container .comment .actions .accept:hover {
+  background-color: rgba(0, 128, 0, 0.123);
+}
+
+.post-view-container .comment-container .date-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap-reverse;
+  gap: 10px;
+  line-height: 1.1;
+}
+.post-view-container .comment-container .date-container span {
+  padding: 3px 8px;
+  font-size: 12px;
+  border-radius: 6px;
+}
+.post-view-container .comment-container .comment:not(:last-of-type) {
+  border-bottom: solid 2px var(--border-color);
+  padding-bottom: 10px;
+}
+
+.post-view-container .comment-container .date-container p {
+  opacity: 0.6;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.post-view-container .comment-container .date-container p::before {
+  content: "";
+  width: 6px;
+  height: 1px;
+  background-color: var(--font-color);
+}
+.post-view-container .comment-container a {
+  font-size: 15px;
+  opacity: 0.7;
+}
+
+.post-view-container .comment-container .comment .read-more-container {
+  padding-inline: 10px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+.post-view-container .comment-container .comment-loader {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.post-view-container .comment-container .comment-loader span {
+  width: 50px;
+  height: 50px;
+  border: solid 6px;
+  border-radius: 50%;
+  border-color: var(--border-color) var(--border-color) var(--border-color)
+    transparent;
+  animation: loader 1s linear infinite;
+}
+
 .post-view-container .post-main-info .border-bottom {
   border-bottom: solid 2px var(--border-color);
   padding-bottom: 10px;
   margin-bottom: 20px;
+}
+.post-view-container aside.post-sidebar {
+  flex: 300px;
+}
+.post-view-container .post-sidebar .section-title {
+  margin-bottom: 10px;
+  text-transform: capitalize;
+  opacity: 0.7;
+  border-bottom: solid 1px var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.post-view-container .post-sidebar .section-title::before {
+  content: "";
+  width: 20px;
+  height: 1px;
+  background-color: var(--main-color);
+}
+
+.post-view-container .post-sidebar .main-info {
+  background-color: var(--body-color);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  box-shadow: var(--box-shadow);
+}
+
+.post-view-container .post-sidebar .main-info > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 13px;
+  padding-inline: 10px;
+  padding-block: 6px;
+}
+.post-view-container .post-sidebar .main-info > div:not(:last-of-type) {
+  border-bottom: solid 1px var(--border-color);
+}
+.post-view-container .post-sidebar .main-info > div p {
+  opacity: 0.7;
+}
+.post-view-container .post-sidebar .main-info > div .enum {
+  padding: 4px 10px;
+  border-radius: 10px;
+  font-size: 12px;
+  color: var(--main-color);
+  background: color-mix(in srgb, var(--main-color) 10%, transparent);
+}
+.post-view-container .post-sidebar .actions {
+  margin-bottom: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.post-view-container .post-sidebar .section-title .author-name {
+  color: var(--main-color);
+  font-weight: bold;
+}
+
+.post-view-container .post-sidebar .more-posts {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: var(--body-color);
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 6px;
+  gap: 10px;
+  align-items: center;
+}
+
+.post-view-container .post-sidebar .more-posts:hover {
+  transform: translateY(-3px);
+}
+
+.post-view-container .post-sidebar .more-posts img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+.post-view-container .post-sidebar .more-posts div {
+  flex: 100px;
+  line-height: 1.4;
+  font-size: 13px;
+}
+.post-view-container .post-sidebar .more-posts div p {
+  opacity: 0.6;
+}
+
+@keyframes loader {
+  100% {
+    transform: rotate(365deg);
+  }
 }

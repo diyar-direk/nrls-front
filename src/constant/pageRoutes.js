@@ -10,6 +10,7 @@ const homeRoutes = {
   },
   posts: {
     page: `/posts`,
+    view: (id = ":id") => `/posts/${id}`,
   },
 };
 
