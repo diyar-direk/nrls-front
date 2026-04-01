@@ -322,6 +322,8 @@
   padding: 3px 8px;
   font-size: 12px;
   border-radius: 6px;
+  background-color: rgba(255, 0, 0, 0.123);
+  color: red;
 }
 .post-view-container .comment-container .comment:not(:last-of-type) {
   border-bottom: solid 2px var(--border-color);
