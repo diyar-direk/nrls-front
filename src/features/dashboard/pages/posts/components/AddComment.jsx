@@ -7,13 +7,13 @@ import { commentSchema } from "../../../../../schema/comment";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import endPoints from "../../../../../constant/endPoints";
 
-const AddComment = ({ id, api }) => {
+const AddComment = ({ id, api, handleShowAddForm }) => {
   const formik = useFormik({
     initialValues: {
       name: "",
       email: "",
       comment: "",
-      is_approved: false,
+      is_approved: true,
       post: id,
     },
     validationSchema: commentSchema,
@@ -27,6 +27,7 @@ const AddComment = ({ id, api }) => {
     onSuccess: () => {
       query.invalidateQueries(endPoints.comment);
       formik.resetForm();
+      handleShowAddForm();
     },
   });
 

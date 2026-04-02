@@ -203,7 +203,7 @@ const ViewPost = () => {
             </Button>
           </div>
 
-          <MoreFromAuthor author={data?.author} />
+          <MoreFromAuthor author={data?.author} id={id} />
         </aside>
       </section>
     </>
