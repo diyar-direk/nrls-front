@@ -6,6 +6,8 @@ const endPoints = {
   login: "login/",
   posts: "posts/",
   comment: "comments/",
+  mediaFiles: "media-files/",
+  postFiles: "media-files/by-post/",
 };
 
 export default endPoints;

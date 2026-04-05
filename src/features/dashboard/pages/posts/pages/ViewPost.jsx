@@ -73,7 +73,7 @@ const ViewPost = () => {
             <SharePost id={id} />
           </div>
 
-          <MoreFromAuthor author={data?.author} id={id} />
+          {data?.author && <MoreFromAuthor author={data?.author} id={id} />}
         </aside>
       </section>
     </>

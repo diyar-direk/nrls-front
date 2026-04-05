@@ -8,7 +8,7 @@ import Breadcrumbs from "../../../../../components/breadcrumbs/Breadcrumbs";
 import Button from "../../../../../components/buttons/Button";
 import { postSchema } from "./../../../../../schema/post";
 import EditorSection from "./../components/EditorSection";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import InfoInputsSection from "./../components/InfoInputsSection";
 import MoreInfoInputs from "./../components/MoreInfoInputs";
 import "../style/style.css";
@@ -20,11 +20,12 @@ import Skeleton from "../../../../../components/skeleton/Skeleton";
 import HandleError from "./../../../../../components/error/HandleError";
 import imgServerSrc from "../../../../../utils/imgServerSrc";
 import dateFormatter from "../../../../../utils/dateFormatter";
-import AddFilesForm from "../components/AddFilesForm";
 import { mediaFileType } from "../../../../../constant/enums";
 import { icons } from "../../../../../constant/icons";
-import { mediaSchema } from "../../../../../schema/mediaFile";
+import { mediaSchemaUpdate } from "../../../../../schema/mediaFile";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axiosInstance from "../../../../../utils/axios";
+import UpdateFilesForm from "./../components/UpdateFilesForm";
 
 const api = new APIClient(endPoints.posts);
 
@@ -37,6 +38,18 @@ const UpdatePost = () => {
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: [endPoints.posts, id],
     queryFn: () => api.getOne(id),
+  });
+
+  const { data: media } = useQuery({
+    queryKey: [endPoints.postFiles, id],
+    queryFn: async () => {
+      const { data } = await axiosInstance.get(`${endPoints.postFiles}${id}`);
+      return data.data?.map((e) => ({
+        ...e,
+        external_url: e.file_type === "video" ? e.src_url : "",
+      }));
+    },
+    enabled: tab === "files",
   });
 
   const language = useMemo(() => i18n.language, [i18n]);
@@ -58,6 +71,7 @@ const UpdatePost = () => {
     },
     validationSchema: postSchema,
     onSubmit: (d) => {
+      if (Object.keys(mediaFormik.errors).length) return;
       const data = formatInputsData(d);
       const form = new FormData();
 
@@ -82,7 +96,7 @@ const UpdatePost = () => {
     mutationFn: (data) => api.updateData({ data, id }),
     onSuccess: () => {
       query.invalidateQueries([endPoints.posts]);
-      nav(-1);
+      handleAddFiles.mutate();
     },
   });
 
@@ -113,26 +127,50 @@ const UpdatePost = () => {
 
   const mediaFormik = useFormik({
     initialValues: {
-      files: [],
+      files: media || [],
     },
-    validationSchema: mediaSchema,
+    validationSchema: mediaSchemaUpdate,
+    enableReinitialize: true,
   });
 
-  const addMediaFn = useCallback(
-    (file_type) => {
-      const prev = mediaFormik.values.files || [];
-      const newData = {
-        file_type,
-        external_url: "",
-        alt_text: "",
-        caption: "",
-        src: "",
-        post: id,
-      };
-      mediaFormik.setFieldValue("files", [...prev, newData]);
+  const addMediaFn = (file_type) => {
+    const prev = mediaFormik.values.files || [];
+    const newData = {
+      file_type,
+      external_url: "",
+      alt_text: "",
+      caption: "",
+      src: "",
+      post: id,
+    };
+    mediaFormik.setFieldValue("files", [...prev, newData]);
+  };
+
+  const handleAddFiles = useMutation({
+    mutationFn: () => {
+      const { files } = mediaFormik.values;
+
+      if (files.length === 0) return true;
+
+      files.map(async (e) => {
+        const formData = new FormData();
+
+        Object.entries(e).map(([key, value]) => {
+          if (key !== "src") formData.append(key, value);
+        });
+
+        if (e.src?.file) formData.append("src", e.src?.file);
+
+        if (e.id)
+          await axiosInstance.patch(
+            `${endPoints.mediaFiles}${e.id}/`,
+            formData,
+          );
+        else await axiosInstance.post(endPoints.mediaFiles, formData);
+      });
     },
-    [mediaFormik, id],
-  );
+    onSuccess: () => nav(-1),
+  });
 
   if (isLoading) return <Skeleton height="300px" />;
 
@@ -178,7 +216,9 @@ const UpdatePost = () => {
             <PostCard
               data={formik.values}
               isDraft
-              img={formik.values?.featured_image?.url}
+              img={
+                formik.values?.featured_image?.url || imgServerSrc(defaultImg)
+              }
               showStatus={true}
             />
           </div>
@@ -194,7 +234,7 @@ const UpdatePost = () => {
               ))}
             </div>
 
-            <AddFilesForm formik={mediaFormik} t={t} />
+            <UpdateFilesForm formik={mediaFormik} t={t} />
           </>
         )}
 

@@ -9,6 +9,7 @@ const fileAcceptMap = {
   pdf: "application/pdf",
   audio: "audio/*",
 };
+
 const AddFilesForm = ({ formik, t }) => {
   return formik?.values?.files?.map((e, i) => {
     const isVideo = e.file_type === "video";

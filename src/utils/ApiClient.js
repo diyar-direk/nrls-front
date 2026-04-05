@@ -61,9 +61,9 @@ class APIClient {
   deleteOne = async (id) => {
     await axiosInstance.delete(`${this.endPoint}/${id}`);
   };
-  addData = async (data) => {
-    const res = await axiosInstance.post(this.endPoint, data);
-    return res.data;
+  addData = async (d) => {
+    const { data } = await axiosInstance.post(this.endPoint, d);
+    return data.data || data;
   };
   updateData = async ({ data, id }) => {
     const { data: res } = await axiosInstance.patch(

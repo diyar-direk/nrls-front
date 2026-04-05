@@ -15,16 +15,24 @@ function UploadFile({
   notRequired,
   className,
   revoke = true,
+  defaultValue,
+  defaultType = "image",
 }) {
   const [isDragging, setIsDragging] = useState(false);
 
   const fileType = useMemo(() => {
-    if (!value?.file) return null;
-    if (value.file.type.startsWith("image")) return "image";
-    if (value.file.type.startsWith("video")) return "video";
-    if (value.file.type === "application/pdf") return "pdf";
-    return "file";
-  }, [value]);
+    if (value?.file) {
+      if (value.file.type.startsWith("image")) return "image";
+      if (value.file.type.startsWith("video")) return "video";
+      if (value.file.type === "application/pdf") return "pdf";
+      if (value.file.type.startsWith("audio")) return "audio";
+      return "file";
+    }
+
+    if (defaultValue) return defaultType;
+
+    return null;
+  }, [value, defaultValue, defaultType]);
 
   const handleChange = useCallback(
     (e) => {
@@ -63,17 +71,27 @@ function UploadFile({
   const { t } = useTranslation();
 
   const renderPreview = () => {
-    if (!value?.url) return null;
+    const src = value?.url || defaultValue;
+    if (!src) return null;
 
     switch (fileType) {
       case "image":
-        return <img src={value.url} alt="" className="preview-img" />;
+        return <img src={src} alt="" className="preview-img" />;
 
       case "video":
-        return <video className="preview-video" src={value.url} controls />;
+        return <video className="preview-video" src={src} controls />;
 
       case "pdf":
-        return <iframe src={value.url} className="preview-pdf" title="pdf" />;
+        return <iframe src={src} className="preview-pdf" title="pdf" />;
+      case "audio":
+        return <audio className="preview-audio" src={src} controls />;
+
+      default:
+        return (
+          <a href={src} target="_blank" rel="noreferrer">
+            Open File
+          </a>
+        );
     }
   };
 
@@ -109,7 +127,7 @@ function UploadFile({
             }}
             onDrop={handleDrop}
           >
-            {value?.url ? (
+            {value?.url || defaultValue ? (
               renderPreview()
             ) : (
               <div className="upload-placeholder">
