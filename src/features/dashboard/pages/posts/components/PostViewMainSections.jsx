@@ -6,8 +6,9 @@ import PostComments from "./PostComments";
 import "../style/style.css";
 import ViewFiles from "./ViewFiles";
 import ViewSurvey from "./ViewSurvey";
+import { Link } from "react-router";
 
-const PostViewMainSections = ({ data, authorView, language }) => {
+const PostViewMainSections = ({ data, authorView, language, allPostsView }) => {
   const [showImg, setShowImg] = useState(false);
 
   const imgSrc = useMemo(() => {
@@ -46,7 +47,9 @@ const PostViewMainSections = ({ data, authorView, language }) => {
           <div className="tags border-bottom">
             <p>tags</p>
             {data?.tags?.map((e) => (
-              <button key={e.id}> {e[`name_${language}`]} </button>
+              <Link key={e.id} to={allPostsView} state={{ tags: e }}>
+                {e[`name_${language}`]}
+              </Link>
             ))}
           </div>
         )}

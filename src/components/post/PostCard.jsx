@@ -16,17 +16,24 @@ const PostCard = ({
   showStatus,
   showActions,
   setDeletedId,
+  className,
 }) => {
   const { i18n } = useTranslation();
   const language = useMemo(() => i18n.language, [i18n]);
 
   const nav = useNavigate();
+
   const handleCardClick = useCallback(() => {
     if (!isDraft) nav(postPage(data?.id));
   }, [isDraft, nav, postPage, data]);
 
+  const memoClassName = useMemo(
+    () => `post-view-card ${className || ""}`,
+    [className],
+  );
+
   return (
-    <div className="post-view-card" onClick={handleCardClick}>
+    <div className={memoClassName} onClick={handleCardClick}>
       <div className="img">
         <PostActions
           data={data}

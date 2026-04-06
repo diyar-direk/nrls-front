@@ -252,17 +252,17 @@
   opacity: 0.6;
   text-transform: uppercase;
 }
-.post-view-container .tags button {
+.post-view-container .tags a {
   color: var(--font-color);
-  padding: 10px 20px;
+  padding: 5px 15px;
   white-space: nowrap;
   border: solid 1px var(--border-color);
   background-color: var(--body-color);
   cursor: pointer;
-  font-size: 16px;
+  font-size: 14px;
   border-radius: 10px;
 }
-.post-view-container .tags button:hover {
+.post-view-container .tags a:hover {
   background-color: var(--main-color);
   color: white;
 }
@@ -585,4 +585,94 @@ aside.post-sidebar {
   margin-inline: 5px;
   font-weight: 600;
   color: var(--main-color);
+}
+
+.post-filters .post-search {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.post-filters .post-search .search-inp {
+  background-color: var(--body-color);
+  border: solid 2px var(--border-color);
+  border-radius: 20px;
+  flex: 200px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: text;
+  padding: 11px 15px;
+}
+
+.post-filters .post-search .search-inp input {
+  background-color: transparent;
+  border: none;
+  flex: 1;
+  color: var(--font-color);
+}
+.post-filters .post-search .search-inp svg {
+  opacity: 0.6;
+}
+
+.post-filters h1 {
+  text-transform: uppercase;
+  font-size: 30px;
+  font-weight: 600;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.post-filters h1::before {
+  content: attr(data-count);
+  color: var(--main-color);
+}
+.post-filters .icons {
+  display: flex;
+  position: relative;
+}
+.post-filters .icons .post-sort {
+  background-color: var(--body-color);
+  position: absolute;
+  top: 100%;
+  min-width: 100%;
+  border-radius: 5px;
+  overflow: hidden;
+  z-index: 2;
+}
+.post-filters .icons .post-sort h3 {
+  font-weight: 500;
+  text-transform: capitalize;
+  font-size: 16px;
+  padding: 4px 10px;
+  cursor: pointer;
+  line-height: 1.4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  white-space: nowrap;
+}
+.post-filters .icons .post-sort h3:hover,
+.post-filters .icons .post-sort h3.active {
+  background-color: var(--aside-color);
+}
+.post-filters .icons .post-sort h3 svg {
+  font-size: 80%;
+  color: var(--main-color);
+}
+
+.filters-popup {
+  width: 100%;
+  max-width: 1000px;
+}
+.overlay .popup.filters-popup .filters-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+.filters-popup .btns {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
 }

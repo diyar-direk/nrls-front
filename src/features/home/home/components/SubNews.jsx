@@ -1,39 +1,76 @@
-import { faClock, faEye } from "@fortawesome/free-solid-svg-icons";
+import { faClock, faEye, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dateFormatter from "../../../../utils/dateFormatter";
-import Img from "../../../../assets/1.jpg";
+import { homeRoutes } from "../../../../constant/pageRoutes";
+import { Link, useNavigate } from "react-router";
+import { useCallback } from "react";
+import { postViewImg } from "../../../../utils/postViewImg";
 
-const SubNews = () => {
+const SubNews = ({ data, language }) => {
+  const nav = useNavigate();
+  const handleNavigate = useCallback(
+    (id) => nav(homeRoutes.posts.view(id)),
+    [nav],
+  );
+  const stopPropagation = useCallback((e) => e.stopPropagation(), []);
+
+  if (!data?.length) return;
+
   return (
-    <div className="sub-news">
-      <img src={Img} alt="" />
-      <article>
-        <button> type </button>
-        <h2 className="one-line-ellipsis">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum, sint!
-          Fugit at quas saepe consequatur dignissimos quis ratione explicabo
-          consequuntur reiciendis blanditiis odit nulla vero maiores, nemo dolor
-          totam obcaecati? Lorem ipsum dolor sit amet consectetur adipisicing
-          elit. Consequuntur facere tempora architecto natus nulla adipisci
-          laudantium sunt excepturi, fuga sequi esse, nisi non impedit voluptas
-          totam earum maiores omnis ab!
-        </h2>
+    <div className="sub-news-container">
+      {data?.map((e) => (
+        <div
+          className="sub-news"
+          key={e.id}
+          onClick={() => handleNavigate(e.id)}
+        >
+          <img src={postViewImg(e)} alt="" />
+          <article>
+            <div className="btns">
+              <Link
+                className="type"
+                style={{
+                  "--main-color": `var(--color-${e?.content_type})`,
+                }}
+                to={homeRoutes.posts.page}
+                onClick={stopPropagation}
+                state={{ content_type: e.content_type }}
+              >
+                {e.content_type}
+              </Link>
+              <Link
+                to={homeRoutes.posts.page}
+                onClick={stopPropagation}
+                state={{ category: e.category }}
+              >
+                {e?.category?.[`name_${language}`] || e?.category_name}
+              </Link>
+            </div>
+            <h2 className="one-line-ellipsis">{e.title}</h2>
 
-        <div className="icons">
-          <span>
-            <FontAwesomeIcon icon={faClock} />
-            {dateFormatter(new Date(), "fullDate")}
-          </span>
-          <span>
-            <FontAwesomeIcon icon={faEye} />
-            1040
-          </span>
-          <span>
-            <FontAwesomeIcon icon={faEye} />
-            1040
-          </span>
+            <div className="icons">
+              <span>
+                <FontAwesomeIcon icon={faClock} />
+                {dateFormatter(e.created_at, "fullDate")}
+              </span>
+              <span>
+                <FontAwesomeIcon icon={faEye} />
+                {e.view_count}
+              </span>
+              {e.author && (
+                <Link
+                  className="link-hover"
+                  to={homeRoutes.author.view(e.author?.id)}
+                  onClick={stopPropagation}
+                >
+                  <FontAwesomeIcon icon={faUser} />
+                  {e.author?.full_name}
+                </Link>
+              )}
+            </div>
+          </article>
         </div>
-      </article>
+      ))}
     </div>
   );
 };

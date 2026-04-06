@@ -1,47 +1,68 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Img from "../../../../assets/1.jpg";
-import { faClock, faEye } from "@fortawesome/free-solid-svg-icons";
+import { faClock, faEye, faUser } from "@fortawesome/free-solid-svg-icons";
 import dateFormatter from "../../../../utils/dateFormatter";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { useCallback } from "react";
+import { homeRoutes } from "../../../../constant/pageRoutes";
+import { postViewImg } from "./../../../../utils/postViewImg";
 
-const MainNews = () => {
-  
+const MainNews = ({ data, language }) => {
+  const nav = useNavigate();
+  const handleNavigate = useCallback(
+    () => nav(homeRoutes.posts.view(data?.id)),
+    [data?.id, nav],
+  );
+  const stopPropagation = useCallback((e) => e.stopPropagation(), []);
+  if (!data) return;
+
   return (
-    <Link className="main-news" to={`/posts?category=red`}>
-      <img src={Img} alt="" />
+    <div className="main-news" onClick={handleNavigate}>
+      <img src={postViewImg(data)} alt="" />
       <article>
-        <button> type </button>
-        <h2 className="two-line-ellipsis">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum, sint!
-          Fugit at quas saepe consequatur dignissimos quis ratione explicabo
-          consequuntur reiciendis blanditiis odit nulla vero maiores, nemo dolor
-          totam obcaecati? Lorem ipsum dolor sit amet consectetur adipisicing
-          elit. Consequuntur facere tempora architecto natus nulla adipisci
-          laudantium sunt excepturi, fuga sequi esse, nisi non impedit voluptas
-          totam earum maiores omnis ab!
-        </h2>
-        <p className="two-line-ellipsis">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda,
-          hic amet earum ipsam iure tempore quia delectus consequuntur dolorum
-          quibusdam molestias nostrum voluptate cum corporis ratione illum,
-          voluptatum nulla odio.
-        </p>
+        <div className="btns">
+          <Link
+            className="type"
+            style={{
+              "--main-color": `var(--color-${data?.content_type})`,
+            }}
+            to={homeRoutes.posts.page}
+            onClick={stopPropagation}
+            state={{ content_type: data.content_type }}
+          >
+            {data.content_type}
+          </Link>
+          <Link
+            to={homeRoutes.posts.page}
+            onClick={stopPropagation}
+            state={{ category: data.category }}
+          >
+            {data?.category?.[`name_${language}`] || data?.category_name}
+          </Link>
+        </div>
+        <h2 className="two-line-ellipsis">{data.title}</h2>
+        <p className="two-line-ellipsis">{data.excerpt}</p>
         <div className="icons">
           <span>
             <FontAwesomeIcon icon={faClock} />
-            {dateFormatter(new Date(), "fullDate")}
+            {dateFormatter(data.created_at, "fullDate")}
           </span>
           <span>
             <FontAwesomeIcon icon={faEye} />
-            1040
+            {data.view_count}
           </span>
-          <span>
-            <FontAwesomeIcon icon={faEye} />
-            1040
-          </span>
+          {data.author && (
+            <Link
+              className="link-hover"
+              to={homeRoutes.author.view(data.author?.id)}
+              onClick={stopPropagation}
+            >
+              <FontAwesomeIcon icon={faUser} />
+              {data.author?.full_name}
+            </Link>
+          )}
         </div>
       </article>
-    </Link>
+    </div>
   );
 };
 

@@ -54,7 +54,7 @@ const ViewSurvey = ({ id }) => {
             key={e.id}
             onClick={() => setSelected((p) => (p === e.id ? null : e.id))}
           >
-            <div className="flex align-center gap-10 flex-1">
+            <div className="flex align-center gap-10 flex-1 wrap">
               <p></p>
               {e.option_text}
             </div>

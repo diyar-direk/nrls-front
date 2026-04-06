@@ -1,89 +1,82 @@
 import { Link } from "react-router";
-import RepeatChildren from "../../../../components/RepeatChildren";
-import {
-  faArrowRight,
-  faClock,
-  faEye,
-  faUserCircle,
-} from "@fortawesome/free-solid-svg-icons";
-import Img from "../../../../assets/1.jpg";
+import { faClock, faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import MainTitle from "../../../../components/main_title/MainTitle";
+import { useFetchData } from "../../../../hooks/useFetchData";
+import endPoints from "../../../../constant/endPoints";
+import { homeRoutes } from "../../../../constant/pageRoutes";
+import Skeleton from "../../../../components/skeleton/Skeleton";
+import PostCard from "../../../../components/post/PostCard";
+import { postViewImg } from "../../../../utils/postViewImg";
+import dateFormatter from "../../../../utils/dateFormatter";
 
-const Documentaries = () => {
+const Documentaries = ({ language }) => {
+  const { data, isLoading } = useFetchData({
+    endPoints: endPoints.posts,
+    page_size: 4,
+    ordering: { created_at: "-created_at" },
+    language,
+    content_type: "documentary",
+  });
+
+  if (isLoading)
+    return (
+      <section className="flex gap-20 container main-section documentaries">
+        <Skeleton height="100px" />
+        <Skeleton height="100px" />
+        <Skeleton height="100px" />
+      </section>
+    );
+
+  if (!data?.totalCount) return;
+
   return (
-    <>
+    <section className="container main-section documentaries">
+      <MainTitle state={{ content_type: "documentary" }}>
+        وثائقيات ولقاءات
+      </MainTitle>
+
       <main className="grid-3">
-        <RepeatChildren count={3}>
-          <Link className="card-style-1">
-            <img src={Img} alt="" />
-            <div className="card-body">
-              <div className="icons">
-                <span className="icon">
-                  <FontAwesomeIcon icon={faEye} />
-                  400
-                </span>
-                <span className="icon link-hover">
-                  <FontAwesomeIcon icon={faUserCircle} />
-                  diyar direki
-                </span>
-              </div>
-              <h3>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Expedita, dolorem?
-              </h3>
-              <p className="two-line-ellipsis">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Quisquam dolorum, libero itaque commodi officia culpa natus
-                rerum possimus totam minus consectetur at blanditiis doloremque,
-                explicabo alias veritatis dolorem fugiat aliquam.
-              </p>
-            </div>
-            <div className="card-footer">
-              <p className="time">
-                <FontAwesomeIcon icon={faClock} />
-                2026-12-11 / 10:10 PM
-              </p>
-              <span>
-                read more <FontAwesomeIcon icon={faArrowRight} />
-              </span>
-            </div>
-          </Link>
-        </RepeatChildren>
+        {data?.data?.slice(0, 3).map((e) => (
+          <PostCard
+            authorPage={homeRoutes.author.view}
+            data={e}
+            key={e.id}
+            postPage={homeRoutes.posts.view}
+            className={"card-style-1"}
+          />
+        ))}
       </main>
 
       <main className="grid-3 documentary-container">
-        <RepeatChildren count={3}>
-          <Link className="documentary">
+        {data?.data?.slice(3).map((e) => (
+          <Link
+            className="documentary"
+            key={e.id}
+            to={homeRoutes.posts.view(e.id)}
+          >
             <div className="img">
-              <img src={Img} alt="" />
+              <img src={postViewImg(e)} alt="" />
             </div>
             <article>
-              <h3 className="one-line-ellipsis">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure,
-                facilis!
-              </h3>
-              <p className="one-line-ellipsis">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Sapiente quam id voluptate magni architecto distinctio, harum
-                ipsam adipisci facere nisi dolores non nobis. Quo quod
-                molestiae, sit hic tempore totam.
-              </p>
+              <h3 className="one-line-ellipsis">{e.title}</h3>
+              <p className="one-line-ellipsis">{e.excerpt}</p>
 
               <div className="icons">
                 <span className="icon">
                   <FontAwesomeIcon icon={faClock} />
-                  2026-12-11 / 10:10 PM
+                  {dateFormatter(e.created_at, "fullDate")}
                 </span>
                 <span className="icon">
                   <FontAwesomeIcon icon={faEye} />
-                  400
+                  {e.view_count}
                 </span>
               </div>
             </article>
           </Link>
-        </RepeatChildren>
+        ))}
       </main>
-    </>
+    </section>
   );
 };
 

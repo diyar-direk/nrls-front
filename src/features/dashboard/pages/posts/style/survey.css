@@ -30,6 +30,7 @@
   height: 10px;
   border: solid 2px var(--main-color);
   border-radius: 50%;
+  outline: solid 2px transparent;
 }
 
 .survey-container .options .option span {
@@ -46,6 +47,8 @@
 }
 .survey-container .options .option.active p {
   background-color: white;
+  border-color: var(--main-color);
+  outline: 2px solid white;
 }
 .survey-container .options .option.active span {
   background-color: white;

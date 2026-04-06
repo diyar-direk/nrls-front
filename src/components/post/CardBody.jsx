@@ -30,12 +30,10 @@ const CardBody = ({ isDraft, data, authorPage, language }) => {
       {data?.excerpt && <p className="two-line-ellipsis">{data?.excerpt}</p>}
 
       <div className="icons">
-        {data?.view_count > 0 && (
-          <span className="icon">
-            <FontAwesomeIcon icon={faEye} />
-            {data?.view_count}
-          </span>
-        )}
+        <span className="icon">
+          <FontAwesomeIcon icon={faEye} />
+          {data?.view_count || 0}
+        </span>
 
         {data?.author && (
           <Link

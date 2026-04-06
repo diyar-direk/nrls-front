@@ -1,53 +1,32 @@
 import "../style/home.css";
-import BreakingNews from "../components/BreakingNews";
-import MainNews from "../components/MainNews";
-import SubNews from "../components/SubNews";
 import MainTitle from "./../../../../components/main_title/MainTitle";
 import ReportNews from "../components/ReportNews";
 import Topics from "../components/Topics";
 import Documentaries from "../components/Documentaries";
 import Infographic from "../components/Infographic";
 import Publications from "../components/Publications";
+import LastNews from "../components/LastNews";
+import { useTranslation } from "react-i18next";
+import { useMemo } from "react";
 
 const Home = () => {
+  const { i18n } = useTranslation();
+  const language = useMemo(() => i18n.language, [i18n.language]);
+
   return (
-    <>
-      <section className="last-news-container container main-section">
-        <BreakingNews />
-        <div className="last-news">
-          <MainNews />
-          <div className="sub-news-container">
-            <SubNews />
-            <SubNews />
-          </div>
-        </div>
-      </section>
+    <div className="sub-news-container">
+      <LastNews language={language} />
 
-      <section className="container main-section body-color">
-        <MainTitle>تقارير</MainTitle>
-        <ReportNews />
-      </section>
+      <ReportNews language={language} />
 
-      <section className="container main-section">
-        <MainTitle>موضوعات وقضايا</MainTitle>
-        <Topics />
-      </section>
+      <Topics language={language} />
 
-      <section className="container main-section documentaries">
-        <MainTitle> وثائقيات ولقاءات</MainTitle>
-        <Documentaries />
-      </section>
+      <Documentaries language={language} />
 
-      <section className="container main-section">
-        <MainTitle>اينفوغرافيك</MainTitle>
-        <Infographic />
-      </section>
+      <Infographic language={language} />
 
-      <section className="container main-section body-color">
-        <MainTitle>اصدارات</MainTitle>
-        <Publications />
-      </section>
-    </>
+      <Publications />
+    </div>
   );
 };
 

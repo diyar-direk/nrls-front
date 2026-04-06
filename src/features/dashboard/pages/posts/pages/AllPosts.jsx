@@ -8,20 +8,38 @@ import RepeatChildren from "../../../../../components/RepeatChildren";
 import Skeleton from "../../../../../components/skeleton/Skeleton";
 import "../style/style.css";
 import { formatInputsData } from "./../../../../../utils/formatInputsData";
-import "../../../../home/posts/style/style.css";
 import PostTyps from "../components/PostTyps";
 import AllPostsHeader from "../components/AllPostsHeader";
 import DeletePost from "../components/DeletePost";
 import PostFilters from "../components/PostFilters";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { icons } from "../../../../../constant/icons";
+import { useLocation } from "react-router";
+import { useDebounce } from "use-debounce";
 
 const AllPosts = () => {
-  const [filters, setFilters] = useState({});
+  const { state } = useLocation();
+  const [search, setSearch] = useState("");
+  const [debouncedValue] = useDebounce(search, 500);
+
+  const { tags } = state || {};
+
+  const [filters, setFilters] = useState({ tags });
+
+  const finalFilters = useMemo(
+    () => ({
+      ...filters,
+      search: debouncedValue,
+    }),
+    [filters, debouncedValue],
+  );
+
   const [sort, setSort] = useState({ created_at: "-created_at" });
 
   const { data, isLoading, loadMoreRef } = useInfiniteFetch({
     endPoint: endPoints.posts,
     page_size: 5,
-    ...formatInputsData(filters),
+    ...formatInputsData(finalFilters),
     ordering: sort,
   });
 
@@ -39,20 +57,35 @@ const AllPosts = () => {
 
   const [deletedId, setDeletedId] = useState(null);
 
+  const handleSearch = useCallback((e) => {
+    const { value } = e.target;
+    setSearch(value);
+  }, []);
 
   return (
     <>
       <Breadcrumbs />
 
       <PostTyps filters={filters} setFilters={setFilters} />
-
       <div className="post-filters">
+        <div className="post-search">
+          <label htmlFor="search-inp" className="search-inp">
+            <input
+              type="text"
+              id="search-inp"
+              placeholder="search...."
+              value={search}
+              onChange={handleSearch}
+            />
+            <FontAwesomeIcon icon={icons.search} />
+          </label>
+          <AllPostsHeader
+            setSort={setSort}
+            toggleFilters={toggleFilters}
+            sort={sort}
+          />
+        </div>
         <h1 data-count={results?.count || 0}>results</h1>
-        <AllPostsHeader
-          setSort={setSort}
-          toggleFilters={toggleFilters}
-          sort={sort}
-        />
       </div>
 
       <div className="posts-container">

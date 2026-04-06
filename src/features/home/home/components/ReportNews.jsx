@@ -1,17 +1,21 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import RepeatChildren from "../../../../components/RepeatChildren";
-import {
-  faArrowRight,
-  faClock,
-  faEye,
-  faUserCircle,
-} from "@fortawesome/free-solid-svg-icons";
 import { useKeenSlider } from "keen-slider/react";
-import Img from "../../../../assets/1.jpg";
 import "keen-slider/keen-slider.min.css";
-import { Link } from "react-router";
+import { useFetchData } from "../../../../hooks/useFetchData";
+import endPoints from "../../../../constant/endPoints";
+import Skeleton from "../../../../components/skeleton/Skeleton";
+import PostCard from "./../../../../components/post/PostCard";
+import { homeRoutes } from "../../../../constant/pageRoutes";
+import MainTitle from "../../../../components/main_title/MainTitle";
 
-const ReportNews = () => {
+const ReportNews = ({ language }) => {
+  const { data, isLoading } = useFetchData({
+    endPoints: endPoints.posts,
+    page_size: 5,
+    ordering: { created_at: "-created_at" },
+    language,
+    content_type: "report",
+  });
+
   const [sliderRef] = useKeenSlider({
     slides: {
       perView: 3,
@@ -19,45 +23,33 @@ const ReportNews = () => {
     },
   });
 
+  if (isLoading)
+    return (
+      <section className="flex gap-10 container main-section">
+        <Skeleton height="100px" />
+        <Skeleton height="100px" />
+        <Skeleton height="100px" />
+      </section>
+    );
+
+  if (!data?.totalCount) return;
+
   return (
-    <main className="reports-container keen-slider" ref={sliderRef}>
-      <RepeatChildren count={10}>
-        <Link className="card-style-1 keen-slider__slide">
-          <img src={Img} alt="" />
-          <div className="card-body">
-            <div className="icons">
-              <span className="icon">
-                <FontAwesomeIcon icon={faEye} />
-                400
-              </span>
-              <span className="icon link-hover">
-                <FontAwesomeIcon icon={faUserCircle} />
-                diyar direki
-              </span>
-            </div>
-            <h3>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita,
-              dolorem?
-            </h3>
-            <p className="two-line-ellipsis">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
-              dolorum, libero itaque commodi officia culpa natus rerum possimus
-              totam minus consectetur at blanditiis doloremque, explicabo alias
-              veritatis dolorem fugiat aliquam.
-            </p>
-          </div>
-          <div className="card-footer">
-            <p className="time">
-              <FontAwesomeIcon icon={faClock} />
-              2026-12-11 / 10:10 PM
-            </p>
-            <span>
-              read more <FontAwesomeIcon icon={faArrowRight} />
-            </span>
-          </div>
-        </Link>
-      </RepeatChildren>
-    </main>
+    <section className="container main-section body-color">
+      <MainTitle state={{ content_type: "report" }}>تقارير</MainTitle>
+
+      <main className="reports-container keen-slider" ref={sliderRef}>
+        {data?.data?.map((e) => (
+          <PostCard
+            authorPage={homeRoutes.author.view}
+            data={e}
+            key={e.id}
+            postPage={homeRoutes.posts.view}
+            className={"card-style-1 keen-slider__slide"}
+          />
+        ))}
+      </main>
+    </section>
   );
 };
 

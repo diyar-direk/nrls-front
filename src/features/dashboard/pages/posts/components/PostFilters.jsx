@@ -33,22 +33,6 @@ const PostFilters = ({ onClose, filters, setFilters }) => {
   return (
     <PopUp isOpen className="filters-popup" onClose={onClose}>
       <div className="filters-container">
-        <Input
-          placeholder="search by title ..."
-          name="title"
-          notRequired
-          label="title"
-          value={localFilters?.title ?? ""}
-          onChange={handleChange}
-        />
-        <Input
-          placeholder="search by excerpt ..."
-          name="excerpt"
-          notRequired
-          label="excerpt"
-          value={localFilters?.excerpt ?? ""}
-          onChange={handleChange}
-        />
         <SelectOptionInput
           label="content_type"
           onSelectOption={(e) => handleOptionInp("content_type", e.value)}
