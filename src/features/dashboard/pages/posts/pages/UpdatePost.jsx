@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import endPoints from "../../../../../constant/endPoints";
 import APIClient from "../../../../../utils/ApiClient";
 import { useFormik } from "formik";
-import { useNavigate, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import { useTranslation } from "react-i18next";
 import Breadcrumbs from "../../../../../components/breadcrumbs/Breadcrumbs";
 import Button from "../../../../../components/buttons/Button";
@@ -26,8 +26,7 @@ import { mediaSchemaUpdate } from "../../../../../schema/mediaFile";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axiosInstance from "../../../../../utils/axios";
 import UpdateFilesForm from "./../components/UpdateFilesForm";
-import { surveySchema } from "../../../../../schema/survey";
-import AddSurvey from "../components/AddSurvey";
+import { dashboardRouts } from "../../../../../constant/pageRoutes";
 
 const api = new APIClient(endPoints.posts);
 
@@ -54,26 +53,6 @@ const UpdatePost = () => {
     enabled: tab === "files",
   });
 
-  const { data: survey } = useQuery({
-    queryKey: [endPoints.surveyPost, id],
-    queryFn: async () => {
-      const { data } = await axiosInstance.get(`${endPoints.surveyPost}${id}/`);
-      const surveyData = data?.data?.[0];
-      if (!surveyData) return null;
-
-      const { data: options } = await axiosInstance.get(
-        `${endPoints.surveyOptionsById}${surveyData?.id}/`,
-      );
-
-      return {
-        ...surveyData,
-        closes_at: dateFormatter(surveyData.closes_at),
-        options: options?.data || [],
-      };
-    },
-    enabled: tab === "survey",
-  });
-
   const language = useMemo(() => i18n.language, [i18n]);
 
   const formik = useFormik({
@@ -93,11 +72,7 @@ const UpdatePost = () => {
     },
     validationSchema: postSchema,
     onSubmit: (d) => {
-      if (
-        Object.keys(mediaFormik.errors)?.length ||
-        Object.keys(surveyFormik.errors)?.length
-      )
-        return;
+      if (Object.keys(mediaFormik.errors)?.length) return;
       const data = formatInputsData(d);
       const form = new FormData();
 
@@ -124,7 +99,6 @@ const UpdatePost = () => {
     onSuccess: () => {
       query.invalidateQueries([endPoints.posts]);
       handleAddFiles.mutate();
-      if (surveyFormik.values.question) handleAddSurvey.mutate();
     },
   });
 
@@ -200,45 +174,6 @@ const UpdatePost = () => {
     onSuccess: () => nav(-1),
   });
 
-  const surveyFormik = useFormik({
-    initialValues: survey || {
-      question: "",
-      is_active: true,
-      closes_at: "",
-      options: [{ option_text: "" }],
-      post: id,
-    },
-    validationSchema: surveySchema,
-    enableReinitialize: true,
-  });
-
-  const handleAddSurvey = useMutation({
-    mutationFn: async () => {
-      if (surveyFormik.values.id) {
-        const { values } = surveyFormik;
-        const { id } = values;
-        await axiosInstance.patch(`${endPoints.surveys}${id}/`, values);
-        return id;
-      }
-
-      const { data } = await axiosInstance.post(
-        endPoints.surveys,
-        surveyFormik.values,
-      );
-      const { id } = data.data;
-      return id;
-    },
-    onSuccess: (survey) => {
-      surveyFormik.values.options.map(async (e) => {
-        if (e.id)
-          await axiosInstance.patch(`${endPoints.surveyOptions}${e.id}/`, e);
-        else
-          await axiosInstance.post(endPoints.surveyOptions, { ...e, survey });
-      });
-      query.invalidateQueries([endPoints.surveyPost]);
-    },
-  });
-
   if (isLoading) return <Skeleton height="300px" />;
 
   if (error) return <HandleError error={error} refetch={refetch} />;
@@ -254,12 +189,9 @@ const UpdatePost = () => {
         >
           الملفات
         </p>
-        <p
-          className={`${tab === "survey" ? "active" : ""} ${Object.keys(surveyFormik.errors)?.length ? "error" : ""}`}
-          onClick={() => setTab("survey")}
-        >
-          الاستبيان
-        </p>
+        <Link to={dashboardRouts.post.addSurvey(id)} state={data}>
+          <p>الاستبيان</p>
+        </Link>
       </PostTabs>
 
       <form className="dashboard-form" onSubmit={formik.handleSubmit}>
@@ -310,8 +242,6 @@ const UpdatePost = () => {
             <UpdateFilesForm formik={mediaFormik} t={t} />
           </>
         )}
-
-        {tab === "survey" && <AddSurvey formik={surveyFormik} t={t} />}
 
         <Button type="submit"> save </Button>
       </form>

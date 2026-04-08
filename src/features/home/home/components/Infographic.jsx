@@ -12,6 +12,7 @@ const Infographic = ({ language }) => {
     ordering: { created_at: "-created_at" },
     language,
     content_type: "infographic",
+    is_published: true,
   });
 
   if (isLoading)

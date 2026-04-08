@@ -23,6 +23,7 @@ const Topics = ({ language }) => {
     ordering: { created_at: "-created_at" },
     language,
     content_type: "dialogue_session",
+    is_published: true,
   });
   const stopPropagation = useCallback((e) => e.stopPropagation(), []);
 

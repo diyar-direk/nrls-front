@@ -41,6 +41,11 @@ const dashboardRouts = {
     add: `${homeRoutes.dashboard}/posts/add`,
     view: (id = ":id") => `${homeRoutes.dashboard}/posts/${id}`,
     update: (id = ":id") => `${homeRoutes.dashboard}/posts/${id}/update`,
+    viewSurvey: (id = ":id") => `${homeRoutes.dashboard}/posts/${id}/survey`,
+    addSurvey: (post = ":post") =>
+      `${homeRoutes.dashboard}/posts/${post}/survey/add`,
+    updateSurvey: (post = ":post", id = ":id") =>
+      `${homeRoutes.dashboard}/posts/${post}/survey/${id}`,
   },
 };
 

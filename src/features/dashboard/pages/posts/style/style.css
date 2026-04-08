@@ -223,7 +223,7 @@
 .post-view-container .cover-image {
   display: flex;
   min-height: 200px;
-  max-height: 400px;
+  max-height: 600px;
   overflow: hidden;
   background-color: var(--body-color);
   border-radius: 10px;

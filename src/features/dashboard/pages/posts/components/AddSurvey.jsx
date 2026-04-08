@@ -43,6 +43,8 @@ const AddSurvey = ({ formik, t }) => {
           errorText={t(formik.errors.question)}
           label={t("question")}
           placeholder="enter question text"
+          elementType="textarea"
+          rows={2}
         />
 
         <Input

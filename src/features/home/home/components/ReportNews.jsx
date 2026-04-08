@@ -14,6 +14,7 @@ const ReportNews = ({ language }) => {
     ordering: { created_at: "-created_at" },
     language,
     content_type: "report",
+    is_published: true,
   });
 
   const [sliderRef] = useKeenSlider({

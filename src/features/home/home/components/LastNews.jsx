@@ -11,6 +11,7 @@ const LastNews = ({ language }) => {
     page_size: 6,
     ordering: { created_at: "-created_at" },
     language,
+    is_published: true,
   });
 
   if (isLoading)

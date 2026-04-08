@@ -17,6 +17,7 @@ const Documentaries = ({ language }) => {
     ordering: { created_at: "-created_at" },
     language,
     content_type: "documentary",
+    is_published: true,
   });
 
   if (isLoading)

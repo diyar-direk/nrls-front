@@ -21,6 +21,6 @@ export const postSchema = yup.object({
     .required()
     .oneOf(languages.map((e) => e.value)),
 
-  published_at: yup.date().notRequired(),
   is_published: yup.boolean().default(true),
+  published_at: yup.date().notRequired(),
 });

@@ -1,5 +1,4 @@
 import "../style/home.css";
-import MainTitle from "./../../../../components/main_title/MainTitle";
 import ReportNews from "../components/ReportNews";
 import Topics from "../components/Topics";
 import Documentaries from "../components/Documentaries";

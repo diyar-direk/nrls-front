@@ -12,6 +12,7 @@ const Publications = ({ language }) => {
     ordering: { created_at: "-created_at" },
     language,
     content_type: "publication",
+    is_published: true,
   });
 
   if (isLoading)
