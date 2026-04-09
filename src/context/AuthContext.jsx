@@ -84,7 +84,7 @@ export const AuthProvider = () => {
         }
 
         if (error.response?.status === 401) {
-          // logout();
+          logout();
         }
 
         return Promise.reject(error);
