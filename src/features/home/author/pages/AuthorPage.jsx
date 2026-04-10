@@ -4,7 +4,6 @@ import APIClient from "../../../../utils/ApiClient";
 import { useQuery } from "@tanstack/react-query";
 import Skeleton from "../../../../components/skeleton/Skeleton";
 import HandleError from "../../../../components/error/HandleError";
-import ProfileInfoSection from "../../../dashboard/pages/authers/components/ProfileInfoSection";
 import ProfileMainInfo from "../../../dashboard/pages/authers/components/ProfileMainInfo";
 import AuthorImgSection from "../components/AuthorImgSection";
 import AuthorPopsts from "./../../../dashboard/pages/authers/components/AuthorPopsts";
@@ -32,8 +31,6 @@ const AuthorPage = () => {
           />
           <ProfileMainInfo data={data} />
         </section>
-
-        <ProfileInfoSection data={data} />
       </main>
 
       <AuthorPopsts

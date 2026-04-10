@@ -7,11 +7,12 @@ import {
 } from "react";
 import AuthHelper from "../utils/authHelper";
 import Loading from "./../components/loading/Loading";
-import { Outlet } from "react-router";
+import { Outlet, useNavigate } from "react-router";
 import axiosInstance from "../utils/axios";
 import { extarctErrorMessage } from "../utils/extarctErrorMessage";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { enqueueSnackbar } from "notistack";
+import endPoints from "../constant/endPoints";
 
 const AuthContext = createContext();
 const authHelper = new AuthHelper();
@@ -19,6 +20,7 @@ const authHelper = new AuthHelper();
 export const AuthProvider = () => {
   const [loading, setLoading] = useState(false);
   const isAuthenticated = authHelper.isAuthenticated();
+  const nav = useNavigate();
 
   const query = useQueryClient();
 
@@ -31,10 +33,12 @@ export const AuthProvider = () => {
     [query],
   );
 
-  const logout = useCallback(() => {
+  const logout = useCallback(async () => {
+    await axiosInstance.post(endPoints.logout);
+    nav("/");
     authHelper.clearToken();
     setTimeout(() => query.clear(), 500);
-  }, [query]);
+  }, [query, nav]);
 
   useEffect(() => {
     const requestInterceptor = axiosInstance.interceptors.request.use(

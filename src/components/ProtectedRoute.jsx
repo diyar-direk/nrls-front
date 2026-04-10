@@ -1,13 +1,12 @@
 import { Navigate } from "react-router";
 import AuthHelper from "../utils/authHelper";
-import DashboarLayout from "../sections/dashboard/components/DashboarLayout";
-import { pagesRoute } from "../constants/links";
 
-const ProtectedRoute = () => {
+const ProtectedRoute = ({ children }) => {
   const isAuthenticated = new AuthHelper().isAuthenticated();
-  if (isAuthenticated) return <DashboarLayout />;
+  
+  if (!isAuthenticated) return <Navigate to={"/"} replace />;
 
-  return <Navigate to={pagesRoute.login} replace />;
+  return children;
 };
 
 export default ProtectedRoute;

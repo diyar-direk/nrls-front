@@ -1,3 +1,4 @@
+import ProtectedRoute from "../../../components/ProtectedRoute";
 import { homeRoutes } from "../../../constant/pageRoutes";
 import DasboardLayout from "../components/DasboardLayout";
 import { authorRouter } from "../pages/authers/router/router";
@@ -10,7 +11,11 @@ import { usersRouter } from "../pages/users/router/router";
 export const dashboardRouter = [
   {
     path: homeRoutes.dashboard,
-    element: <DasboardLayout />,
+    element: (
+      <ProtectedRoute>
+        <DasboardLayout />
+      </ProtectedRoute>
+    ),
     children: [
       ...usersRouter,
       ...tagsRouter,

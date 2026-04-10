@@ -15,6 +15,7 @@ import PostFilters from "../components/PostFilters";
 import { useTranslation } from "react-i18next";
 import "../style/style.css";
 import Breadcrumbs from "./../../../../components/breadcrumbs/Breadcrumbs";
+import { allTyps } from "../../../../constant/enums";
 
 const AllPosts = () => {
   const { i18n } = useTranslation();
@@ -24,14 +25,23 @@ const AllPosts = () => {
   const language = useMemo(() => i18n.language, [i18n.language]);
 
   const { state } = useLocation();
-  const { tags, content_type, category } = state || {};
+  const { tags, content_type: type, category } = state || {};
+
+  const content_type = useMemo(() => {
+    if (type) return type;
+    else if (!category && !tags && allTyps.includes(name)) return name;
+  }, [type, category, tags, name]);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const searchParam = searchParams.get("search") ?? "";
 
   const [debouncedValue] = useDebounce(searchParam, 500);
 
-  const [filters, setFilters] = useState({ tags, content_type, category });
+  const [filters, setFilters] = useState({
+    tags,
+    content_type: content_type,
+    category,
+  });
 
   const finalFilters = useMemo(
     () => ({

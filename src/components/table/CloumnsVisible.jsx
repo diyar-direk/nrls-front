@@ -27,9 +27,12 @@ const CloumnsVisible = ({ columns, setColumns, defaultColumns, onRefetch }) => {
   }, []);
 
   useEffect(() => {
-    const bodyClick = () => isOpen && setIsOpen(false);
+    if (!isOpen) return;
+
+    const bodyClick = () => setIsOpen(false);
+
     window.addEventListener("click", bodyClick);
-    return () => window.addEventListener("click", bodyClick);
+    return () => window.removeEventListener("click", bodyClick);
   }, [isOpen]);
 
   const resetDefaultColumns = useCallback(() => {
@@ -66,11 +69,11 @@ const CloumnsVisible = ({ columns, setColumns, defaultColumns, onRefetch }) => {
             return (
               (!column.allowedTo || column.allowedTo?.includes(user?.role)) &&
               (!search ? (
-                <label key={column.name} htmlFor={column.name}>
+                <label key={column.name} htmlFor={`column-${column.name}`}>
                   {headerName}
                   <input
                     type="checkbox"
-                    id={column.name}
+                    id={`column-${column.name}`}
                     checked={!column.hidden}
                     onChange={() => updateRows(column)}
                   />
@@ -78,7 +81,11 @@ const CloumnsVisible = ({ columns, setColumns, defaultColumns, onRefetch }) => {
               ) : (
                 (column.name.includes(search) ||
                   headerName.includes(search)) && (
-                  <label key={column.name} htmlFor={column.name}>
+                  <label
+                    key={column.name}
+                    htmlFor={column.name}
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     {headerName}
                     <input
                       type="checkbox"

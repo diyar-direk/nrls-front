@@ -4,6 +4,7 @@ const endPoints = {
   tags: "tags/",
   categories: "categories/",
   login: "login/",
+  logout: "logout/",
   posts: "posts/",
   surveys: "surveys/",
   comment: "comments/",

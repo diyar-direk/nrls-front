@@ -6,7 +6,6 @@ import endPoints from "../../../../../constant/endPoints";
 import { useTranslation } from "react-i18next";
 import Breadcrumbs from "./../../../../../components/breadcrumbs/Breadcrumbs";
 import TableToolBar from "./../../../../../components/table_toolbar/TableToolBar";
-import Search from "./../../../../../components/table_toolbar/Search";
 import Table from "../../../../../components/table/Table";
 import CreateBackup from "../components/CreateBackup";
 import "../style/style.css";
@@ -20,6 +19,7 @@ import Delete from "../components/Delete";
 import { useMutation } from "@tanstack/react-query";
 import axiosInstance from "../../../../../utils/axios";
 import UploadBackup from "../components/UploadBackup";
+import { enqueueSnackbar } from "notistack";
 
 const Backups = () => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -27,7 +27,6 @@ const Backups = () => {
   const [restore, setRestore] = useState(null);
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState({});
-  const [search, setSearch] = useState("");
   const { page_size } = useDashboardContext();
 
   const { data, isLoading, error, refetch } = useFetchData({
@@ -35,14 +34,44 @@ const Backups = () => {
     page,
     page_size,
     ordering: sort,
-    search,
   });
 
   const { t } = useTranslation();
 
   const handleDownload = useMutation({
-    mutationFn: async (name) =>
-      await axiosInstance.get(`${endPoints.backup}download/${name}/`),
+    mutationFn: async (name) => {
+      const { data } = await axiosInstance.get(
+        `${endPoints.backup}download/${name}/`,
+        {
+          responseType: "blob",
+        },
+      );
+
+      return { data, name };
+    },
+
+    onMutate: () =>
+      enqueueSnackbar({
+        message: "Download started",
+        variant: "info",
+      }),
+
+    onSuccess: ({ data, name }) => {
+      const url = window.URL.createObjectURL(new Blob([data]));
+      const link = document.createElement("a");
+
+      link.href = url;
+      link.setAttribute("download", name);
+      document.body.appendChild(link);
+
+      link.click();
+      link.remove();
+
+      enqueueSnackbar({
+        message: "Downloaded successfully",
+        variant: "success",
+      });
+    },
   });
 
   const column = useMemo(
@@ -86,7 +115,7 @@ const Backups = () => {
 
             <Button
               btnStyleType="transparent"
-              btnType="delete"
+              btnType="save"
               onClick={() => handleDownload.mutate(row.filename)}
             >
               <FontAwesomeIcon icon={faDownload} />
@@ -128,7 +157,6 @@ const Backups = () => {
 
       <div className="table-container">
         <TableToolBar title={t("pages.backup")}>
-          <Search setSearch={setSearch} />
           <CreateBackup />
           <UploadBackup />
         </TableToolBar>
