@@ -476,6 +476,18 @@ aside.post-sidebar {
   padding-inline: 10px;
   padding-block: 6px;
 }
+
+.post-sidebar .event-actions {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.post-sidebar .event-actions .icon-button {
+  width: 30px;
+  height: 30px;
+  font-size: 13px;
+}
+
 .post-sidebar .main-info > div:not(:last-of-type) {
   border-bottom: solid 1px var(--border-color);
 }

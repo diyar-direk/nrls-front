@@ -3,7 +3,7 @@ import { dashboardRouts } from "../../../../../constant/pageRoutes";
 import PageFallback from "../../../../../components/PageFallBack";
 const AllEvents = lazy(() => import("../pages/AllEvents"));
 const AddEvent = lazy(() => import("../pages/AddEvent"));
-const UpdateTag = lazy(() => import("../pages/UpdateTag"));
+const UpdateEvent = lazy(() => import("../pages/UpdateEvent"));
 
 export const eventsRouter = [
   {
@@ -26,7 +26,7 @@ export const eventsRouter = [
     path: dashboardRouts.events.update(),
     element: (
       <PageFallback>
-        <UpdateTag />
+        <UpdateEvent />
       </PageFallback>
     ),
   },

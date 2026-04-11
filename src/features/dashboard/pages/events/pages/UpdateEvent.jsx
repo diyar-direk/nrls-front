@@ -1,39 +1,48 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import endPoints from "../../../../../constant/endPoints";
 import APIClient from "../../../../../utils/ApiClient";
 import { useFormik } from "formik";
-import { useLocation, useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useTranslation } from "react-i18next";
 import Breadcrumbs from "../../../../../components/breadcrumbs/Breadcrumbs";
 import Input from "../../../../../components/inputs/Input";
 import Button from "../../../../../components/buttons/Button";
-import { eventsSchema } from "./../../../../../schema/event";
+import Skeleton from "../../../../../components/skeleton/Skeleton";
+import HandleError from "../../../../../components/error/HandleError";
 import SelectInputApi from "../../../../../components/inputs/SelectInputApi";
 import SelectOptionInput from "../../../../../components/inputs/SelectOptionInput";
 import { eventType } from "../../../../../constant/enums";
+import { eventsSchema } from "../../../../../schema/event";
+import dateFormatter from "../../../../../utils/dateFormatter";
 
 const api = new APIClient(endPoints.events);
 
-const AddEvent = () => {
-  const { state } = useLocation();
+const UpdateEvent = () => {
+  const { id } = useParams();
+
+  const { data, error, isLoading, refetch } = useQuery({
+    queryKey: [endPoints.events, id],
+    queryFn: () => api.getOne(id),
+  });
 
   const formik = useFormik({
     initialValues: {
-      post: state?.post || "",
-      event_type: "",
-      location: "",
-      event_date: "",
-      attendess_count: "",
+      post: data?.post ? { id: data?.post, title: data?.post_title } : "",
+      event_type: data?.event_type || "",
+      location: data?.location || "",
+      event_date: data?.event_date ? dateFormatter(data?.event_date) : "",
+      attendess_count: data?.attendess_count || "",
     },
     validationSchema: eventsSchema,
-    onSubmit: (d) => handleConfirm.mutate(d),
+    onSubmit: (d) => handleConfirm.mutate({ ...d, post: d.post?.id }),
+    enableReinitialize: true,
   });
 
   const query = useQueryClient();
   const nav = useNavigate();
 
   const handleConfirm = useMutation({
-    mutationFn: (d) => api.addData({ ...d, post: d.post?.id }),
+    mutationFn: (data) => api.updateData({ data, id }),
     onSuccess: () => {
       query.invalidateQueries([endPoints.events]);
       nav(-1);
@@ -41,6 +50,10 @@ const AddEvent = () => {
   });
 
   const { t } = useTranslation();
+
+  if (isLoading) return <Skeleton height="300px" />;
+
+  if (error) return <HandleError error={error} refetch={refetch} />;
 
   return (
     <>
@@ -97,4 +110,4 @@ const AddEvent = () => {
   );
 };
 
-export default AddEvent;
+export default UpdateEvent;

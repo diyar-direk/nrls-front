@@ -16,6 +16,7 @@ import { icons } from "../../../../../constant/icons";
 import PostViewMainSections from "../components/PostViewMainSections";
 import SideBarMainInfo from "../components/SideBarMainInfo";
 import SharePost from "../components/SharePost";
+import Events from "../components/Events";
 
 const api = new APIClient(endPoints.posts);
 
@@ -75,6 +76,22 @@ const ViewPost = () => {
             </Link>
 
             <SharePost id={id} name={data?.content_type} />
+          </div>
+
+          <p className="section-title">evenets </p>
+
+          <Events post={id} />
+
+          <div className="actions">
+            <Link
+              to={dashboardRouts.events.add}
+              state={{ post: data }}
+              className="flex-1"
+            >
+              <Button btnStyleType="transparent" className="w-100">
+                <FontAwesomeIcon icon={icons.add} /> add event
+              </Button>
+            </Link>
           </div>
 
           {data?.author && (
