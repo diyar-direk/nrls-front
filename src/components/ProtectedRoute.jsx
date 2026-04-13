@@ -1,10 +1,10 @@
 import { Navigate } from "react-router";
-import AuthHelper from "../utils/authHelper";
+import { useAuth } from "../context/AuthContext";
 
 const ProtectedRoute = ({ children }) => {
-  const isAuthenticated = new AuthHelper().isAuthenticated();
-  
-  if (!isAuthenticated) return <Navigate to={"/"} replace />;
+  const { user } = useAuth();
+
+  if (!user) return <Navigate to={"/"} replace />;
 
   return children;
 };

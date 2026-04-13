@@ -12,10 +12,10 @@ import Tooltip from "../tooltip/Tooltip";
 import useDarkMode from "./../../hooks/useDarkMode";
 import { homeRoutes } from "../../constant/pageRoutes";
 import Search from "./Search";
-import AuthHelper from "../../utils/authHelper";
+import { useAuth } from "../../context/AuthContext";
 
 const Header = () => {
-  const isAuthenticated = new AuthHelper().isAuthenticated();
+  const { user } = useAuth();
   const currentDate = useMemo(
     () =>
       new Date().toLocaleDateString("ar-SY", {
@@ -110,7 +110,7 @@ const Header = () => {
           <NavLink to={homeRoutes.about}>about</NavLink>
           <NavLink to={homeRoutes.contact}>contact us</NavLink>
 
-          {isAuthenticated ? (
+          {user ? (
             <NavLink to={homeRoutes.dashboard}>dashboard</NavLink>
           ) : (
             <NavLink to={homeRoutes.login}>login</NavLink>

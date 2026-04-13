@@ -5,6 +5,7 @@ const endPoints = {
   events: "events/",
   categories: "categories/",
   login: "login/",
+  me: "me/",
   refresh: "token/refresh/",
   logout: "logout/",
   posts: "posts/",

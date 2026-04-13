@@ -5,7 +5,6 @@ import {
   useEffect,
   useCallback,
 } from "react";
-import AuthHelper from "../utils/authHelper";
 import Loading from "./../components/loading/Loading";
 import { Outlet, useNavigate } from "react-router";
 import axiosInstance from "../utils/axios";
@@ -15,38 +14,22 @@ import { enqueueSnackbar } from "notistack";
 import endPoints from "../constant/endPoints";
 
 const AuthContext = createContext();
-const authHelper = new AuthHelper();
 
 export const AuthProvider = () => {
   const [loading, setLoading] = useState(false);
-  const isAuthenticated = authHelper.isAuthenticated();
   const nav = useNavigate();
 
   const query = useQueryClient();
 
-  const login = useCallback(
-    (data) => {
-      authHelper.setToken(data.access_token);
-      axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.access_token}`;
-      query.clear();
-    },
-    [query],
-  );
-
   const logout = useCallback(async () => {
     await axiosInstance.post(endPoints.logout);
+    query.removeQueries();
     nav("/");
-    authHelper.clearToken();
-    setTimeout(() => query.clear(), 500);
   }, [query, nav]);
 
   useEffect(() => {
     const requestInterceptor = axiosInstance.interceptors.request.use(
       (config) => {
-        if (authHelper.isAuthenticated()) {
-          config.headers.Authorization = `Bearer ${authHelper.getToken()}`;
-        }
-
         if (config.method !== "get") {
           setLoading(true);
         }
@@ -87,7 +70,9 @@ export const AuthProvider = () => {
           });
         }
 
-        if (error.response?.status === 401) {
+        const { url } = error.response.config;
+
+        if (error.response?.status === 401 && url !== endPoints.logout) {
           logout();
         }
 
@@ -102,18 +87,18 @@ export const AuthProvider = () => {
   }, [logout]);
 
   const { data: user, isLoading } = useQuery({
-    queryKey: ["me/"],
+    queryKey: [endPoints.me],
     queryFn: async () => {
-      const { data } = await axiosInstance.get("me/");
+      const { data } = await axiosInstance.get(endPoints.me);
       return data || null;
     },
-    enabled: isAuthenticated,
+    retry: false,
   });
 
   if (isLoading) return <Loading />;
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, logout }}>
       <Outlet />
       {loading && <Loading />}
     </AuthContext.Provider>

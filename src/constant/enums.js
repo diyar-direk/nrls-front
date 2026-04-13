@@ -12,7 +12,7 @@ const publicationType = ["magazine", "book"];
 
 const eventType = ["dialogue_session", "forum", "meeting", "center_news"];
 
-const allTyps = [...contentType, ...publicationType, ...eventType];
+const allTyps = contentType;
 
 const mediaFileType = ["image", "video", "pdf", "audio"];
 

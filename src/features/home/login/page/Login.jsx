@@ -5,14 +5,14 @@ import "../style/style.css";
 import Button from "../../../../components/buttons/Button";
 import axiosInstance from "../../../../utils/axios";
 import endPoints from "./../../../../constant/endPoints";
-import { useAuth } from "../../../../context/AuthContext";
 import { useNavigate } from "react-router";
 import { dashboardRouts } from "../../../../constant/pageRoutes";
+import { useQueryClient } from "@tanstack/react-query";
 
 const Login = () => {
-  const { login } = useAuth();
-
   const nav = useNavigate();
+
+  const query = useQueryClient();
 
   const formik = useFormik({
     initialValues: { username: "", password: "" },
@@ -21,8 +21,8 @@ const Login = () => {
       password: yup.string().required(),
     }),
     onSubmit: async (v) => {
-      const { data } = await axiosInstance.post(endPoints.login, v);
-      login(data.data);
+      await axiosInstance.post(endPoints.login, v);
+      query.invalidateQueries([endPoints.me]);
       nav(dashboardRouts.user.page);
     },
   });
