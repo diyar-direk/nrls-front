@@ -27,17 +27,25 @@ export const AuthProvider = () => {
     nav("/");
   }, [query, nav]);
 
+  let isRefreshing = false;
+  let failedQueue = [];
+
+  const processQueue = (error, token = null) => {
+    failedQueue.forEach(({ resolve, reject }) => {
+      if (error) reject(error);
+      else resolve(token);
+    });
+    failedQueue = [];
+  };
+
   useEffect(() => {
     const requestInterceptor = axiosInstance.interceptors.request.use(
       (config) => {
-        if (config.method !== "get") {
-          setLoading(true);
-        }
+        if (config.method !== "get") setLoading(true);
         return config;
       },
       (error) => {
         setLoading(false);
-
         return Promise.reject(error);
       },
     );
@@ -48,33 +56,68 @@ export const AuthProvider = () => {
         if (response.config.method !== "get") {
           const message =
             response?.data?.message || "Operation done successfully";
-
           enqueueSnackbar(message, { variant: "success" });
         }
         return response;
       },
-      (error) => {
+      async (error) => {
         setLoading(false);
 
-        const { message: err } = error.response.data;
+        const originalRequest = error.config;
+        const { url } = originalRequest;
+        const status = error.response?.status;
+
+        if (
+          status === 401 &&
+          url !== endPoints.logout &&
+          !originalRequest._retry
+        ) {
+          if (isRefreshing) {
+            return new Promise((resolve, reject) => {
+              failedQueue.push({ resolve, reject });
+            })
+              .then((token) => {
+                originalRequest.headers["Authorization"] = `Bearer ${token}`;
+                return axiosInstance(originalRequest);
+              })
+              .catch((err) => Promise.reject(err));
+          }
+
+          originalRequest._retry = true;
+          isRefreshing = true;
+
+          try {
+            const { data } = await axiosInstance.post(endPoints.refresh);
+            const newToken = data.accessToken;
+
+            axiosInstance.defaults.headers.common["Authorization"] =
+              `Bearer ${newToken}`;
+            originalRequest.headers["Authorization"] = `Bearer ${newToken}`;
+
+            processQueue(null, newToken);
+            return axiosInstance(originalRequest);
+          } catch (refreshError) {
+            processQueue(refreshError, null);
+            logout();
+            return Promise.reject(refreshError);
+          } finally {
+            isRefreshing = false;
+          }
+        }
+
+        const { message: err } = error.response?.data || {};
 
         if (typeof err === "string") {
-          const message = extarctErrorMessage(error);
-          enqueueSnackbar(message, { variant: "error" });
+          enqueueSnackbar(extarctErrorMessage(error), { variant: "error" });
         } else if (typeof err === "object") {
-          Object.values(err)?.map((e) => {
+          Object.values(err)?.forEach((e) => {
             if (typeof e === "string") enqueueSnackbar(e, { variant: "error" });
-            else if (Array.isArray(e)) {
-              e.map((m) => enqueueSnackbar(m, { variant: "error" }));
-            }
+            else if (Array.isArray(e))
+              e.forEach((m) => enqueueSnackbar(m, { variant: "error" }));
           });
         }
 
-        const { url } = error.response.config;
-
-        if (error.response?.status === 401 && url !== endPoints.logout) {
-          logout();
-        }
+        if (status === 401 && url !== endPoints.logout) logout();
 
         return Promise.reject(error);
       },
