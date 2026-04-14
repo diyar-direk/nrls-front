@@ -12,6 +12,7 @@
   height: 100%;
   display: flex;
   align-items: center;
+  font-size: 15px;
 }
 
 .top-header .logo img {
@@ -39,11 +40,35 @@
 .top-header .date svg {
   color: var(--secondry-color);
 }
+.top-header .language {
+  position: relative;
+}
+.top-header .language .language-div {
+  position: absolute;
+  top: calc(100% + 5px);
+  z-index: 11;
+  background-color: var(--body-color);
+  color: var(--font-color);
+  box-shadow: var(--box-shadow);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.top-header .language .language-div p {
+  line-height: 1.2;
+  padding: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.top-header .language .language-div p:hover,
+.top-header .language .language-div p.active {
+  background-color: var(--border-color);
+}
 
 .current-language,
 .mode {
   cursor: pointer;
   font-size: 14px;
+  text-transform: uppercase;
 }
 
 .current-language:hover,
@@ -171,9 +196,10 @@
   z-index: 2;
   background-color: var(--body-color);
   border-radius: 6px;
-  overflow: hidden;
+  overflow: auto;
   box-shadow: var(--box-shadow);
   width: 100%;
+  max-height: 400px;
 }
 
 .bottom-header .search .results a {
@@ -211,9 +237,207 @@
     transparent;
   animation: search-loading 1s infinite linear;
 }
+.bottom-header .menu {
+  display: none;
+}
 
 @keyframes search-loading {
   100% {
     rotate: 365deg;
+  }
+}
+
+@media (max-width: 1000px) {
+  .top-header {
+    height: 65px;
+  }
+  .top-header > div {
+    gap: 10px;
+  }
+  .top-header .date {
+    padding: 6px 10px;
+    gap: 5px;
+    font-size: 13px;
+  }
+  .current-language,
+  .mode {
+    font-size: 13px;
+  }
+  .top-header .logo {
+    font-size: 13px;
+  }
+  .top-header .logo img {
+    width: 80px;
+    height: 100%;
+  }
+  .bottom-header {
+    height: 60px;
+  }
+  .bottom-header nav {
+    gap: 2px;
+  }
+  .bottom-header nav .link {
+    padding: 6px;
+    font-size: 12px;
+    gap: 0px;
+  }
+  .bottom-header .search input {
+    padding: 10px;
+    font-size: 12px;
+    width: 150px;
+  }
+
+  .bottom-header .search button {
+    padding: 9px;
+    font-size: 13px;
+  }
+  .bottom-header nav .link article {
+    min-width: 140px;
+    padding: 6px;
+    gap: 3px;
+  }
+  .bottom-header nav .link article a {
+    padding: 4px 6px;
+  }
+  .bottom-header .search .results a {
+    gap: 8px;
+    padding: 3px 8px;
+  }
+  .bottom-header .search .results a img {
+    width: 35px;
+    height: 35px;
+  }
+  .bottom-header .search .results a h5 {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 850px) {
+  .bottom-header .menu {
+    display: flex;
+  }
+  .bottom-header nav {
+    display: none;
+    position: absolute;
+    background: color-mix(in srgb, var(--body-color) 50%, transparent);
+    top: calc(100% + 2px);
+    flex-direction: column;
+    width: 100%;
+    left: 0;
+    align-items: flex-start;
+    backdrop-filter: blur(4px);
+    padding: 10px 20px;
+    animation: fadeIn 0.4s;
+  }
+  .bottom-header nav .link {
+    width: 100%;
+    border-radius: 7px;
+  }
+  .bottom-header nav .link div {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .bottom-header nav .link article {
+    min-width: auto;
+    width: 100%;
+    z-index: 14;
+  }
+
+  .top-header {
+    height: 60px;
+  }
+  .top-header .date {
+    padding: 5px 8px;
+    font-size: 12px;
+  }
+  .current-language,
+  .mode {
+    font-size: 12px;
+  }
+  .top-header .logo {
+    font-size: 12px;
+  }
+  .top-header .logo img {
+    width: 70px;
+    height: 100%;
+  }
+  .bottom-header {
+    height: 55px;
+  }
+
+  .bottom-header .search input {
+    padding: 8px;
+    font-size: 11px;
+    width: 150px;
+  }
+
+  .bottom-header .search button {
+    padding: 8px;
+    font-size: 12px;
+  }
+  .bottom-header nav .link article {
+    min-width: 140px;
+    padding: 6px;
+    gap: 3px;
+  }
+  .bottom-header nav .link article a {
+    padding: 4px 6px;
+  }
+  .bottom-header .search .results a {
+    gap: 8px;
+    padding: 3px 8px;
+  }
+  .bottom-header .search .results a img {
+    width: 35px;
+    height: 35px;
+  }
+  .bottom-header .search .results a h5 {
+    font-size: 11px;
+  }
+  .bottom-header .search .results {
+    max-height: 300px;
+  }
+  .bottom-header nav.open {
+    display: flex;
+  }
+}
+
+@media (max-width: 650px) {
+  .top-header .date {
+    padding: 4px 7px;
+    font-size: 11px;
+  }
+  .top-header {
+    height: 55px;
+  }
+  .current-language,
+  .mode {
+    font-size: 11px;
+  }
+  .top-header .language .language-div p {
+    line-height: 1;
+    padding: 4px;
+    font-size: 12px;
+  }
+  .top-header .logo {
+    font-size: 11px;
+  }
+  .top-header .logo img {
+    width: 65px;
+  }
+
+  .bottom-header .search input {
+    padding: 7px;
+    font-size: 10px;
+    width: 140px;
+  }
+  .bottom-header .search button {
+    padding: 7px;
+    font-size: 11px;
+  }
+  .bottom-header {
+    height: 50px;
   }
 }

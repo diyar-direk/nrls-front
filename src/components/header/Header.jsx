@@ -1,66 +1,28 @@
 import "./style.css";
-import Logo from "../../assets/logo.png";
-import { Link, NavLink } from "react-router";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCalendarAlt,
-  faChevronDown,
-  faMoon,
-} from "@fortawesome/free-solid-svg-icons";
-import { useMemo } from "react";
-import Tooltip from "../tooltip/Tooltip";
-import useDarkMode from "./../../hooks/useDarkMode";
+import { NavLink } from "react-router";
 import { homeRoutes } from "../../constant/pageRoutes";
 import Search from "./Search";
 import { useAuth } from "../../context/AuthContext";
 import { mediaTyps, publicationTyps, topicTyps } from "../../constant/enums";
 import NestedMenu from "./NestedMenu";
+import TopHeader from "./TopHeader";
+import IconButton from "./../buttons/IconButton";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { useClickOutside } from "../../hooks/useClickOutside";
 
 const Header = () => {
   const { user } = useAuth();
-  const currentDate = useMemo(
-    () =>
-      new Date().toLocaleDateString("ar-SY", {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        numberingSystem: "latn",
-      }),
-    [],
-  );
 
-  const { changeMode } = useDarkMode();
+  const { isOpen, ref, toggleOpen } = useClickOutside();
 
   return (
     <>
-      <div className="top-header container">
-        <div>
-          <div className="date">
-            {currentDate}
-            <FontAwesomeIcon icon={faCalendarAlt} />
-          </div>
-          <div className="language">
-            <Tooltip text={"language"} placement="bottom">
-              <span className="current-language">
-                AR <FontAwesomeIcon icon={faChevronDown} />
-              </span>
-            </Tooltip>
-          </div>
+      <TopHeader />
 
-          <Tooltip text={"mode"} placement="bottom" onClick={changeMode}>
-            <FontAwesomeIcon icon={faMoon} className="mode" />
-          </Tooltip>
-        </div>
+      <div className="bottom-header container" ref={ref}>
+        <IconButton icon={faBars} className="menu" onClick={toggleOpen} />
 
-        <Link className="logo" to={"/"}>
-          مركز روجافا للدراسات الاستراتيجية
-          <img src={Logo} alt="" />
-        </Link>
-      </div>
-
-      <div className="bottom-header container">
-        <nav>
+        <nav className={isOpen ? "open" : ""}>
           <NavLink to={"/"} className="link">
             home
           </NavLink>
