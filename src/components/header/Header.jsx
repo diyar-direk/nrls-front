@@ -9,8 +9,6 @@ import TopHeader from "./TopHeader";
 import IconButton from "./../buttons/IconButton";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { useClickOutside } from "../../hooks/useClickOutside";
-import AuthHelper from "../../utils/authHelper";
-import { useTranslation } from "react-i18next";
 
 const Header = () => {
   const { user } = useAuth();
