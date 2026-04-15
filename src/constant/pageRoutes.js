@@ -62,52 +62,52 @@ const dashboardRouts = {
 
 const dashboardPages = [
   {
-    title: "dashboard",
+    title: "pages.dashboard",
     to: homeRoutes.dashboard,
     icon: icons.dashboard,
   },
   {
-    title: "users",
+    title: "pages.users",
     to: dashboardRouts.user.page,
     icon: icons.users,
   },
   {
-    title: "add user",
+    title: "pages.add_user",
     to: dashboardRouts.user.add,
     icon: icons.addUser,
   },
   {
-    title: "posts",
+    title: "pages.posts",
     to: dashboardRouts.post.page,
     icon: icons.posts,
   },
   {
-    title: "events",
+    title: "pages.events",
     to: dashboardRouts.events.page,
     icon: icons.events,
   },
   {
-    title: "add post",
+    title: "pages.add_post",
     to: dashboardRouts.post.add,
     icon: icons.add,
   },
   {
-    title: "tags",
+    title: "pages.tags",
     to: dashboardRouts.tag.page,
     icon: icons.tags,
   },
   {
-    title: "categories",
+    title: "pages.categories",
     to: dashboardRouts.category.page,
     icon: icons.category,
   },
   {
-    title: "authors",
+    title: "pages.authors",
     to: dashboardRouts.author.page,
     icon: icons.author,
   },
   {
-    title: "backup",
+    title: "pages.backup",
     to: dashboardRouts.backup.page,
     icon: icons.backup,
   },

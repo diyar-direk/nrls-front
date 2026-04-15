@@ -46,7 +46,7 @@ const Delete = ({
     <>
       <IconButton
         color="secondry-color"
-        title={t("delete")}
+        title={t("common.delete")}
         disabled={!selectedItems?.size}
         onClick={() => selectedItems?.size && setIsPopUpOpen(true)}
       >

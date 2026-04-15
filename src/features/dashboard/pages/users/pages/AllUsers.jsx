@@ -66,18 +66,18 @@ const column = [
   },
   {
     name: "created_by_username",
-    headerName: "created_by",
+    headerName: "user.created_by",
     getCell: ({ row }) => row.created_by_username,
   },
   {
     name: "created_at",
-    headerName: "created_at",
+    headerName: "user.created_at",
     sort: true,
     getCell: ({ row }) => dateFormatter(row.created_at, "fullDate"),
   },
   {
     name: "actions",
-    headerName: "actions",
+    headerName: "user.actions",
     getCell: ({ row }) => (
       <div className="center">
         <Link to={dashboardRouts.user.update(row.id)}>

@@ -3,6 +3,7 @@ import Filters from "./../../../../../components/table_toolbar/Filters";
 import Input from "../../../../../components/inputs/Input";
 import { useCallback, useEffect, useState } from "react";
 import { useDebounce } from "use-debounce";
+import { useTranslation } from "react-i18next";
 
 const UsersFilter = ({ filters, setFilters }) => {
   const [local, setLocal] = useState(filters);
@@ -17,52 +18,53 @@ const UsersFilter = ({ filters, setFilters }) => {
     (e) => setLocal((p) => ({ ...p, [e.target.name]: e.target.value })),
     [],
   );
+  const { t } = useTranslation();
 
   return (
     <Filters filters={filters} setFilters={setFilters}>
       <Input
         name="username"
-        placeholder="search by username"
+        placeholder={t("user.search_by_username")}
         value={local?.username ?? ""}
         notRequired
         onChange={handleChange}
-        label="username"
+        label={t("user.username")}
       />
 
       <Input
         name="full_name"
-        placeholder="search by full_name"
+        placeholder={t("user.search_by_full_name")}
         value={local?.full_name ?? ""}
         notRequired
         onChange={handleChange}
-        label="full_name"
+        label={t("user.full_name")}
       />
 
       <SelectOptionInput
         customOptions={[
           {
-            title: "all",
+            title: t("user.all"),
             onChange: () => setLocal((p) => ({ ...p, is_active: "" })),
           },
         ]}
-        label="account status"
-        placeholder="all"
+        label={t("user.account_status")}
+        placeholder={t("user.account_status_placeholder")}
         options={[
-          { text: "active", value: true },
-          { text: "inactive", value: false },
+          { text: t("user.active"), value: true },
+          { text: t("user.inactive"), value: false },
         ]}
         onSelectOption={(e) => setLocal((p) => ({ ...p, is_active: e.value }))}
-        value={local?.is_active ? "yes" : local?.is_active === false && "no"}
+        value={local?.is_active ? t("user.active") : local?.is_active === false && t("user.inactive")}
         notRequired
       />
 
       <Input
         name="email"
-        placeholder="search by email"
+        placeholder={t("table.filters.search_by_email")}
         value={local?.email ?? ""}
         notRequired
         onChange={handleChange}
-        label="email"
+        label={t("user.email")}
       />
     </Filters>
   );

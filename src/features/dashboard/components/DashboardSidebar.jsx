@@ -4,10 +4,10 @@ import { dashboardPages } from "../../../constant/pageRoutes";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "../../../context/AuthContext";
 import { useMemo } from "react";
-
+import { useTranslation } from "react-i18next";
 const DashboardSidebar = () => {
   const { user } = useAuth();
-
+  const { t } = useTranslation();
   const name = useMemo(() => user?.username, [user]);
 
   return (
@@ -15,11 +15,12 @@ const DashboardSidebar = () => {
       <nav className="links">
         {dashboardPages.map((e) => (
           <NavLink key={e.to} to={e.to} end title={e.title}>
-            <FontAwesomeIcon icon={e.icon} /> <span> {e.title} </span>
+            <FontAwesomeIcon icon={e.icon} /> <span> {t(e.title)} </span>
           </NavLink>
         ))}
-        <Link to={"/"} title="back home">
-          <FontAwesomeIcon icon={faHome} /> <span> back home </span>
+        <Link to={"/"} title={t("sidebar.back_to_home")}>
+          <FontAwesomeIcon icon={faHome} />{" "}
+          <span> {t("sidebar.back_to_home")} </span>
         </Link>
       </nav>
       <div className="user">

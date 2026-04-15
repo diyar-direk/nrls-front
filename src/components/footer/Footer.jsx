@@ -3,15 +3,15 @@ import "./footer.css";
 import Tooltip from "../tooltip/Tooltip";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { socialLinks } from "../../constant/socialLinks";
-
+import { useTranslation } from "react-i18next";
 const Footer = () => {
+  const { t } = useTranslation();
   return (
     <footer className="home-footer container">
       <main>
         <h2 className="title">NRLS</h2>
         <p>
-          منصتك الأولى للأخبار الموثوقة والشاملة من جميع أنحاء العالم. نقدم لكم
-          آخر المستجدات على مدار الساعة.
+         {t("footer.description")}
         </p>
         <div className="social-links">
           {Object.keys(socialLinks)?.map((e) => (
@@ -24,26 +24,26 @@ const Footer = () => {
         </div>
       </main>
       <main>
-        <h2 className="title">روابط سريعة</h2>
+        <h2 className="title">{t("footer.quick_links")}</h2>
         <div className="links">
-          <Link>home</Link>
-          <Link>who are we</Link>
-          <Link>contact us</Link>
-          <Link>login</Link>
+          <Link to="/">{t("footer.home")}</Link>
+          <Link to="/about">{t("footer.about")}</Link>
+          <Link to="/contact">{t("footer.contact")}</Link>
+          <Link to="/login">{t("footer.login")}</Link>
         </div>
       </main>
       <main>
-        <h2>اقسام الموقع</h2>
+        <h2 className="title">{t("footer.categories")}</h2>
         <div className="links">
-          <Link>home</Link>
-          <Link>who are we</Link>
-          <Link>contact us</Link>
-          <Link>login</Link>
-          <Link>home</Link>
+          <Link to="/">{t("footer.home")}</Link>
+          <Link to="/about">{t("footer.about")}</Link>
+          <Link to="/contact">{t("footer.contact")}</Link>
+          <Link to="/login">{t("footer.login")}</Link>
+          <Link to="/">{t("footer.home")}</Link>
         </div>
       </main>
 
-      <article className="copyright"> جميع الحقوق محفوظة 2026</article>
+      <article className="copyright">{t("footer.copyright")}</article>
     </footer>
   );
 };

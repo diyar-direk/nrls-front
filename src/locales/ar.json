@@ -1,1 +1,223 @@
-{}
+{
+  "common": {
+    "delete": "حذف",
+    "edit": "تعديل",
+    "add": "إضافة",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "close": "إغلاق",
+    "ok": "موافق",
+    "yes": "نعم",
+    "no": "لا",
+    "confirm": "تأكيد",
+    "filters": "تصفية",
+    "search": "بحث",
+    "reset": "إعادة تعيين",
+    "data_count": "{{count}} عنصر",
+    "date": "التاريخ",
+    "from": "من ",
+    "to": "إلى "
+  },
+  "table": {
+    "no_results": "لا توجد نتائج",
+    "loading": "جار التحميل...",
+    "actions": "الإجراءات",
+    "data_count": "عدد العناصر",
+    "delete": "حذف",
+    "filters": {
+      "search": "بحث...",
+      "date_range": "نطاق التاريخ",
+      "status": "الحالة",
+      "all": "الكل",
+      "reset": "إعادة تعيين"
+    }
+  },
+  "pages": {
+    "home": "الرئيسية",
+    "login": "تسجيل الدخول",
+    "logout": "تسجيل الخروج",
+    "dashboard": "لوحة التحكم",
+    "users": "المستخدمين",
+    "roles": "الأدوار",
+    "permissions": "الصلاحيات",
+    "events": "الأحداث",
+    "add":"إضافة",
+    "add_user": "إضافة مستخدم",
+    "posts": "المنشورات",
+    "add_post": "إضافة منشور",
+    "categories": "الأقسام",
+    "tags": "العلامات",
+    "authors": "المؤلفين",
+    "backup": "النسخ الاحتياطي"
+  },
+  "dashboardRoutes": {
+    "user_add": "إضافة",
+    "user_edit": "تعديل مستخدم",
+    "user_view": "عرض مستخدم",
+    "role_add": "إضافة دور",
+    "role_edit": "تعديل دور",
+    "permission_add": "إضافة صلاحية",
+    "permission_edit": "تعديل صلاحية"
+  },
+  "user": {
+    "login": "تسجيل الدخول",
+    "username": "اسم المستخدم",
+    "role": "الدور",
+    "full_name": "الاسم الكامل",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "password_conf": "تأكيد كلمة المرور",
+    "account_status": "حالة الحساب",
+    "is_active": "نشط",
+    "active": "نشط",
+    "inactive": "غير نشط",
+    "created_by": "أنشأ بواسطة",
+    "created_at": "تاريخ الإنشاء",
+    "actions": "الإجراءات",
+    "all": "الكل",
+    "save": "حفظ",
+    "add": "إضافة مستخدم",
+    "placeholders": {
+      "username": "أدخل اسم المستخدم",
+      "email": "أدخل البريد الإلكتروني",
+      "password": "أدخل كلمة المرور",
+      "password_conf": "تأكيد كلمة المرور",
+      "full_name": "أدخل الاسم الكامل",
+      "role": "أدخل الدور",
+      "account_status": "أدخل حالة الحساب"
+    },
+    "search": {
+      "by_username": "البحث عن طريق اسم المستخدم",
+      "by_email": "البحث عن طريق البريد الإلكتروني",
+      "by_full_name": "البحث عن طريق الاسم الكامل"
+    },
+    "messages": {
+      "create_success": "تم إنشاء المستخدم بنجاح",
+      "update_success": "تم تحديث المستخدم بنجاح",
+      "delete_success": "تم حذف المستخدم بنجاح",
+      "delete_confirm": "هل أنت متأكد من حذف هذا المستخدم؟",
+      "password_mismatch": "كلمة المرور غير متطابقة",
+      "invalid_email": "البريد الإلكتروني غير صالح"
+    }
+  },
+  "backups": {
+    "title": "النسخ الاحتياطي",
+    "filename": "اسم الملف",
+    "file_path": "مسار الملف",
+    "type": "النوع",
+    "size": "الحجم",
+    "created_at": "تاريخ الإنشاء",
+    "actions": "الإجراءات",
+    "backup_actions": "إجراءات النسخ الاحتياطي",
+    "replace": "استبدال",
+    "restore": "استعادة",
+    "download": "تحميل",
+    "upload": "رفع نسخة احتياطية",
+    "create": "إنشاء نسخة احتياطية",
+    "messages": {
+      "download_started": "بدء التحميل...",
+      "download_success": "تم التحميل بنجاح",
+      "download_error": "فشل التحميل",
+      "create_success": "تم إنشاء النسخة الاحتياطية بنجاح",
+      "create_error": "فشل إنشاء النسخة الاحتياطية",
+      "upload_success": "تم رفع النسخة الاحتياطية بنجاح",
+      "upload_error": "فشل رفع النسخة الاحتياطية",
+      "delete_success": "تم حذف النسخة الاحتياطية بنجاح",
+      "delete_error": "فشل حذف النسخة الاحتياطية",
+      "delete_confirm": "هل أنت متأكد من حذف {{filename}}؟",
+      "restore_success": "تم استعادة النسخة الاحتياطية بنجاح",
+      "restore_error": "فشل استعادة النسخة الاحتياطية",
+      "replace_success": "تم استبدال النسخة الاحتياطية بنجاح",
+      "replace_error": "فشل استبدال النسخة الاحتياطية"
+    }
+  },
+  "header": {
+    "language": "اللغة",
+    "mode": "الوضع",
+    "dashboard": "لوحة التحكم",
+    "search": "بحث...",
+    "about": "من نحن",
+    "contact": "اتصل بنا",
+    "profile": "الملف الشخصي",
+    "settings": "الإعدادات",
+    "notifications": "الإشعارات"
+  },
+  "footer": {
+     "copyright": "حقوق النشر © 2026 جميع الحقوق محفوظة",
+    "description": "منصتك الأولى للأخبار الموثوقة والشاملة من جميع أنحاء العالم. نقدم لكم آخر المستجدات على مدار الساعة.",
+    "quick_links": "روابط سريعة",
+    "categories": "الأقسام",
+    "subscribe": "اشترك",
+    "home": "الرئيسية",
+    "about": "من نحن",
+    "contact": "اتصل بنا",
+    "login": "تسجيل الدخول"
+
+   
+  },
+  "sidebar": {
+    "dashboard": "لوحة التحكم",
+    "users": "المستخدمين",
+    "roles": "الأدوار",
+    "permissions": "الصلاحيات",
+    "back_to_home": "العودة إلى الرئيسية"
+  },
+  "roles": {
+    "title": "الأدوار",
+    "name": "اسم الدور",
+    "description": "وصف الدور",
+    "permissions": "الصلاحيات",
+    "users_count": "عدد المستخدمين",
+    "created_at": "تاريخ الإنشاء",
+    "actions": "الإجراءات",
+    "placeholders": {
+      "name": "أدخل اسم الدور",
+      "description": "أدخل وصف الدور"
+    },
+    "messages": {
+      "create_success": "تم إنشاء الدور بنجاح",
+      "update_success": "تم تحديث الدور بنجاح",
+      "delete_success": "تم حذف الدور بنجاح",
+      "delete_confirm": "هل أنت متأكد من حذف هذا الدور؟"
+    }
+  },
+  "permissions": {
+    "title": "الصلاحيات",
+    "name": "اسم الصلاحية",
+    "codename": "الرمز التعريفي",
+    "module": "الوحدة",
+    "actions": "الإجراءات",
+    "messages": {
+      "create_success": "تم إنشاء الصلاحية بنجاح",
+      "update_success": "تم تحديث الصلاحية بنجاح",
+      "delete_success": "تم حذف الصلاحية بنجاح"
+    }
+  },
+  "validation": {
+    "required": "هذا الحقل مطلوب",
+    "min_length": "يجب أن يكون على الأقل {{min}} أحرف",
+    "max_length": "يجب أن يكون على الأكثر {{max}} أحرف",
+    "email": "يرجى إدخال بريد إلكتروني صالح",
+    "password_match": "كلمة المرور غير متطابقة",
+    "numeric": "يجب أن يكون رقماً",
+    "date": "يرجى إدخال تاريخ صالح"
+  },
+  "errors": {
+    "general": "حدث خطأ ما",
+    "network": "خطأ في الشبكة",
+    "unauthorized": "غير مصرح به",
+    "forbidden": "ليس لديك صلاحية للوصول",
+    "not_found": "العنصر غير موجود",
+    "server_error": "خطأ في الخادم"
+  },
+  "buttons": {
+    "submit": "إرسال",
+    "confirm": "تأكيد",
+    "back": "رجوع",
+    "next": "التالي",
+    "previous": "السابق",
+    "refresh": "تحديث",
+    "export": "تصدير",
+    "import": "استيراد"
+  }
+}

@@ -11,11 +11,12 @@ import Button from "../../../../../components/buttons/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { icons } from "../../../../../constant/icons";
 import ConfirmPopUp from "../../../../../components/popup/ConfirmPopUp";
+import { useTranslation } from "react-i18next";
 
 const UploadBackup = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [action, setAction] = useState(null);
-
+const { t } = useTranslation();
   const formik = useFormik({
     initialValues: {
       backup_file: null,
@@ -51,7 +52,7 @@ const UploadBackup = () => {
       <IconButton
         icon={faFileExport}
         color="secondry-color"
-        title={"create backup"}
+        title={t("backups.create")}
         onClick={() => setIsOpen(true)}
       />
 

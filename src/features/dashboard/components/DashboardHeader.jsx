@@ -10,10 +10,11 @@ import { useState } from "react";
 import useDarkMode from "./../../../hooks/useDarkMode";
 import ConfirmPopUp from "../../../components/popup/ConfirmPopUp";
 import { useAuth } from "../../../context/AuthContext";
-import Language from "./Language";
-import Search from "./Search";
 
 const DashboardHeader = ({ isClosed, toggleClose }) => {
+  const { i18n } = useTranslation();
+  const { isOpen, toggleOpen, ref, setIsOpen } = useClickOutside();
+
   const { logout } = useAuth();
 
   const { changeMode } = useDarkMode();
@@ -25,15 +26,21 @@ const DashboardHeader = ({ isClosed, toggleClose }) => {
       <header className={`dashboard-header ${isClosed ? "closed" : ""}`}>
         <div className="sidebar-section">
           <h2>
-            <FontAwesomeIcon icon={faChartLine} /> dashboard
+            <FontAwesomeIcon icon={faChartLine} /> {t("sidebar.dashboard")}
           </h2>
           <IconButton onClick={toggleClose}>
             <FontAwesomeIcon icon={faBarsStaggered} />
           </IconButton>
         </div>
         <div className="header">
-          <Search />
-
+          <label htmlFor="pages-search">
+            <input
+              type="text"
+              placeholder="type a keyword ..."
+              id="pages-search"
+            />
+            <FontAwesomeIcon icon={faMagnifyingGlass} />
+          </label>
           <div className="icons">
             <IconButton
               color="secondry-color"

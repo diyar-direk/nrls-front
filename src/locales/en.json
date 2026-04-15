@@ -1,1 +1,15 @@
-{}
+{
+    "backups":{
+        "file_path": "File Path"
+    },
+    "user":{
+        "username": "Username",
+        "role": "Role",
+        "full_name": "Full Name",
+        "email": "Email",
+        "is_active": "Active",
+        "created_by": "Created By",
+        "created_at": "Created At",
+        "actions": "Actions"
+    }
+}

@@ -60,7 +60,7 @@ const Filters = ({
   return (
     <>
       <IconButton
-        title={t("filters")}
+        title={t("common.filters")}
         color={isOpen ? "main" : "secondry-color"}
         onClick={toggleOpen}
       >

@@ -59,7 +59,7 @@ const CloumnsVisible = ({ columns, setColumns, defaultColumns, onRefetch }) => {
           <input
             type="text"
             className="search"
-            placeholder={t("filters.search")}
+            placeholder={t("table.filters.search")}
             value={search}
             onChange={(e) => setSearch(e.target.value.toLowerCase())}
           />
@@ -101,7 +101,7 @@ const CloumnsVisible = ({ columns, setColumns, defaultColumns, onRefetch }) => {
 
           <Button btnStyleType="outlined" onClick={resetDefaultColumns}>
             <FontAwesomeIcon icon={faRotateRight} />
-            {t("reset_columns")}
+            {t("table.filters.reset")}
           </Button>
         </article>
       )}
