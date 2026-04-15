@@ -116,7 +116,7 @@ const Paginations = ({
 
       {dataLength > 0 && (
         <h2 className="data-count">
-          {t("data_count")} <span>{dataLength}</span>
+          {t("table.data_count")} <span>{dataLength}</span>
         </h2>
       )}
     </footer>

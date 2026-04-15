@@ -9,7 +9,7 @@ const Add = ({ path, ...props }) => {
 
   return (
     <Link to={path} {...props}>
-      <IconButton color="secondry-color" title={t("add")}>
+      <IconButton color="secondry-color" title={t("common.add")}>
         <FontAwesomeIcon icon={icons.add} />
       </IconButton>
     </Link>

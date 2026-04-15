@@ -6,18 +6,18 @@ import { socialLinks } from "../../constant/socialLinks";
 import { homeRoutes } from "../../constant/pageRoutes";
 import { useAuth } from "../../context/AuthContext";
 import { mediaTyps, publicationTyps, topicTyps } from "../../constant/enums";
+import { useTranslation } from "react-i18next";
 
 const Footer = () => {
   const { user } = useAuth();
+
+  const { t } = useTranslation();
 
   return (
     <footer className="home-footer container">
       <main>
         <h2 className="title">NRLS</h2>
-        <p>
-          منصتك الأولى للأخبار الموثوقة والشاملة من جميع أنحاء العالم. نقدم لكم
-          آخر المستجدات على مدار الساعة.
-        </p>
+        <p>{t("footer.description")}</p>
         <div className="social-links">
           {Object.keys(socialLinks)?.map((e) => (
             <a href={socialLinks[e].to} target="_blank" key={e}>
@@ -29,20 +29,20 @@ const Footer = () => {
         </div>
       </main>
       <main>
-        <h2 className="title">روابط سريعة</h2>
+        <h2 className="title">{t("footer.quick_links")}</h2>
         <div className="links">
-          <Link to={"/"}>home</Link>
-          <Link to={homeRoutes.about}>who are we</Link>
-          <Link to={homeRoutes.contact}>contact us</Link>
+          <Link to="/">{t("footer.home")}</Link>
+          <Link to={homeRoutes.about}>{t("footer.about")}</Link>
+          <Link to={homeRoutes.contact}>{t("footer.contact")}</Link>
           {user ? (
-            <Link to={homeRoutes.dashboard}>dashboard</Link>
+            <Link to={homeRoutes.dashboard}>{t("pages.dashboard")}</Link>
           ) : (
-            <Link to={homeRoutes.login}>login</Link>
+            <Link to={homeRoutes.login}>{t("footer.login")}</Link>
           )}
         </div>
       </main>
       <main>
-        <h2>اقسام الموقع</h2>
+        <h2 className="title">{t("footer.categories")}</h2>
         <div className="links">
           <Link to={"/event"}>event</Link>
           <Link to={"/survey"}>survey</Link>
@@ -61,7 +61,7 @@ const Footer = () => {
         </div>
       </main>
 
-      <article className="copyright"> جميع الحقوق محفوظة 2026</article>
+      <article className="copyright">{t("footer.copyright")}</article>
     </footer>
   );
 };

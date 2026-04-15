@@ -7,6 +7,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axiosInstance from "../../../../../utils/axios";
 import endPoints from "../../../../../constant/endPoints";
 import { faCloudUploadAlt } from "@fortawesome/free-solid-svg-icons";
+import { useTranslation } from "react-i18next";
 
 const CreateBackup = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,7 +19,7 @@ const CreateBackup = () => {
     },
     onSubmit: (v) => mutation.mutate(v),
   });
-
+const {t} = useTranslation();
   const onClose = useCallback(() => setIsOpen(false), []);
   const query = useQueryClient();
 
@@ -35,7 +36,7 @@ const CreateBackup = () => {
     <>
       <IconButton
         color="secondry-color"
-        title={"create backup"}
+        title={t("backups.upload")}
         onClick={() => setIsOpen(true)}
         icon={faCloudUploadAlt}
       />

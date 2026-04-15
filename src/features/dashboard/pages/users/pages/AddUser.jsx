@@ -51,7 +51,7 @@ const AddUser = () => {
             onChange={formik.handleChange}
             errorText={t(formik.errors.username)}
             label={t("user.username")}
-            placeholder={t("user.username_placeholder")}
+            placeholder={t("user.placeholders.username")}
           />
           <Input
             name="password"
@@ -59,7 +59,7 @@ const AddUser = () => {
             onChange={formik.handleChange}
             errorText={t(formik.errors.password)}
             label={t("user.password")}
-            placeholder={t("user.password_placeholder")}
+            placeholder={t("user.placeholders.password")}
             type="password"
           />
           <Input
@@ -68,7 +68,7 @@ const AddUser = () => {
             onChange={formik.handleChange}
             errorText={t(formik.errors.confirm_password)}
             label={t("user.password_conf")}
-            placeholder={t("user.password_conf_placeholder")}
+            placeholder={t("user.placeholders.password_conf")}
             type="password"
           />
 
@@ -78,7 +78,7 @@ const AddUser = () => {
             onChange={formik.handleChange}
             errorText={t(formik.errors.full_name)}
             label={t("user.full_name")}
-            placeholder={t("user.full_name_placeholder")}
+            placeholder={t("user.placeholders.full_name")}
           />
           <Input
             name="email"
@@ -86,7 +86,7 @@ const AddUser = () => {
             onChange={formik.handleChange}
             errorText={t(formik.errors.email)}
             label={t("user.email")}
-            placeholder={t("user.email_placeholder")}
+            placeholder={t("user.placeholders.email")}
           />
 
           <SelectOptionInput
@@ -107,7 +107,7 @@ const AddUser = () => {
             notRequired
           />
         </div>
-        <Button type="submit"> save </Button>
+        <Button type="submit"> {t("user.save")} </Button>
       </form>
     </>
   );

@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router";
 import "./breadcrumbs.css";
 import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 
 /**
  * @typedef {Object} ReplaceItem
@@ -30,10 +31,11 @@ const Breadcrumbs = ({ replace = [] }) => {
       `${!pathname.startsWith("/dashboard") ? "home container" : ""} breadcrumbs`,
     [pathname],
   );
+  const { t } = useTranslation();
 
   return (
     <div className={className}>
-      <Link to="/"> home </Link>
+      <Link to="/"> {t("pages.home")} </Link>
 
       {pathes.map((path, i) => {
         const replaceItem = replace.find((item) => item.from === path);
@@ -58,9 +60,9 @@ const Breadcrumbs = ({ replace = [] }) => {
         return (
           <span key={defaultTo}>
             {isLast ? (
-              <span className="current">{text}</span>
+              <span className="current">{t(`pages.${text}`)}</span>
             ) : (
-              <Link to={to}>{text}</Link>
+              <Link to={to}>{t(`pages.${text}`)}</Link>
             )}
           </span>
         );

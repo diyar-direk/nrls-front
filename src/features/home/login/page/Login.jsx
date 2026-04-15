@@ -7,7 +7,6 @@ import axiosInstance from "../../../../utils/axios";
 import endPoints from "./../../../../constant/endPoints";
 import { useNavigate } from "react-router";
 import { dashboardRouts } from "../../../../constant/pageRoutes";
-import { useQueryClient } from "@tanstack/react-query";
 
 const Login = () => {
   const nav = useNavigate();
@@ -17,7 +16,7 @@ const Login = () => {
   const formik = useFormik({
     initialValues: { username: "", password: "" },
     validationSchema: yup.object({
-      username: yup.string().required(),
+      username: yup.string().required("pages.home"),
       password: yup.string().required(),
     }),
     onSubmit: async (v) => {
@@ -26,30 +25,30 @@ const Login = () => {
       nav(dashboardRouts.user.page);
     },
   });
-
+  const { t } = useTranslation();
   return (
     <section className="container main-section">
       <form onSubmit={formik.handleSubmit} className="login-form">
-        <h1>login</h1>
+        <h1>{t("user.login")}</h1>
 
         <Input
           name="username"
-          label="username"
-          placeholder="enter username"
+          label={t("user.username")}
+          placeholder={t("user.placeholders.username")}
           onChange={formik.handleChange}
-          errorText={formik.errors.username}
+          errorText={t(formik.errors.username)}
           value={formik.values.username}
         />
         <Input
           name="password"
-          label="password"
-          placeholder="enter password"
+          label={t("user.password")}
+          placeholder={t("user.placeholders.password")}
           onChange={formik.handleChange}
-          errorText={formik.errors.password}
+          errorText={t(formik.errors.password)}
           value={formik.values.password}
           type="password"
         />
-        <Button type="submit">submit</Button>
+        <Button type="submit">{t("user.login")}</Button>
       </form>
     </section>
   );

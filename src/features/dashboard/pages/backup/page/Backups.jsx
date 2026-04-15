@@ -52,7 +52,7 @@ const Backups = () => {
 
     onMutate: () =>
       enqueueSnackbar({
-        message: "Download started",
+        message: t("backup.download_started"),
         variant: "info",
       }),
 
@@ -78,31 +78,31 @@ const Backups = () => {
     () => [
       {
         name: "filename",
-        headerName: "filename",
+        headerName: t("backups.filename"),
         sort: true,
       },
       {
         name: "file_path",
-        headerName: "file_path",
+        headerName: t("backups.file_path")
       },
       {
         name: "type",
-        headerName: "type",
+        headerName: t("backups.type"),
       },
       {
         name: "size",
-        headerName: "size",
+        headerName: t("backups.size"),
         sort: true,
       },
       {
         name: "created_at",
-        headerName: "created_at",
+        headerName: t("backups.created_at"),
         sort: true,
         getCell: ({ row }) => dateFormatter(row.created_at, "fullDate"),
       },
       {
         name: "actions",
-        headerName: "actions",
+        headerName: t("backups.actions"),
         getCell: ({ row }) => (
           <div className="center gap-10">
             <Button
@@ -125,7 +125,7 @@ const Backups = () => {
       },
       {
         name: "backup actions",
-        headerName: "backup actions",
+        headerName: t("backups.backup_actions"),
         getCell: ({ row }) => (
           <div className="center gap-10">
             <Button
@@ -134,7 +134,7 @@ const Backups = () => {
               onClick={() => setReplace(row)}
             >
               <FontAwesomeIcon icon={icons.replaceBackup} />
-              replace
+              {t("backups.replace")}
             </Button>
             <Button
               btnStyleType="transparent"
@@ -142,7 +142,7 @@ const Backups = () => {
               onClick={() => setRestore(row)}
             >
               <FontAwesomeIcon icon={icons.restoreBackup} />
-              restore
+              {t("backups.restore")}
             </Button>
           </div>
         ),

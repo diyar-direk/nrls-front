@@ -7,7 +7,7 @@ import endPoints from "./../../constant/endPoints";
 import { Link, useNavigate } from "react-router";
 import { homeRoutes } from "../../constant/pageRoutes";
 import { postViewImg } from "./../../utils/postViewImg";
-
+import { useTranslation } from "react-i18next";
 const Search = () => {
   const [inputValue, setInputValue] = useState("");
   const [search] = useDebounce(inputValue, 500);
@@ -30,14 +30,14 @@ const Search = () => {
     },
     [nav, inputValue],
   );
-
+const { t } = useTranslation();
   return (
     <div className="search">
       <form onSubmit={handleSearch}>
         <label htmlFor="home-search">
           <input
             type="text"
-            placeholder="search...."
+            placeholder={t("header.search")}
             id="home-search"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
