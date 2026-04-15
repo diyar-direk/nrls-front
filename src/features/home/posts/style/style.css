@@ -138,3 +138,78 @@
   height: 2px;
   background-color: var(--border-color);
 }
+
+@media (max-width: 850px) {
+  .post-filters h1 {
+    font-size: 25px;
+  }
+  .post-filters .post-search .search-inp {
+    padding: 10px;
+  }
+  .post-filters .icons .post-sort h3 {
+    font-size: 14px;
+    padding: 3px 8px;
+  }
+  .post-section-name {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 650px) {
+  .post-filters .post-search .search-inp {
+    padding: 8px;
+    font-size: 14px;
+  }
+  .post-filters .post-search {
+    gap: 15px;
+  }
+  .post-filters .icons .post-sort h3 {
+    font-size: 13px;
+    padding: 2px 7px;
+  }
+  .post-filters h1 {
+    font-size: 22px;
+  }
+  .post-section-name {
+    margin-bottom: 15px;
+    font-size: 21px;
+  }
+}
+
+@media (max-width: 500px) {
+  .post-filters .post-search .search-inp {
+    padding: 7px;
+    font-size: 13px;
+    border-width: 1px;
+  }
+  .post-filters .post-search .search-inp input {
+    font-size: 11px;
+  }
+  .post-filters .post-search {
+    gap: 10px;
+  }
+  .post-filters .icons .post-sort h3 {
+    font-size: 12px;
+    padding: 2px 5px;
+  }
+  .post-filters h1 {
+    font-size: 20px;
+  }
+  .post-section-name {
+    margin-bottom: 10px;
+    gap: 5px;
+    font-size: 19px;
+  }
+}
+
+@media (max-width: 400px) {
+  .post-filters h1 {
+    font-size: 17px;
+  }
+  .post-section-name {
+    font-size: 16px;
+  }
+  .post-filters .icons .post-sort h3 {
+    font-size: 11px;
+  }
+}

@@ -91,6 +91,8 @@ const AllPosts = () => {
     [setSearchParams],
   );
 
+  const { t } = useTranslation();
+
   return (
     <div
       style={
@@ -99,9 +101,9 @@ const AllPosts = () => {
         }
       }
     >
-      <Breadcrumbs />
+      <Breadcrumbs replace={[{ from: name, text: t(name) }]} />
       <section className="main-section container">
-        <h1 className="post-section-name">{name}</h1>
+        <h1 className="post-section-name">{t(name)}</h1>
 
         <div className="post-filters">
           <div className="post-search">

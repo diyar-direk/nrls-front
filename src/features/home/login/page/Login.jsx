@@ -7,6 +7,8 @@ import axiosInstance from "../../../../utils/axios";
 import endPoints from "./../../../../constant/endPoints";
 import { useNavigate } from "react-router";
 import { dashboardRouts } from "../../../../constant/pageRoutes";
+import { useQueryClient } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 
 const Login = () => {
   const nav = useNavigate();
