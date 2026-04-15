@@ -243,3 +243,26 @@
   opacity: 1;
   transform: translateX(10px);
 }
+
+@media (max-width: 1000px) {
+  :root {
+    --dashboard-padding: 45px;
+  }
+}
+
+@media (max-width: 800px) {
+  :root {
+    --dashboard-padding: 30px;
+  }
+}
+@media (max-width: 600px) {
+  :root {
+    --dashboard-padding: 20px;
+  }
+}
+
+@media (max-width: 400px) {
+  :root {
+    --dashboard-padding: 10px;
+  }
+}

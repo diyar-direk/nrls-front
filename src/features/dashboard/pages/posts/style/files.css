@@ -25,11 +25,9 @@
 .view-files-container .file .img img {
   cursor: pointer;
 }
-.view-files-container .file .body {
-  padding: 10px;
-}
 
 .view-files-container .file .body {
+  padding: 10px;
   line-height: 1.6;
   font-size: 14px;
 }
@@ -53,4 +51,30 @@
 }
 .view-files-container .file .body a {
   color: blue;
+}
+
+@media (max-width: 800px) {
+  .view-files-container h2 {
+    font-size: 20px;
+  }
+  .view-files-container .file .body {
+    padding: 8px;
+    font-size: 13px;
+  }
+  .view-files-container .file article {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 600px) {
+  .view-files-container h2 {
+    font-size: 18px;
+  }
+  .view-files-container .file .body {
+    padding: 7px;
+    font-size: 12px;
+  }
+  .view-files-container .file article {
+    font-size: 12px;
+  }
 }

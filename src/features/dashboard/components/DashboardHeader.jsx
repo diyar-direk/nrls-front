@@ -10,10 +10,12 @@ import { useState } from "react";
 import useDarkMode from "./../../../hooks/useDarkMode";
 import ConfirmPopUp from "../../../components/popup/ConfirmPopUp";
 import { useAuth } from "../../../context/AuthContext";
+import { useTranslation } from "react-i18next";
+import Language from "./Language";
+import Search from "./Search";
 
 const DashboardHeader = ({ isClosed, toggleClose }) => {
-  const { i18n } = useTranslation();
-  const { isOpen, toggleOpen, ref, setIsOpen } = useClickOutside();
+  const { t } = useTranslation();
 
   const { logout } = useAuth();
 
@@ -33,14 +35,8 @@ const DashboardHeader = ({ isClosed, toggleClose }) => {
           </IconButton>
         </div>
         <div className="header">
-          <label htmlFor="pages-search">
-            <input
-              type="text"
-              placeholder="type a keyword ..."
-              id="pages-search"
-            />
-            <FontAwesomeIcon icon={faMagnifyingGlass} />
-          </label>
+          <Search />
+
           <div className="icons">
             <IconButton
               color="secondry-color"

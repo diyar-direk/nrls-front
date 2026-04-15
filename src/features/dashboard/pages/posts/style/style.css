@@ -158,16 +158,13 @@
 
 .post-view-container {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap-reverse;
   gap: 30px;
 }
 .post-view-container main.post-main-info {
   flex: 500px 30;
 }
 
-.post-view-container .post-main-info h1 {
-  font-size: 27px;
-}
 .post-view-container .post-main-info h1 {
   font-size: 27px;
 }
@@ -701,4 +698,188 @@ aside.post-sidebar {
   display: grid;
   gap: 20px;
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+}
+
+@media (max-width: 1000px) {
+  .post-view-container .post-main-info h1 {
+    font-size: 23px;
+  }
+  .post-main-info .border-bottom {
+    margin-bottom: 15px;
+  }
+  .post-view-container .post-main-info .excerpt {
+    padding: 10px;
+    border-width: 2px;
+  }
+  .post-view-container .post-info {
+    gap: 15px;
+    padding: 10px;
+  }
+  .post-view-container .post-info .author {
+    font-size: 14px;
+  }
+  .post-view-container .post-info .author .author-profile {
+    width: 35px;
+    height: 35px;
+  }
+  .post-view-container .post-info div {
+    font-size: 13px;
+  }
+  .post-view-container .cover-image {
+    max-height: 550px;
+  }
+  .comments .title-container h3 {
+    font-size: 16px;
+  }
+  .comments .title-container p {
+    font-size: 14px;
+  }
+  .comments form {
+    padding: 15px;
+  }
+  .comment-action-buttons p {
+    padding: 6px;
+    font-size: 15px;
+  }
+  .comment-container {
+    max-height: 450px;
+  }
+  .comment-container .date-container {
+    gap: 5px;
+  }
+  .comment-container .date-container h4,
+  .comment-container a {
+    font-size: 14px;
+  }
+  .comment-container .date-container p {
+    font-size: 13px;
+  }
+  .comment-container .comment .read-more-container {
+    padding-inline: 5px;
+    font-size: 13px;
+  }
+  .comment-container .comment {
+    padding-inline: 10px;
+  }
+  .comment-container .more-comments {
+    padding: 6px 8px;
+    font-size: 14px;
+  }
+  .post-sidebar .section-title {
+    font-size: 14px;
+  }
+  .post-sidebar .main-info > div {
+    gap: 5px;
+    font-size: 12px;
+    padding-inline: 6px;
+    padding-block: 5px;
+  }
+}
+@media (max-width: 800px) {
+  .post-main-info .border-bottom {
+    margin-bottom: 10px;
+  }
+  .post-view-container .post-main-info h1 {
+    font-size: 19px;
+  }
+  .post-view-container .post-main-info .excerpt {
+    padding: 8px;
+    border-width: 1px;
+    font-size: 14px;
+  }
+  .post-view-container .post-info .author {
+    font-size: 13px;
+  }
+  .post-view-container .post-info {
+    gap: 12px;
+    padding: 8px;
+  }
+  .post-view-container .cover-image {
+    max-height: 500px;
+  }
+
+  .comments .title-container h3 {
+    font-size: 15px;
+  }
+  .comments .title-container p {
+    font-size: 13px;
+  }
+  .comment-action-buttons p {
+    font-size: 14px;
+  }
+  .comments form {
+    padding: 10px;
+  }
+  .comment-container {
+    max-height: 400px;
+  }
+  .comment-container .comment {
+    padding-inline: 8px;
+  }
+  .comment-container .date-container h4,
+  .comment-container a {
+    font-size: 13px;
+  }
+  .comment-container .date-container p {
+    font-size: 12px;
+    gap: 5px;
+  }
+  .post-view-container {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .post-view-container .post-main-info h1 {
+    font-size: 17px;
+  }
+  .post-main-info .border-bottom {
+    margin-bottom: 8px;
+    border-width: 1px;
+    padding-bottom: 5px;
+  }
+  .post-view-container .post-info div {
+    font-size: 12px;
+  }
+  .post-view-container .post-info .author {
+    font-size: 12px;
+  }
+  .post-view-container .post-info .author .author-profile {
+    width: 30px;
+    height: 30px;
+  }
+  .post-view-container .cover-image {
+    max-height: 450px;
+  }
+  .comments .title-container h3 {
+    font-size: 14px;
+  }
+  .comments .title-container p {
+    font-size: 12px;
+  }
+  .comment-action-buttons p {
+    font-size: 13px;
+  }
+  .comment-container .date-container h4,
+  .comment-container a {
+    font-size: 12px;
+  }
+  .comment-container .date-container p {
+    font-size: 11px;
+  }
+  .comment-container .comment .read-more-container {
+    font-size: 12px;
+  }
+  .comment-container {
+    max-height: 360px;
+  }
+  .post-sidebar .main-info > div {
+    font-size: 11px;
+    padding-block: 4px;
+  }
+  .post-sidebar .section-title {
+    font-size: 13px;
+  }
+}
+@media (max-width: 400px) {
 }

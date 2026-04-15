@@ -5,7 +5,6 @@ import { useAuth } from "../../../../../context/AuthContext";
 import { useFetchData } from "./../../../../../hooks/useFetchData";
 import endPoints from "../../../../../constant/endPoints";
 import { formatInputsData } from "./../../../../../utils/formatInputsData";
-import { useTranslation } from "react-i18next";
 import Breadcrumbs from "./../../../../../components/breadcrumbs/Breadcrumbs";
 import TableToolBar from "./../../../../../components/table_toolbar/TableToolBar";
 import Search from "./../../../../../components/table_toolbar/Search";
@@ -19,6 +18,7 @@ import { Link } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { icons } from "../../../../../constant/icons";
 import Button from "../../../../../components/buttons/Button";
+import { useTranslation } from "react-i18next";
 
 const column = [
   {

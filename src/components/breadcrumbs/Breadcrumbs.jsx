@@ -60,9 +60,13 @@ const Breadcrumbs = ({ replace = [] }) => {
         return (
           <span key={defaultTo}>
             {isLast ? (
-              <span className="current">{text}</span>
+              <span className="current">
+                {text.length > 40 ? `${text.slice(0, 40)}...` : text}
+              </span>
             ) : (
-              <Link to={to}>{text}</Link>
+              <Link to={to}>
+                {text.length > 40 ? `${text.slice(0, 40)}...` : text}
+              </Link>
             )}
           </span>
         );
