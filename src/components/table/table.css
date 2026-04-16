@@ -80,7 +80,6 @@ div.table-header .limit .placeholder .options h3:hover {
 }
 div.table-header > article > div {
   display: flex;
-  
 }
 div.table-header > article > div > svg {
   cursor: pointer;
@@ -93,7 +92,7 @@ div.table-header > article .columns-visible {
   padding: 10px;
   top: 100%;
   z-index: 1;
-  min-width: 20%;
+  min-width: 200px;
   border-radius: 4px;
   animation: fadeIn 0.2s linear;
   z-index: 2;
@@ -516,7 +515,7 @@ body.arabic .pagination .page-container {
     font-size: 14px;
   }
   div.table-header > article .columns-visible {
-    min-width: 40%;
+    min-width: 180px;
   }
 }
 @media (max-width: 600px) {
@@ -587,7 +586,7 @@ body.arabic .pagination .page-container {
   }
   div.table-header > article .columns-visible {
     padding: 10px 8px;
-    min-width: 60%;
+    min-width: 150px;
   }
   div.table-header > article .columns-visible > input {
     font-size: 10px;

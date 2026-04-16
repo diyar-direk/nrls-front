@@ -14,6 +14,7 @@ const ViewSurvey = ({ id, actions, viewSurvey }) => {
   const { data } = useFetchData({
     endPoints: `${endPoints.surveyPost}${id}/`,
     page_size: 1,
+    is_active: actions,
   });
 
   const firstSurvey = useMemo(() => data?.data?.[0], [data]);

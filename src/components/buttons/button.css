@@ -184,7 +184,6 @@ button.sending:disabled {
   background-color: var(--border-color);
 }
 
-
 .icon-button-hover::before {
   content: "";
   position: absolute;
@@ -226,7 +225,7 @@ button.sending:disabled {
   }
   .btn {
     gap: 8px 6px;
-    padding: 6px;
+    padding: 10px;
     letter-spacing: 0px;
     font-size: 13px;
   }
@@ -242,7 +241,7 @@ button.sending:disabled {
   }
   .btn {
     gap: 6px 5px;
-    padding: 4px;
+    padding: 8px;
     font-size: 11px;
   }
 }

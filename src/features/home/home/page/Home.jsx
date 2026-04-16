@@ -1,8 +1,8 @@
 import "../style/home.css";
 import TopicsNews from "../components/TopicsNews";
-import MediaNews from "../components/MediaNews";
+import SurviesNews from "../components/SurviesNews";
 import EventNews from "../components/EventNews";
-import SurveyNews from "../components/SurveyNews";
+import MediaNews from "../components/MediaNews";
 import Publications from "../components/Publications";
 import LastNews from "../components/LastNews";
 import { useTranslation } from "react-i18next";
@@ -22,7 +22,7 @@ const Home = () => {
 
       <EventNews language={language} />
 
-      <SurveyNews language={language} />
+      <SurviesNews language={language} />
 
       <Publications />
     </div>

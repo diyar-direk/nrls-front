@@ -55,18 +55,22 @@ const Breadcrumbs = ({ replace = [] }) => {
             replacedPath = defaultTo.replace(replaceItem.from, replaceItem.to);
         }
 
-        const text = replaceItem?.text || path;
+        const text = replaceItem?.text || t(`pages.${path}`);
         const to = replacedPath || defaultTo;
 
         return (
           <span key={defaultTo}>
             {isLast ? (
               <span className="current">
-                {replaceItem?.fullTextReplace ? text : t(`pages.${text}`)}
+                {replaceItem?.fullTextReplace
+                  ? sliceText(text)
+                  : sliceText(t(`pages.${text}`))}
               </span>
             ) : (
               <Link to={to}>
-                {replaceItem?.fullTextReplace ? text : t(`pages.${text}`)}
+                {replaceItem?.fullTextReplace
+                  ? sliceText(text)
+                  : sliceText(t(`pages.${text}`))}
               </Link>
             )}
           </span>

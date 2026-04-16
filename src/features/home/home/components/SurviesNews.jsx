@@ -1,24 +1,33 @@
-import MainTitle from "../../../../components/main_title/MainTitle";
-import Skeleton from "../../../../components/skeleton/Skeleton";
-import endPoints from "../../../../constant/endPoints";
-import { mediaTyps } from "../../../../constant/enums";
-import { useTranslation } from "react-i18next";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faArrowRight,
+  faClock,
+  faEye,
+  faTags,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
+import { Link, useNavigate } from "react-router";
 import { useFetchData } from "../../../../hooks/useFetchData";
-import SecondStyleMainNews from "./SecondStyleMainNews";
-import SecondStyleSubNews from "./SecondStyleSubNews";
+import endPoints from "../../../../constant/endPoints";
+import Skeleton from "../../../../components/skeleton/Skeleton";
+import { postViewImg } from "../../../../utils/postViewImg";
+import dateFormatter from "../../../../utils/dateFormatter";
+import { homeRoutes } from "../../../../constant/pageRoutes";
+import { useCallback } from "react";
+import MainTitle from "../../../../components/main_title/MainTitle";
 
-const MediaNews = ({ language }) => {
+const SurviesNews = ({ language }) => {
   const { data, isLoading } = useFetchData({
     endPoints: endPoints.posts,
-    page_size: 7,
+    page_size: 4,
     ordering: { created_at: "-created_at" },
     language,
-    content_type_multi: mediaTyps,
+    content_type: "survey",
     is_published: true,
   });
   const stopPropagation = useCallback((e) => e.stopPropagation(), []);
+
   const nav = useNavigate();
-  const { t } = useTranslation();
 
   const handleClick = useCallback(
     (id, name) => nav(homeRoutes.posts.view(name, id)),
@@ -30,15 +39,15 @@ const MediaNews = ({ language }) => {
       <section className="flex gap-20 container main-section">
         <Skeleton height="100px" />
         <Skeleton height="100px" />
-        <Skeleton height="100px" />
       </section>
     );
 
   if (!data?.totalCount) return;
+
   return (
     <section className="container main-section">
-      <MainTitle state={{ content_type_multi: mediaTyps }} name="media">
-        {t("pages.media")}
+      <MainTitle state={{ content_type: "survey" }} name={"survey"}>
+        survey
       </MainTitle>
 
       <main className="topics-container grid-2">
@@ -46,7 +55,8 @@ const MediaNews = ({ language }) => {
           <div
             className="topic"
             key={e.id}
-            onClick={() => handleClick(e.content_type, e.id)}>
+            onClick={() => handleClick(e.content_type, e.id)}
+          >
             <div className="img">
               <img src={postViewImg(e)} alt="" />
             </div>
@@ -59,7 +69,8 @@ const MediaNews = ({ language }) => {
                   to={homeRoutes.posts.page(e?.category?.[`name_${language}`])}
                   onClick={stopPropagation}
                   state={{ category: e.category }}
-                  className="icon link-hover">
+                  className="icon link-hover"
+                >
                   <FontAwesomeIcon icon={faTags} />
                   {e?.category?.[`name_${language}`] || e?.category_name}
                 </Link>
@@ -73,7 +84,8 @@ const MediaNews = ({ language }) => {
                   <Link
                     className="link-hover icon"
                     to={homeRoutes.author.view(e.author?.id)}
-                    onClick={stopPropagation}>
+                    onClick={stopPropagation}
+                  >
                     <FontAwesomeIcon icon={faUser} />
                     {e.author?.full_name}
                   </Link>
@@ -85,22 +97,14 @@ const MediaNews = ({ language }) => {
               </div>
 
               <span className="read-more">
-                {t("common.read_more")} <FontAwesomeIcon icon={faArrowRight} />
+                read more <FontAwesomeIcon icon={faArrowRight} />
               </span>
             </article>
           </div>
         ))}
       </main>
-      <main className="news-style-2">
-        <SecondStyleSubNews
-          language={language}
-          data={data?.data?.slice(1, 4)}
-        />
-        <SecondStyleMainNews language={language} data={data?.data?.[0]} />
-        <SecondStyleSubNews language={language} data={data?.data?.slice(4)} />
-      </main>
     </section>
   );
 };
 
-export default MediaNews;
+export default SurviesNews;

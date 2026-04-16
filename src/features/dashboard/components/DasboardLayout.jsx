@@ -6,9 +6,11 @@ import DashboardHeader from "./DashboardHeader";
 import { DashboardProvider } from "../../../context/DashboardContext";
 import ProtectedRoute from "./../../../components/ProtectedRoute";
 
+const isPhone = window.innerWidth <= 600;
+
 const DasboardLayout = () => {
   const [isClosed, setIsClosed] = useState(
-    localStorage.getItem("isClosed") || false,
+    isPhone || localStorage.getItem("isClosed") || false,
   );
 
   const toggleClose = useCallback(
@@ -21,13 +23,15 @@ const DasboardLayout = () => {
     [],
   );
 
+  const onPhoneClick = useCallback(() => isPhone && setIsClosed(true), []);
+
   return (
     <ProtectedRoute>
       <DashboardProvider>
         <DashboardHeader isClosed={isClosed} toggleClose={toggleClose} />
 
         <main className={`dashboard-container ${isClosed ? "closed" : ""}`}>
-          <DashboardSidebar />
+          <DashboardSidebar onPhoneClick={onPhoneClick} />
 
           <div className="dashboard-content">
             <Outlet />

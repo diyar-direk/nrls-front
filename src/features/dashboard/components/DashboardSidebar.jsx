@@ -5,7 +5,7 @@ import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "../../../context/AuthContext";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-const DashboardSidebar = () => {
+const DashboardSidebar = ({ onPhoneClick }) => {
   const { user } = useAuth();
   const { t } = useTranslation();
   const name = useMemo(() => user?.username, [user]);
@@ -14,12 +14,17 @@ const DashboardSidebar = () => {
     <aside className="dashboard-sidebar">
       <nav className="links">
         {dashboardPages.map((e) => (
-          <NavLink key={e.to} to={e.to} end title={t(e.title)}>
+          <NavLink
+            key={e.to}
+            to={e.to}
+            end
+            title={t(e.title)}
+            onClick={onPhoneClick}>
             <FontAwesomeIcon icon={e.icon} /> <span> {t(e.title)} </span>
           </NavLink>
         ))}
         <Link to={"/"} title={t("sidebar.back_to_home")}>
-          <FontAwesomeIcon icon={faHome} />{" "}
+          <FontAwesomeIcon icon={faHome} />
           <span> {t("sidebar.back_to_home")} </span>
         </Link>
       </nav>

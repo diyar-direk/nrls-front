@@ -6,6 +6,7 @@
   height: 75px;
   color: white;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  direction: ltr;
 }
 
 .top-header .logo {
@@ -439,5 +440,71 @@
   }
   .bottom-header {
     height: 50px;
+  }
+}
+
+@media (max-width: 500px) {
+  .top-header .date {
+    padding: 3px 5px;
+    font-size: 9px;
+  }
+  .top-header > div {
+    gap: 5px;
+  }
+  .current-language,
+  .mode {
+    font-size: 9px;
+  }
+  .top-header .logo {
+    font-size: 9px;
+  }
+  .top-header .logo img {
+    width: 55px;
+  }
+  .bottom-header nav .link {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 400px) {
+  .top-header .logo img {
+    width: 45px;
+  }
+  .current-language,
+  .mode {
+    font-size: 8px;
+  }
+  .top-header .logo,
+  .top-header .date {
+    font-size: 8px;
+  }
+  .bottom-header .search button {
+    padding: 6px;
+    font-size: 10px;
+  }
+  .bottom-header .search input {
+    padding: 6px;
+    font-size: 9px;
+    width: 120px;
+  }
+  .bottom-header .search .results a {
+    gap: 5px;
+    padding: 2px 5px;
+  }
+  .bottom-header .search .results a h5 {
+    font-size: 10px;
+  }
+  .bottom-header .search .results a img {
+    width: 30px;
+    height: 30px;
+  }
+  .bottom-header .search .results {
+    max-height: 250px;
+  }
+}
+
+@media (max-width: 350px) {
+  .top-header .date {
+    display: none;
   }
 }

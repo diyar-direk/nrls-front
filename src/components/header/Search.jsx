@@ -30,7 +30,8 @@ const Search = () => {
     },
     [nav, inputValue],
   );
-const { t } = useTranslation();
+  
+  const { t } = useTranslation();
   return (
     <div className="search">
       <form onSubmit={handleSearch}>
@@ -49,16 +50,17 @@ const { t } = useTranslation();
         </label>
       </form>
       <section className="results">
-        {results?.map((e) => (
-          <Link
-            to={homeRoutes.posts.view(e.content_type, e.id)}
-            key={e.id}
-            onClick={() => setInputValue("")}
-          >
-            <img src={postViewImg(e)} alt="" />
-            <h5 className="one-line-ellipsis"> {e.title} </h5>
-          </Link>
-        ))}
+        {search &&
+          results?.map((e) => (
+            <Link
+              to={homeRoutes.posts.view(e.content_type, e.id)}
+              key={e.id}
+              onClick={() => setInputValue("")}
+            >
+              <img src={postViewImg(e)} alt="" />
+              <h5 className="one-line-ellipsis"> {e.title} </h5>
+            </Link>
+          ))}
         {isFetching && (
           <div className="search-loading">
             <span></span>

@@ -14,8 +14,12 @@ import { useTranslation } from "react-i18next";
 const Header = () => {
   const { user } = useAuth();
   const { t } = useTranslation();
-  const { isOpen, ref, toggleOpen } = useClickOutside();
+  const { isOpen, ref, toggleOpen, setIsOpen } = useClickOutside();
 
+  const handleClick = useCallback(() => {
+    if (!isOpen) return;
+    setIsOpen(false);
+  }, [isOpen, setIsOpen]);
   return (
     <>
       <TopHeader />
@@ -28,23 +32,41 @@ const Header = () => {
             {t("header.home")}
           </NavLink>
 
-          <NestedMenu name={"topics"} values={topicTyps} t={t} />
-          <NestedMenu name={"media"} values={mediaTyps} t={t} />
-          <NestedMenu name={"publication"} values={publicationTyps} t={t} />
+          <NestedMenu
+            name={"topics"}
+            values={topicTyps}
+            t={t}
+            nestedClick={handleClick}
+          />
+          <NestedMenu
+            name={"media"}
+            values={mediaTyps}
+            t={t}
+            nestedClick={handleClick}
+          />
+          <NestedMenu
+            name={"publication"}
+            values={publicationTyps}
+            t={t}
+            nestedClick={handleClick}
+          />
 
-          <NavLink to={"/event"} className="link">
+          <NavLink to={"/event"} className="link" onClick={handleClick}>
             {t("header.events")}
           </NavLink>
 
-          <NavLink to={"/survey"} className="link">
+          <NavLink to={"/survey"} className="link" onClick={handleClick}>
             {t("header.surveys")}
           </NavLink>
 
-          <NavLink to={homeRoutes.about} className="link">
+          <NavLink to={homeRoutes.about} className="link" onClick={handleClick}>
             {t("header.about")}
           </NavLink>
 
-          <NavLink to={homeRoutes.contact} className="link">
+          <NavLink
+            to={homeRoutes.contact}
+            className="link"
+            onClick={handleClick}>
             {t("header.contact")}
           </NavLink>
 
@@ -53,7 +75,10 @@ const Header = () => {
               {t("header.dashboard")}
             </NavLink>
           ) : (
-            <NavLink to={homeRoutes.login} className="link">
+            <NavLink
+              to={homeRoutes.login}
+              className="link"
+              onClick={handleClick}>
               {t("header.login")}
             </NavLink>
           )}

@@ -1,6 +1,8 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import AppRouter from "./router/router";
 import { SnackbarProvider, closeSnackbar } from "notistack";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClose } from "@fortawesome/free-solid-svg-icons";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -27,11 +29,20 @@ function App() {
         <AppRouter />
         <SnackbarProvider
           action={(key) => (
-            <button onClick={() => closeSnackbar(key)}>close</button>
+            <FontAwesomeIcon
+              onClick={() => closeSnackbar(key)}
+              icon={faClose}
+              style={{ marginInlineStart: "10px", cursor: "pointer" }}
+            />
           )}
           maxSnack={snackbarOptions.maxSnack}
           anchorOrigin={snackbarOptions.anchorOrigin}
           autoHideDuration={snackbarOptions.autoHideDuration}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            flexDirection: "row",
+          }}
         />
       </QueryClientProvider>
     </>

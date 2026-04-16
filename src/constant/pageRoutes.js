@@ -82,14 +82,14 @@ const dashboardPages = [
     icon: icons.posts,
   },
   {
-    title: "pages.events",
-    to: dashboardRouts.events.page,
-    icon: icons.events,
-  },
-  {
     title: "pages.add_post",
     to: dashboardRouts.post.add,
     icon: icons.add,
+  },
+  {
+    title: "pages.events",
+    to: dashboardRouts.events.page,
+    icon: icons.events,
   },
   {
     title: "pages.tags",
@@ -115,11 +115,11 @@ const dashboardPages = [
 
 const searchPages = [
   ...dashboardPages,
-  { title: "add_author", to: dashboardRouts.author.add },
-  { title: "add_tag", to: dashboardRouts.tag.add },
-  { title: "add_category", to: dashboardRouts.category.add },
-  { title: "add_event", to: dashboardRouts.events.add },
-  { title: "home", to: "/" },
+  { title: "pages.add_author", to: dashboardRouts.author.add },
+  { title: "pages.add_tag", to: dashboardRouts.tag.add },
+  { title: "pages.add_category", to: dashboardRouts.category.add },
+  { title: "pages.add_event", to: dashboardRouts.events.add },
+  { title: "pages.home", to: "/" },
 ];
 
 export { homeRoutes, dashboardPages, dashboardRouts, searchPages };

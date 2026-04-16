@@ -78,3 +78,63 @@
 .home-footer .copyright::before {
   content: "©";
 }
+
+@media (max-width: 800px) {
+  .home-footer h2 {
+    font-size: 17px;
+  }
+  .home-footer p {
+    font-size: 12px;
+  }
+  .home-footer .links a {
+    font-size: 14px;
+  }
+  .home-footer .copyright {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 600px) {
+  .home-footer h2 {
+    font-size: 15px;
+  }
+  .home-footer p {
+    font-size: 11px;
+  }
+  .home-footer .social-links a {
+    width: 25px;
+    height: 25px;
+    font-size: 12px;
+  }
+  .home-footer .links a {
+    font-size: 13px;
+  }
+  .home-footer {
+    padding-block: 20px;
+    gap: 15px;
+  }
+  .home-footer .copyright {
+    font-size: 13px;
+    padding-top: 8px;
+  }
+}
+
+@media (max-width: 400px) {
+  .home-footer h2 {
+    font-size: 14px;
+  }
+  .home-footer .social-links {
+    gap: 5px;
+  }
+  .home-footer {
+    padding-block: 15px;
+    gap: 10px;
+  }
+  .home-footer .links a {
+    font-size: 12px;
+  }
+  .home-footer .copyright {
+    font-size: 11px;
+    padding-top: 7px;
+  }
+}

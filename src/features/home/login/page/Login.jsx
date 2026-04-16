@@ -8,7 +8,8 @@ import endPoints from "./../../../../constant/endPoints";
 import { useNavigate } from "react-router";
 import { dashboardRouts } from "../../../../constant/pageRoutes";
 import { useQueryClient } from "@tanstack/react-query";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
+
 const Login = () => {
   const nav = useNavigate();
 
@@ -28,7 +29,9 @@ const Login = () => {
     },
   });
   return (
-    <section className="container main-section">
+    <section
+      className="container main-section center"
+      style={{ height: "70vh" }}>
       <form onSubmit={formik.handleSubmit} className="login-form">
         <h1>{t("user.login")}</h1>
 

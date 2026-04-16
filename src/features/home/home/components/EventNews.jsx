@@ -13,7 +13,7 @@ import dateFormatter from "../../../../utils/dateFormatter";
 const EventNews = ({ language }) => {
   const { data, isLoading } = useFetchData({
     endPoints: endPoints.posts,
-    page_size: 4,
+    page_size: 6,
     ordering: { created_at: "-created_at" },
     language,
     content_type: "event",

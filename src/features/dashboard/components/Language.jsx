@@ -3,8 +3,9 @@ import IconButton from "../../../components/buttons/IconButton";
 import { languages } from "../../../constant/languages";
 import { useClickOutside } from "../../../hooks/useClickOutside";
 import { useCallback } from "react";
-import { useTranslation } from "react-i18next";
 import { faLanguage } from "@fortawesome/free-solid-svg-icons";
+import { useClickOutside } from "../../../hooks/useClickOutside";
+import { useTranslation } from "react-i18next";
 
 const Language = () => {
   const { isOpen, toggleOpen, ref, setIsOpen } = useClickOutside();

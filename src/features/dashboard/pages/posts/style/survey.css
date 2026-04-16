@@ -107,3 +107,55 @@
   border-radius: 10px;
   padding: 15px;
 }
+
+@media (max-width: 1000px) {
+  .survey-container .question {
+    font-size: 18px;
+  }
+  .survey-container .options {
+    margin-top: 10px;
+  }
+  .survey-container .options .option {
+    padding: 8px;
+    gap: 5px;
+    font-size: 14px;
+  }
+  .survey-container .options .option span {
+    padding: 5px 8px;
+    font-size: 12px;
+  }
+  .survey-container .options .closes-at h3,
+  .survey-container .options .closes-at p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 600px) {
+  .survey-container .survey-section {
+    padding: 10px;
+  }
+  .survey-container .question {
+    font-size: 16px;
+  }
+  .survey-container .options .option {
+    padding: 7px;
+    font-size: 13px;
+  }
+  .survey-container .options .option span {
+    padding: 4px 6px;
+    font-size: 10px;
+  }
+  .survey-container .options .closes-at h3,
+  .survey-container .options .closes-at p {
+    font-size: 12px;
+  }
+  .survey-container .options {
+    gap: 5px;
+  }
+  .survey-container .options .option div p {
+    width: 8px;
+    height: 8px;
+  }
+}
+@media (max-width: 400px) {
+}

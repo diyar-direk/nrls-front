@@ -55,9 +55,6 @@
   border-radius: 10px;
   color: #6366f1;
   transition: 0.3s;
-}
-
-.statistic-counts .icon-wrapper svg {
   font-size: 23px;
 }
 
@@ -143,4 +140,144 @@
 
 .statistic-details .by-language .percent div {
   height: 10px;
+}
+
+@media (max-width: 1000px) {
+  .statistic-counts {
+    gap: 15px;
+  }
+  .statistic-details {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 800px) {
+  .statistic-counts {
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .statistic-counts .count-container {
+    gap: 10px;
+    padding: 15px;
+  }
+  .statistic-counts .count-info p {
+    font-size: 12px;
+  }
+  .statistic-counts .count-info h3 {
+    font-size: 20px;
+  }
+  .statistic-counts .icon-wrapper {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+  .statistic-details .statistic-container {
+    padding: 15px;
+  }
+  .statistic-details {
+    gap: 10px;
+  }
+  .statistic-details .statistic-container h2 {
+    font-size: 14px;
+  }
+  .statistic-details .percent {
+    gap: 15px;
+  }
+  .statistic-details .percent h3 {
+    font-size: 16px;
+  }
+  .statistic-details .percent p {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 650px) {
+  .statistic-counts {
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .statistic-counts .count-container {
+    gap: 8px;
+    padding: 10px;
+  }
+  .statistic-counts .count-info p {
+    font-size: 11px;
+  }
+  .statistic-counts .count-info h3 {
+    font-size: 17px;
+  }
+  .statistic-counts .icon-wrapper {
+    width: 30px;
+    height: 30px;
+    font-size: 15px;
+  }
+  .statistic-details .statistic-container {
+    padding: 10px;
+  }
+  .statistic-details {
+    gap: 8px;
+  }
+  .statistic-details .statistic-container h2 {
+    font-size: 13px;
+    margin-bottom: 5px;
+  }
+  .statistic-details .percent {
+    gap: 10px;
+  }
+  .statistic-details .percent h3 {
+    font-size: 15px;
+  }
+  .statistic-details .percent p {
+    flex: 80px 0;
+    font-size: 12px;
+  }
+  .statistic-details .by-language .percent div {
+    height: 6px;
+  }
+}
+
+@media (max-width: 450px) {
+  .statistic-counts {
+    gap: 8px;
+  }
+  .statistic-counts .count-container {
+    gap: 8px;
+    padding: 8px;
+  }
+  .statistic-counts .count-info p {
+    font-size: 10px;
+  }
+  .statistic-counts .count-info h3 {
+    font-size: 15px;
+  }
+  .statistic-counts .icon-wrapper {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
+  .statistic-details .statistic-container {
+    padding: 8px;
+  }
+  .statistic-details {
+    gap: 5px;
+  }
+  .statistic-details .statistic-container h2 {
+    font-size: 12px;
+  }
+  .statistic-details .percent {
+    gap: 8px;
+  }
+  .statistic-details .percent h3 {
+    font-size: 13px;
+  }
+  .statistic-details .percent p {
+    flex: 70px 0;
+    font-size: 11px;
+  }
+  .statistic-details .by-language .percent div {
+    height: 5px;
+  }
+  .statistic-counts {
+    grid-template-columns: 1fr;
+  }
 }

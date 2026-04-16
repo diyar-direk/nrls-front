@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import { colors } from "../../../../../constant/colors";
 import dateFormatter from "../../../../../utils/dateFormatter";
 import { useTranslation } from "react-i18next";
+import { languages } from "../../../../../constant/languages";
 
 const SideBarMainInfo = ({
   data,
@@ -57,6 +58,13 @@ const SideBarMainInfo = ({
           <span> {data?.category?.[`name_${language}`]} </span>
         </div>
 
+        <div>
+          <p>language</p>
+          <span>
+            {languages?.find((l) => l.value === data?.language)?.title}
+          </span>
+        </div>
+
         {data?.author && (
           <div>
             <p>{t("common.author")}</p>
@@ -66,7 +74,7 @@ const SideBarMainInfo = ({
           </div>
         )}
 
-        {data?.published_at && (
+        {showPublishStatus && data?.published_at && (
           <div>
             <p>{t("common.published_at")}</p>
             <span> {dateFormatter(data?.published_at)} </span>

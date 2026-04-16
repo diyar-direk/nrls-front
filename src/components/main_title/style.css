@@ -17,3 +17,56 @@ a.main-title svg {
 a.main-title:hover {
   color: var(--main-color);
 }
+.arabic a.main-title svg {
+  rotate: 180deg;
+}
+
+@media (max-width: 1000px) {
+  a.main-title {
+    font-size: 25px;
+  }
+  a.main-title svg {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 850px) {
+  a.main-title {
+    font-size: 23px;
+    border-width: 2px;
+    margin-bottom: 25px;
+  }
+  a.main-title svg {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 650px) {
+  a.main-title {
+    font-size: 21px;
+    margin-bottom: 20px;
+  }
+  a.main-title svg {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 500px) {
+  a.main-title {
+    font-size: 19px;
+    border-width: 1px;
+    margin-bottom: 15px;
+  }
+  a.main-title svg {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 400px) {
+  a.main-title {
+    font-size: 17px;
+  }
+  a.main-title svg {
+    font-size: 13px;
+  }
+}

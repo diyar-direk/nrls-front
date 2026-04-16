@@ -138,6 +138,9 @@ table .overlay {
   .confirm-popup.popup .btns {
     padding: 10px;
   }
+  .overlay {
+    padding-inline: 20px;
+  }
 }
 @media (max-width: 500px) {
   .overlay .popup {
@@ -154,6 +157,9 @@ table .overlay {
   }
   .confirm-popup.popup .undone {
     font-size: 12px;
+  }
+  .overlay {
+    padding-inline: 10px;
   }
 }
 

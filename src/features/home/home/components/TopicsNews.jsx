@@ -23,6 +23,27 @@ const TopicsNews = ({ language }) => {
       perView: 3,
       spacing: 20,
     },
+
+    breakpoints: {
+      "(max-width: 1024px)": {
+        slides: {
+          perView: 2,
+          spacing: 15,
+        },
+      },
+      "(max-width: 768px)": {
+        slides: {
+          perView: 1.5,
+          spacing: 10,
+        },
+      },
+      "(max-width: 480px)": {
+        slides: {
+          perView: 1,
+          spacing: 8,
+        },
+      },
+    },
   });
 
   if (isLoading)
