@@ -17,7 +17,7 @@ const TagsFilter = ({ filters, setFilters }) => {
     (e) => setLocal((p) => ({ ...p, [e.target.name]: e.target.value })),
     [],
   );
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   return (
     <Filters filters={filters} setFilters={setFilters}>
       <Input

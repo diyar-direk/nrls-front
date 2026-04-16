@@ -86,8 +86,7 @@ function UploadPhoto({
     <div className={`${className || ""} upload-file font-color`}>
       <label
         className={labelClassName}
-        htmlFor={name + (value?.url ? "disabled" : "")}
-      >
+        htmlFor={name + (value?.url ? "disabled" : "")}>
         {title}
       </label>
 
@@ -98,8 +97,7 @@ function UploadPhoto({
               onClick={handleRemove}
               className="remove-btn"
               btnType="delete"
-              type="button"
-            >
+              type="button">
               <FontAwesomeIcon icon={icons.close} />
             </Button>
           )}
@@ -110,8 +108,7 @@ function UploadPhoto({
             onDragLeave={handleDragLeave}
             onDragOver={handleDragOver}
             onDrop={handleDrop}
-            onClick={handleClick}
-          >
+            onClick={handleClick}>
             {value?.url || defaultImage ? (
               <>
                 <img
@@ -127,16 +124,15 @@ function UploadPhoto({
               </>
             ) : (
               <div
-                className={`upload-placeholder ${isDragging ? "dragging" : ""}`}
-              >
+                className={`upload-placeholder ${isDragging ? "dragging" : ""}`}>
                 {isDragging ? (
-                  <h1> {t("upload.drop")} </h1>
+                  <h1> {t("media_types.drop")} </h1>
                 ) : (
                   <>
                     <h1>
-                      {t("upload.upload")} {title}
+                      {t("media_types.upload")} {title}
                     </h1>
-                    <h2>{t("upload.drag")}</h2>
+                    <h2>{t("media_types.drag")}</h2>
                   </>
                 )}
               </div>
@@ -163,8 +159,7 @@ function UploadPhoto({
       <PopUp
         isOpen={open}
         onClose={() => setOpen(false)}
-        className="upload-popup"
-      >
+        className="upload-popup">
         <div className="popup-body">
           <img
             src={value?.url || ""}
@@ -176,8 +171,7 @@ function UploadPhoto({
             btnStyleType="outlined"
             onClick={() => setOpen(false)}
             btnType="delete"
-            type="button"
-          >
+            type="button">
             {t("close")}
           </Button>
         </div>

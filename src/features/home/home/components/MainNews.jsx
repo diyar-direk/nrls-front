@@ -6,7 +6,7 @@ import { useCallback } from "react";
 import { homeRoutes } from "../../../../constant/pageRoutes";
 import { postViewImg } from "./../../../../utils/postViewImg";
 
-const MainNews = ({ data, language }) => {
+const MainNews = ({ data, language, t }) => {
   const nav = useNavigate();
   const handleNavigate = useCallback(
     () => nav(homeRoutes.posts.view(data?.content_type, data?.id)),
@@ -27,15 +27,13 @@ const MainNews = ({ data, language }) => {
             }}
             to={homeRoutes.posts.page(data?.content_type)}
             onClick={stopPropagation}
-            state={{ content_type: data.content_type }}
-          >
-            {data.content_type}
+            state={{ content_type: data.content_type }}>
+            {t(`content_types.${data?.content_type}`)}
           </Link>
           <Link
             to={homeRoutes.posts.page(data?.category?.[`name_${language}`])}
             onClick={stopPropagation}
-            state={{ category: data.category }}
-          >
+            state={{ category: data.category }}>
             {data?.category?.[`name_${language}`] || data?.category_name}
           </Link>
         </div>
@@ -54,8 +52,7 @@ const MainNews = ({ data, language }) => {
             <Link
               className="link-hover"
               to={homeRoutes.author.view(data.author?.id)}
-              onClick={stopPropagation}
-            >
+              onClick={stopPropagation}>
               <FontAwesomeIcon icon={faUser} />
               {data.author?.full_name}
             </Link>

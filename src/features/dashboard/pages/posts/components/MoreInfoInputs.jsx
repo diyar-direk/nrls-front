@@ -36,20 +36,20 @@ const MoreInfoInputs = ({ formik, t }) => {
   return (
     <div className="post-inputs">
       <SelectOptionInput
-        label="language"
+        label={t("common.language")}
         onSelectOption={(e) => formik.setFieldValue("language", e.value)}
         value={
           languages?.find((e) => e.value === formik.values.language)?.title
         }
         options={languages.map((e) => ({ text: e.title, value: e.value }))}
-        errorText={formik.errors.language}
+        errorText={t(formik.errors.language)}
       />
       <SelectInputApi
         endPoint={endPoints.tags}
         onChange={(e) => handleSelectTag(e)}
-        placeholder={"select tags"}
-        errorText={formik.errors.tags}
-        label="tags"
+        placeholder={`${t("common.select")} ${t("pages.tags")}`}
+        errorText={t(formik.errors.tags)}
+        label={t("pages.tags")}
         optionLabel={(e) => `${e.name_en} - ${e.name_ar} - ${e.name_ku}`}
         isArray
         value={formik.values.tags}
@@ -57,20 +57,20 @@ const MoreInfoInputs = ({ formik, t }) => {
         onIgnore={handleIgnore}
       />
       <SelectOptionInput
-        label="is_published"
+        label={t("common.is_published")}
         onSelectOption={(e) => formik.setFieldValue("is_published", e.value)}
-        value={formik.values.is_published ? "yes" : "no"}
+        value={t(`common.${formik.values.is_published ? "yes" : "no"}`)}
         options={[
           {
-            text: "yes",
+            text: t("common.yes"),
             value: true,
           },
           {
-            text: "no",
+            text: t("common.no"),
             value: false,
           },
         ]}
-        errorText={formik.errors.is_published}
+        errorText={t(formik.errors.is_published)}
         notRequired
       />
       <Input
@@ -78,7 +78,7 @@ const MoreInfoInputs = ({ formik, t }) => {
         value={formik.values.published_at}
         onChange={formik.handleChange}
         errorText={t(formik.errors.published_at)}
-        label={t("published_at")}
+        label={t("common.published_at")}
         type="date"
         notRequired
       />

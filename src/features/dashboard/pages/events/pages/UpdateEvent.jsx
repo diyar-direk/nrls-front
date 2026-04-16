@@ -31,7 +31,7 @@ const UpdateEvent = () => {
       event_type: data?.event_type || "",
       location: data?.location || "",
       event_date: data?.event_date ? dateFormatter(data?.event_date) : "",
-      attendess_count: data?.attendess_count || "",
+      attendees_count: data?.attendees_count || "",
     },
     validationSchema: eventsSchema,
     onSubmit: (d) => handleConfirm.mutate({ ...d, post: d.post?.id }),
@@ -64,25 +64,28 @@ const UpdateEvent = () => {
           <SelectInputApi
             endPoint={endPoints.posts}
             onChange={(e) => formik.setFieldValue("post", e)}
-            placeholder={formik.values.post?.title || "select post"}
-            errorText={formik.errors.post}
-            label="post"
+            placeholder={
+              formik.values.post?.title ||
+              `${t("common.select")} ${t("pages.posts")}`
+            }
+            errorText={t(formik.errors.post)}
+            label={t("pages.posts")}
             optionLabel={(e) => e?.title}
           />
           <SelectOptionInput
-            label="event_type"
+            label={t("events.event_type")}
             onSelectOption={(e) => formik.setFieldValue("event_type", e.value)}
             value={formik.values.event_type}
             options={eventType.map((e) => ({ text: e, value: e }))}
-            errorText={formik.errors.event_type}
+            errorText={t(formik.errors.event_type)}
           />
           <Input
             name="location"
             value={formik.values.location}
             onChange={formik.handleChange}
             errorText={t(formik.errors.location)}
-            label={t("location")}
-            placeholder={t("location_placeholder")}
+            label={t("events.location")}
+            placeholder={t("events.location_placeholder")}
             notRequired
           />
           <Input
@@ -90,18 +93,18 @@ const UpdateEvent = () => {
             value={formik.values.event_date}
             onChange={formik.handleChange}
             errorText={t(formik.errors.event_date)}
-            label={t("event_date")}
+            label={t("events.event_date")}
             type="date"
             notRequired
           />
           <Input
-            name="attendess_count"
-            value={formik.values.attendess_count}
+            name="attendees_count"
+            value={formik.values.attendees_count}
             onChange={formik.handleChange}
-            errorText={t(formik.errors.attendess_count)}
-            label={t("attendess_count")}
+            errorText={t(formik.errors.attendees_count)}
+            label={t("events.attendees_count")}
             type="number"
-            placeholder={t("number_placeholder")}
+            placeholder={"ex: 100"}
           />
         </div>
         <Button type="submit"> save </Button>

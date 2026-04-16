@@ -35,8 +35,8 @@ const column = [
   {
     name: "role",
     headerName: "user.role",
-    getCell: ({ row, t }) => (
-      <div className="gap-10 center enum-style">{t(row.role)}</div>
+    getCell: ({ t }) => (
+      <div className="gap-10 center enum-style">{t("user.admin")}</div>
     ),
   },
   {
@@ -47,14 +47,14 @@ const column = [
   {
     name: "is_active",
     headerName: "user.is_active",
-    getCell: ({ row }) => (
+    getCell: ({ row, t }) => (
       <div
         className="gap-10 center enum-style"
         style={{
           color: colors[row.is_active ? "green" : "red"].color,
           backgroundColor: colors[row.is_active ? "green" : "red"].bg,
         }}>
-        {row.is_active ? "yes" : "no"}
+        {t(`user.${row.is_active ? "active" : "inactive"}`)}
       </div>
     ),
   },

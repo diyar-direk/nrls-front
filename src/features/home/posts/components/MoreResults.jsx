@@ -14,8 +14,10 @@ const MoreResults = ({ language, post }) => {
     page_size: 5,
     id_ne: post?.id,
     content_type_or: post?.content_type,
-    category_or: post?.category,
+    category_or: post?.category?.id,
   });
+
+  const { t } = useTranslation();
 
   if (isLoading)
     return (
@@ -27,7 +29,6 @@ const MoreResults = ({ language, post }) => {
     );
 
   if (!data?.totalCount) return;
-    const { t } = useTranslation();
   return (
     <>
       <h1 className="more-results-title">{t("common.more_results")}</h1>

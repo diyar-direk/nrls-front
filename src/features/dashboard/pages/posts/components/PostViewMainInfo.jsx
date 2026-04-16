@@ -1,8 +1,11 @@
 import { Link } from "react-router";
 import dateFormatter from "../../../../../utils/dateFormatter";
 import imgServerSrc from "../../../../../utils/imgServerSrc";
+import { useTranslation } from "react-i18next";
 
 const PostViewMainInfo = ({ data, authorView, language }) => {
+  const { t } = useTranslation();
+
   return (
     <div className="post-info">
       {data?.author && (
@@ -19,19 +22,19 @@ const PostViewMainInfo = ({ data, authorView, language }) => {
       )}
 
       <div>
-        <p> content_type </p>
-        <span>{data?.content_type}</span>
+        <p>{t("common.content_type")}</p>
+        <span>{t(`content_types.${data?.content_type}`)}</span>
       </div>
       <div>
-        <p> category </p>
+        <p>{t("common.category")}</p>
         <span>{data?.category?.[`name_${language}`]}</span>
       </div>
       <div>
-        <p> views </p>
+        <p>{t("common.views")}</p>
         <span>{data?.view_count}</span>
       </div>
       <div>
-        <p> created_at </p>
+        <p>{t("common.created_at")}</p>
         <span>{dateFormatter(data?.created_at, "fullDate")}</span>
       </div>
     </div>

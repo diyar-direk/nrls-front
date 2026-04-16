@@ -35,6 +35,7 @@ const AuthorPage = () => {
 
       <AuthorPopsts
         postPage={(e) => homeRoutes.posts.view(e.content_type, e.id)}
+        actions={false}
       />
     </div>
   );

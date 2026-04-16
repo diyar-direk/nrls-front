@@ -15,6 +15,7 @@ import dateFormatter from "../../../../utils/dateFormatter";
 import { homeRoutes } from "../../../../constant/pageRoutes";
 import { useCallback } from "react";
 import MainTitle from "../../../../components/main_title/MainTitle";
+import { useTranslation } from "react-i18next";
 
 const SurviesNews = ({ language }) => {
   const { data, isLoading } = useFetchData({
@@ -28,6 +29,8 @@ const SurviesNews = ({ language }) => {
   const stopPropagation = useCallback((e) => e.stopPropagation(), []);
 
   const nav = useNavigate();
+
+  const { t } = useTranslation();
 
   const handleClick = useCallback(
     (id, name) => nav(homeRoutes.posts.view(name, id)),
@@ -47,7 +50,7 @@ const SurviesNews = ({ language }) => {
   return (
     <section className="container main-section">
       <MainTitle state={{ content_type: "survey" }} name={"survey"}>
-        survey
+        {t("pages.survey")}
       </MainTitle>
 
       <main className="topics-container grid-2">
@@ -55,8 +58,7 @@ const SurviesNews = ({ language }) => {
           <div
             className="topic"
             key={e.id}
-            onClick={() => handleClick(e.content_type, e.id)}
-          >
+            onClick={() => handleClick(e.content_type, e.id)}>
             <div className="img">
               <img src={postViewImg(e)} alt="" />
             </div>
@@ -69,8 +71,7 @@ const SurviesNews = ({ language }) => {
                   to={homeRoutes.posts.page(e?.category?.[`name_${language}`])}
                   onClick={stopPropagation}
                   state={{ category: e.category }}
-                  className="icon link-hover"
-                >
+                  className="icon link-hover">
                   <FontAwesomeIcon icon={faTags} />
                   {e?.category?.[`name_${language}`] || e?.category_name}
                 </Link>
@@ -84,8 +85,7 @@ const SurviesNews = ({ language }) => {
                   <Link
                     className="link-hover icon"
                     to={homeRoutes.author.view(e.author?.id)}
-                    onClick={stopPropagation}
-                  >
+                    onClick={stopPropagation}>
                     <FontAwesomeIcon icon={faUser} />
                     {e.author?.full_name}
                   </Link>
@@ -97,7 +97,7 @@ const SurviesNews = ({ language }) => {
               </div>
 
               <span className="read-more">
-                read more <FontAwesomeIcon icon={faArrowRight} />
+                {t("common.read_more")} <FontAwesomeIcon icon={faArrowRight} />
               </span>
             </article>
           </div>

@@ -22,7 +22,7 @@ const api = new APIClient(endPoints.posts);
 
 const ViewPost = () => {
   const { id } = useParams();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const { data, error, isLoading, refetch } = useQuery({
     queryKey: [endPoints.posts, id],
     queryFn: () => api.getOne(id),
@@ -37,14 +37,15 @@ const ViewPost = () => {
 
   return (
     <>
-      <Breadcrumbs replace={[{ from: id, text: data?.title }]} />
+      <Breadcrumbs
+        replace={[{ from: id, text: data?.title, fullTextReplace: true }]}
+      />
       {data?.original_post && (
         <p className="original-post-action one-line-ellipsis">
           {t("common.original_post")}
           <Link
             to={dashboardRouts.post.view(data?.original_post?.id)}
-            className="link-hover"
-          >
+            className="link-hover">
             {data?.original_post?.title}
           </Link>
         </p>

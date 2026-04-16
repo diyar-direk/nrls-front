@@ -41,22 +41,22 @@ const Footer = () => {
           )}
         </div>
       </main>
+
       <main>
         <h2 className="title">{t("footer.categories")}</h2>
         <div className="links">
-          <Link to={"/event"}>event</Link>
-          <Link to={"/survey"}>survey</Link>
+          <Link to={"/event"}>{t("content_types.event")}</Link>
+          <Link to={"/survey"}>{t("content_types.survey")}</Link>
           <Link to={"/topics"} state={{ content_type_multi: topicTyps }}>
-            topics
+            {t("content_types.topics")}
           </Link>
           <Link to={"/media"} state={{ content_type_multi: mediaTyps }}>
-            media
+            {t("content_types.media")}
           </Link>
           <Link
             to={"/publication"}
-            state={{ content_type_multi: publicationTyps }}
-          >
-            publication
+            state={{ content_type_multi: publicationTyps }}>
+            {t("content_types.publication")}
           </Link>
         </div>
       </main>

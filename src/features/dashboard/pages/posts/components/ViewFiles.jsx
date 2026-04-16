@@ -9,7 +9,7 @@ import { faLink } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import ImgViewPopup from "../../../../../components/popup/ImgViewPopup";
 
-const ViewFiles = ({ id }) => {
+const ViewFiles = ({ id, t }) => {
   const { data } = useQuery({
     queryKey: [endPoints.postFiles, id],
     queryFn: async () => {
@@ -24,7 +24,7 @@ const ViewFiles = ({ id }) => {
   return (
     <>
       <div className="view-files-container border-bottom">
-        <h2>post files</h2>
+        <h2>{t("pages.files")}</h2>
         {data?.map((e) => {
           const { id, alt_text, caption, created_at, file_type, src_url } = e;
           const isImg = file_type === "image";
@@ -47,13 +47,13 @@ const ViewFiles = ({ id }) => {
 
                 <div>
                   <article>
-                    <h4 className="colon-after"> created_at </h4>
+                    <h4 className="colon-after"> {t("common.created_at")} </h4>
                     <p> {dateFormatter(created_at)} </p>
                   </article>
 
                   {!isImg && (
                     <a href={src_url} target="_blank">
-                      <FontAwesomeIcon icon={faLink} /> view
+                      <FontAwesomeIcon icon={faLink} /> {t("common.show")}
                     </a>
                   )}
                 </div>

@@ -7,6 +7,7 @@ import ViewFiles from "./ViewFiles";
 import ViewSurvey from "./ViewSurvey";
 import { Link } from "react-router";
 import { postViewImg } from "../../../../../utils/postViewImg";
+import { useTranslation } from "react-i18next";
 
 const PostViewMainSections = ({
   data,
@@ -17,6 +18,8 @@ const PostViewMainSections = ({
   viewSurvey,
 }) => {
   const [showImg, setShowImg] = useState(false);
+
+  const { t } = useTranslation();
 
   return (
     <>
@@ -37,19 +40,17 @@ const PostViewMainSections = ({
 
         <div
           className="cover-image"
-          onClick={() => setShowImg(postViewImg(data))}
-        >
+          onClick={() => setShowImg(postViewImg(data))}>
           <img src={postViewImg(data)} alt="" />
         </div>
 
         <div
           className="ql-editor border-bottom"
-          dangerouslySetInnerHTML={{ __html: data?.content }}
-        ></div>
+          dangerouslySetInnerHTML={{ __html: data?.content }}></div>
 
         {data?.tags?.length > 0 && (
           <div className="tags border-bottom">
-            <p>tags</p>
+            <p>{t("pages.tags")}</p>
             {data?.tags?.map((e) => (
               <Link
                 key={e.id}
@@ -58,16 +59,20 @@ const PostViewMainSections = ({
                     ? allPostsView(e)
                     : allPostsView
                 }
-                state={{ tags: e }}
-              >
+                state={{ tags: e }}>
                 {e[`name_${language}`]}
               </Link>
             ))}
           </div>
         )}
 
-        <ViewFiles id={data?.id} />
-        <ViewSurvey id={data?.id} actions={actions} viewSurvey={viewSurvey} />
+        <ViewFiles id={data?.id} t={t} />
+        <ViewSurvey
+          id={data?.id}
+          actions={actions}
+          viewSurvey={viewSurvey}
+          t={t}
+        />
 
         <PostComments id={data?.id} actions={actions} />
       </main>

@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReadMoreText from "../../../../../components/read_more/ReadMoreText";
 import { authorIcons } from "../../../../../constant/authorIcons";
+import "../style/style.css";
 
 const ProfileMainInfo = ({ data }) => {
   return (

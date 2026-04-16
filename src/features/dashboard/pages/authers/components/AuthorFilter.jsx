@@ -3,7 +3,7 @@ import Input from "../../../../../components/inputs/Input";
 import { useCallback, useEffect, useState } from "react";
 import { useDebounce } from "use-debounce";
 
-const AuthorFilter = ({ filters, setFilters }) => {
+const AuthorFilter = ({ filters, setFilters, t }) => {
   const [local, setLocal] = useState(filters);
 
   const [debouncedValue] = useDebounce(local, 500);
@@ -21,28 +21,28 @@ const AuthorFilter = ({ filters, setFilters }) => {
     <Filters filters={filters} setFilters={setFilters}>
       <Input
         name="full_name"
-        placeholder="search by full_name"
+        placeholder={t("common.search")}
         value={local?.full_name ?? ""}
         notRequired
         onChange={handleChange}
-        label="full_name"
+        label={t("author.full_name")}
       />
       <Input
         name="email"
-        placeholder="search by email"
+        placeholder={t("common.search")}
         value={local?.email ?? ""}
         notRequired
         onChange={handleChange}
-        label="email"
+        label={t("author.email")}
       />
-     
+
       <Input
         name="bio"
-        placeholder="search by bio"
+        placeholder={t("common.search")}
         value={local?.bio ?? ""}
         notRequired
         onChange={handleChange}
-        label="bio"
+        label={t("author.bio")}
       />
     </Filters>
   );

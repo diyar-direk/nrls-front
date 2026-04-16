@@ -13,8 +13,8 @@ import { languages } from "../../../../../constant/languages";
 import { useTranslation } from "react-i18next";
 
 const Statistics = () => {
-  const { t } = useTranslation(); // أضف هذا
-  
+  const { t } = useTranslation();
+
   const { data, isLoading } = useQuery({
     queryKey: [endPoints.statistics],
     queryFn: async () => {
@@ -73,7 +73,8 @@ const Statistics = () => {
       <section className="statistic-details">
         <div className="statistic-container by-language">
           <h2>
-            <FontAwesomeIcon icon={faLanguage} /> {t("statistics.posts_by_language")}
+            <FontAwesomeIcon icon={faLanguage} />{" "}
+            {t("statistics.posts_by_language")}
           </h2>
 
           {Object.entries(data?.by_language)?.map(([key, value]) => {
@@ -97,7 +98,8 @@ const Statistics = () => {
 
         <div className="statistic-container">
           <h2>
-            <FontAwesomeIcon icon={icons.category} /> {t("statistics.posts_by_type")}
+            <FontAwesomeIcon icon={icons.category} />{" "}
+            {t("statistics.posts_by_type")}
           </h2>
 
           {Object.entries(data?.by_content_type)?.map(([key, value]) => {

@@ -12,6 +12,7 @@ import ConfirmPopUp from "../../../../../components/popup/ConfirmPopUp";
 import IconButton from "../../../../../components/buttons/IconButton";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import "../style/style.css";
+import { useTranslation } from "react-i18next";
 
 const EventComponent = ({ data, actions }) => {
   const query = useQueryClient();
@@ -33,24 +34,26 @@ const EventComponent = ({ data, actions }) => {
     onSuccess: () => query.invalidateQueries([endPoints.events]),
   });
 
+  const { t } = useTranslation();
+
   return (
     <>
       <div className="main-info">
         <div>
-          <p>event_type</p>
-          <span> {data?.event_type} </span>
+          <p>{t("events.event_type")}</p>
+          <span> {t(`events.types.${data?.event_type}`)} </span>
         </div>
         <div>
-          <p>event_date</p>
+          <p>{t("events.event_date")}</p>
           <span> {dateFormatter(data?.event_date)} </span>
         </div>
         <div>
-          <p>location</p>
+          <p>{t("events.location")}</p>
           <span> {data?.location} </span>
         </div>
 
         <div>
-          <p>attendees_count</p>
+          <p>{t("events.attendees_count")}</p>
           <div className="event-actions">
             <span> {data?.attendees_count} </span>
             {actions && (
@@ -77,7 +80,7 @@ const EventComponent = ({ data, actions }) => {
         </div>
 
         <div>
-          <p>created_at</p>
+          <p>{t("common.created_at")}</p>
           <span> {dateFormatter(data?.created_at, "fullDate")} </span>
         </div>
 
@@ -85,10 +88,9 @@ const EventComponent = ({ data, actions }) => {
           <div className="actions" style={{ margin: "0" }}>
             <Link
               to={dashboardRouts.events.update(data?.id)}
-              className="flex-1"
-            >
+              className="flex-1">
               <Button btnStyleType="transparent" className="w-100">
-                <FontAwesomeIcon icon={icons.update} /> update
+                <FontAwesomeIcon icon={icons.update} /> {t("common.update")}
               </Button>
             </Link>
 
@@ -96,9 +98,8 @@ const EventComponent = ({ data, actions }) => {
               btnStyleType="transparent"
               btnType="delete"
               className="flex-1"
-              onClick={() => setIsOpen(true)}
-            >
-              <FontAwesomeIcon icon={icons.delete} /> delete
+              onClick={() => setIsOpen(true)}>
+              <FontAwesomeIcon icon={icons.delete} /> {t("common.delete")}
             </Button>
           </div>
         )}

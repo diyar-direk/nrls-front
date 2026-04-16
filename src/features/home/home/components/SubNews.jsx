@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router";
 import { useCallback } from "react";
 import { postViewImg } from "../../../../utils/postViewImg";
 
-const SubNews = ({ data, language }) => {
+const SubNews = ({ data, language, t }) => {
   const nav = useNavigate();
   const handleNavigate = useCallback(
     (id, name) => nav(homeRoutes.posts.view(name, id)),
@@ -22,8 +22,7 @@ const SubNews = ({ data, language }) => {
         <div
           className="sub-news"
           key={e.id}
-          onClick={() => handleNavigate(e.id, e.content_type)}
-        >
+          onClick={() => handleNavigate(e.id, e.content_type)}>
           <img src={postViewImg(e)} alt="" />
           <article>
             <div className="btns">
@@ -34,15 +33,13 @@ const SubNews = ({ data, language }) => {
                 }}
                 to={homeRoutes.posts.page(e.content_type)}
                 onClick={stopPropagation}
-                state={{ content_type: e.content_type }}
-              >
-                {e.content_type}
+                state={{ content_type: e.content_type }}>
+                {t(`content_types.${e?.content_type}`)}
               </Link>
               <Link
                 to={homeRoutes.posts.page(e?.category?.[`name_${language}`])}
                 onClick={stopPropagation}
-                state={{ category: e.category }}
-              >
+                state={{ category: e.category }}>
                 {e?.category?.[`name_${language}`] || e?.category_name}
               </Link>
             </div>
@@ -61,8 +58,7 @@ const SubNews = ({ data, language }) => {
                 <Link
                   className="link-hover"
                   to={homeRoutes.author.view(e.author?.id)}
-                  onClick={stopPropagation}
-                >
+                  onClick={stopPropagation}>
                   <FontAwesomeIcon icon={faUser} />
                   {e.author?.full_name}
                 </Link>

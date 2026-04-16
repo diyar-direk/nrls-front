@@ -16,14 +16,8 @@ const MediaNews = ({ language }) => {
     content_type_multi: mediaTyps,
     is_published: true,
   });
-  const stopPropagation = useCallback((e) => e.stopPropagation(), []);
-  const nav = useNavigate();
-  const { t } = useTranslation();
 
-  const handleClick = useCallback(
-    (id, name) => nav(homeRoutes.posts.view(name, id)),
-    [nav],
-  );
+  const { t } = useTranslation();
 
   if (isLoading)
     return (
@@ -41,56 +35,6 @@ const MediaNews = ({ language }) => {
         {t("pages.media")}
       </MainTitle>
 
-      <main className="topics-container grid-2">
-        {data?.data?.map((e) => (
-          <div
-            className="topic"
-            key={e.id}
-            onClick={() => handleClick(e.content_type, e.id)}>
-            <div className="img">
-              <img src={postViewImg(e)} alt="" />
-            </div>
-            <article>
-              <h3 className="two-line-ellipsis">{e.title}</h3>
-              <p className="one-line-ellipsis">{e.excerpt}</p>
-
-              <div className="icons">
-                <Link
-                  to={homeRoutes.posts.page(e?.category?.[`name_${language}`])}
-                  onClick={stopPropagation}
-                  state={{ category: e.category }}
-                  className="icon link-hover">
-                  <FontAwesomeIcon icon={faTags} />
-                  {e?.category?.[`name_${language}`] || e?.category_name}
-                </Link>
-
-                <span className="icon">
-                  <FontAwesomeIcon icon={faEye} />
-                  {e.view_count}
-                </span>
-
-                {e.author && (
-                  <Link
-                    className="link-hover icon"
-                    to={homeRoutes.author.view(e.author?.id)}
-                    onClick={stopPropagation}>
-                    <FontAwesomeIcon icon={faUser} />
-                    {e.author?.full_name}
-                  </Link>
-                )}
-                <span className="icon">
-                  <FontAwesomeIcon icon={faClock} />
-                  {dateFormatter(e.created_at, "fullDate")}
-                </span>
-              </div>
-
-              <span className="read-more">
-                {t("common.read_more")} <FontAwesomeIcon icon={faArrowRight} />
-              </span>
-            </article>
-          </div>
-        ))}
-      </main>
       <main className="news-style-2">
         <SecondStyleSubNews
           language={language}

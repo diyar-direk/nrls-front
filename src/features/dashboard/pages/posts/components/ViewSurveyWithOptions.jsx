@@ -12,6 +12,7 @@ import { dashboardRouts } from "../../../../../constant/pageRoutes";
 import IconButton from "../../../../../components/buttons/IconButton";
 import { icons } from "../../../../../constant/icons";
 import "../style/survey.css";
+import { useTranslation } from "react-i18next";
 
 const ViewSurveyWithOptions = ({ data, canUpdate, selected, setSelected }) => {
   const { data: optionsRes } = useFetchData({
@@ -53,6 +54,8 @@ const ViewSurveyWithOptions = ({ data, canUpdate, selected, setSelected }) => {
     [data, setSelected],
   );
 
+  const { t } = useTranslation();
+
   if (!data) return;
 
   return (
@@ -61,8 +64,7 @@ const ViewSurveyWithOptions = ({ data, canUpdate, selected, setSelected }) => {
         <div className="update-icon">
           <Link
             to={dashboardRouts.post.updateSurvey(data?.post, data?.id)}
-            state={{ data, options }}
-          >
+            state={{ data, options }}>
             <IconButton
               icon={icons.update}
               color="update"
@@ -81,13 +83,14 @@ const ViewSurveyWithOptions = ({ data, canUpdate, selected, setSelected }) => {
             <div
               className={`option ${selected.some((s) => s.id === e.id) ? "active" : ""}`}
               key={e.id}
-              onClick={() => handleSelectVote(e)}
-            >
+              onClick={() => handleSelectVote(e)}>
               <div className="flex align-center gap-10 flex-1 wrap">
                 {isFutureTime(data?.closes_at) && <p></p>}
                 {e.option_text}
               </div>
-              <span> {e.vote_count} vote </span>
+              <span>
+                {e.vote_count} {t("common.vote")}
+              </span>
               <span> {percent} </span>
               <p className="percent" style={{ width: percent }}></p>
             </div>
@@ -96,13 +99,12 @@ const ViewSurveyWithOptions = ({ data, canUpdate, selected, setSelected }) => {
 
         <div className="closes-at">
           <h3 className="colon-after">
-            <FontAwesomeIcon icon={faClock} /> closes_at
+            <FontAwesomeIcon icon={faClock} /> {t("common.closes_at")}
           </h3>
           <p
             style={{
               color: isFutureTime(data?.closes_at) ? "green" : "red",
-            }}
-          >
+            }}>
             {dateFormatter(data?.closes_at)}
           </p>
         </div>

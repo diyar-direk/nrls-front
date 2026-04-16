@@ -5,20 +5,20 @@ import { languages } from "../constant/languages";
 export const postSchema = yup.object({
   featured_image: yup.mixed().notRequired(),
 
-  title: yup.string().required().max(500),
+  title: yup.string().required("validation.required").max(500),
   excerpt: yup.string().notRequired(),
   content: yup.string().notRequired(),
 
   original_post: yup.object().nullable(),
 
-  content_type: yup.string().required().oneOf(allTyps),
-  category: yup.object().required(),
+  content_type: yup.string().required("validation.required").oneOf(allTyps),
+  category: yup.object().required("validation.required"),
   tags: yup.array().of(yup.object()).notRequired(),
   author: yup.object().nullable(),
 
   language: yup
     .string()
-    .required()
+    .required("validation.required")
     .oneOf(languages.map((e) => e.value)),
 
   is_published: yup.boolean().default(true),
@@ -27,7 +27,30 @@ export const postSchema = yup.object({
     .min(new Date())
     .when("is_published", {
       is: (v) => !v,
-      then: (s) => s.required(),
+      then: (s) => s.required("validation.required"),
       otherwise: (s) => s.notRequired(),
     }),
+});
+
+export const postSchemaUpdate = yup.object({
+  featured_image: yup.mixed().notRequired(),
+
+  title: yup.string().required("validation.required").max(500),
+  excerpt: yup.string().notRequired(),
+  content: yup.string().notRequired(),
+
+  original_post: yup.object().nullable(),
+
+  content_type: yup.string().required("validation.required").oneOf(allTyps),
+  category: yup.object().required("validation.required"),
+  tags: yup.array().of(yup.object()).notRequired(),
+  author: yup.object().nullable(),
+
+  language: yup
+    .string()
+    .required("validation.required")
+    .oneOf(languages.map((e) => e.value)),
+
+  is_published: yup.boolean().default(true),
+  published_at: yup.date().notRequired(),
 });

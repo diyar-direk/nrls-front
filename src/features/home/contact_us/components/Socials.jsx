@@ -3,15 +3,12 @@ import { socialLinks } from "../../../../constant/socialLinks";
 import { useTranslation } from "react-i18next";
 
 const Socials = () => {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   return (
     <div className="socials">
       <div>
         <h2>{t("pages.contact_us")}</h2>
-        <p>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem,
-          cupiditate.
-        </p>
+        <p>{t("contact.description")}</p>
       </div>
 
       <div className="social">

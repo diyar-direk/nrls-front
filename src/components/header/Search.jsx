@@ -14,7 +14,7 @@ const Search = () => {
 
   const { data, isFetching, loadMoreRef } = useInfiniteFetch({
     endPoint: endPoints.posts,
-    enabled: Boolean(search),
+    enabled: Boolean(search && inputValue),
     search,
     page_size: 3,
   });
@@ -30,7 +30,7 @@ const Search = () => {
     },
     [nav, inputValue],
   );
-  
+
   const { t } = useTranslation();
   return (
     <div className="search">
@@ -50,18 +50,17 @@ const Search = () => {
         </label>
       </form>
       <section className="results">
-        {search &&
+        {inputValue &&
           results?.map((e) => (
             <Link
               to={homeRoutes.posts.view(e.content_type, e.id)}
               key={e.id}
-              onClick={() => setInputValue("")}
-            >
+              onClick={() => setInputValue("")}>
               <img src={postViewImg(e)} alt="" />
               <h5 className="one-line-ellipsis"> {e.title} </h5>
             </Link>
           ))}
-        {isFetching && (
+        {inputValue && isFetching && (
           <div className="search-loading">
             <span></span>
           </div>

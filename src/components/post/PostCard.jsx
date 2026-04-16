@@ -18,7 +18,7 @@ const PostCard = ({
   setDeletedId,
   className,
 }) => {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const language = useMemo(() => i18n.language, [i18n]);
 
   const nav = useNavigate();
@@ -57,9 +57,10 @@ const PostCard = ({
         data={data}
         isDraft={isDraft}
         language={language}
+        t={t}
       />
 
-      <CardFooter data={data} isDraft={isDraft} />
+      <CardFooter data={data} isDraft={isDraft} t={t} />
     </div>
   );
 };

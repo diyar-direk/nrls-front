@@ -11,7 +11,8 @@ const SideBarMainInfo = ({
   language,
   showPublishStatus,
 }) => {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
+
   return (
     <>
       <p className="section-title">{t("common.post_info")}</p>
@@ -34,8 +35,7 @@ const SideBarMainInfo = ({
               style={{
                 "--main-color":
                   colors[data?.is_published ? "green" : "red"].color,
-              }}
-            >
+              }}>
               {data?.is_published ? t("common.yes") : t("common.no")}
             </span>
           </div>
@@ -47,8 +47,7 @@ const SideBarMainInfo = ({
             className="enum"
             style={{
               "--main-color": `var(--color-${data?.content_type})`,
-            }}
-          >
+            }}>
             {t(`content_types.${data?.content_type}`)}
           </span>
         </div>
@@ -59,7 +58,7 @@ const SideBarMainInfo = ({
         </div>
 
         <div>
-          <p>language</p>
+          <p>{t("common.language")}</p>
           <span>
             {languages?.find((l) => l.value === data?.language)?.title}
           </span>
@@ -67,7 +66,7 @@ const SideBarMainInfo = ({
 
         {data?.author && (
           <div>
-            <p>{t("common.author")}</p>
+            <p>{t("pages.author")}</p>
             <Link className="link-hover" to={authorView(data?.author?.id)}>
               {data?.author?.full_name}
             </Link>

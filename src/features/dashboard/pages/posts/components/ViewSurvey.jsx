@@ -9,6 +9,7 @@ import { useFetchData } from "../../../../../hooks/useFetchData";
 import ViewSurveyWithOptions from "./ViewSurveyWithOptions";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axiosInstance from "../../../../../utils/axios";
+import { useTranslation } from "react-i18next";
 
 const ViewSurvey = ({ id, actions, viewSurvey }) => {
   const { data } = useFetchData({
@@ -37,6 +38,8 @@ const ViewSurvey = ({ id, actions, viewSurvey }) => {
     },
   });
 
+  const { t } = useTranslation();
+
   if (!data?.totalCount) return;
 
   return (
@@ -50,16 +53,16 @@ const ViewSurvey = ({ id, actions, viewSurvey }) => {
       {selected?.length > 0 && (
         <div className="btns" style={{ marginBottom: "10px" }}>
           <Button btnStyleType="transparent" btnType="cancel" onClick={cancel}>
-            cancel
+            {t("common.cancel")}
           </Button>
-          <Button onClick={handleVote.mutate}>vote</Button>
+          <Button onClick={handleVote.mutate}>{t("common.vote")}</Button>
         </div>
       )}
       {data?.totalCount > 1 && (
         <div className="update-icon">
           <Link to={viewSurvey(id)} state={firstSurvey?.post_title}>
             <Button btnStyleType="transparent">
-              <FontAwesomeIcon icon={faListUl} /> view surveies (
+              <FontAwesomeIcon icon={faListUl} /> {t("header.surveys")} (
               {data?.totalCount})
             </Button>
           </Link>

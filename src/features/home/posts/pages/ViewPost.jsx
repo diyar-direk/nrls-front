@@ -29,14 +29,16 @@ const ViewPost = () => {
 
   const { i18n } = useTranslation();
   const language = useMemo(() => i18n.language, [i18n.language]);
+  const { t } = useTranslation();
 
   if (isLoading) return <Skeleton height="400px" />;
 
   if (error) return <HandleError error={error} refetch={refetch} />;
-  const { t } = useTranslation();
   return (
     <>
-      <Breadcrumbs replace={[{ from: id, text: data?.title }]} />
+      <Breadcrumbs
+        replace={[{ from: id, text: data?.title, fullTextReplace: true }]}
+      />
       <div className="main-section container">
         {data?.original_post && (
           <p className="original-post-action one-line-ellipsis">

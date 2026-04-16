@@ -3,7 +3,7 @@ import * as Yup from "yup";
 export const mediaSchema = Yup.object().shape({
   files: Yup.array().of(
     Yup.object().shape({
-      file_type: Yup.string().required(),
+      file_type: Yup.string().required("validation.required"),
 
       external_url: Yup.string().when("file_type", {
         is: "video",
@@ -30,7 +30,7 @@ export const mediaSchema = Yup.object().shape({
 export const mediaSchemaUpdate = Yup.object().shape({
   files: Yup.array().of(
     Yup.object().shape({
-      file_type: Yup.string().required(),
+      file_type: Yup.string().required("validation.required"),
 
       external_url: Yup.string().when("file_type", {
         is: "video",

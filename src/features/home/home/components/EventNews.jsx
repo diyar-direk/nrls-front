@@ -9,6 +9,7 @@ import Skeleton from "../../../../components/skeleton/Skeleton";
 import PostCard from "../../../../components/post/PostCard";
 import { postViewImg } from "../../../../utils/postViewImg";
 import dateFormatter from "../../../../utils/dateFormatter";
+import { useTranslation } from "react-i18next";
 
 const EventNews = ({ language }) => {
   const { data, isLoading } = useFetchData({
@@ -19,6 +20,8 @@ const EventNews = ({ language }) => {
     content_type: "event",
     is_published: true,
   });
+
+  const { t } = useTranslation();
 
   if (isLoading)
     return (
@@ -34,7 +37,7 @@ const EventNews = ({ language }) => {
   return (
     <section className="container main-section documentaries">
       <MainTitle state={{ content_type: "event" }} name={"event"}>
-        events
+        {t("pages.event")}
       </MainTitle>
 
       <main className="grid-3">
@@ -54,8 +57,7 @@ const EventNews = ({ language }) => {
           <Link
             className="documentary"
             key={e.id}
-            to={homeRoutes.posts.view(e.content_type, e.id)}
-          >
+            to={homeRoutes.posts.view(e.content_type, e.id)}>
             <div className="img">
               <img src={postViewImg(e)} alt="" />
             </div>

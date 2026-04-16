@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router";
 import "./breadcrumbs.css";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import { sliceText } from "../../utils/sliceText.js";
 
 /**
  * @typedef {Object} ReplaceItem
@@ -55,7 +56,7 @@ const Breadcrumbs = ({ replace = [] }) => {
             replacedPath = defaultTo.replace(replaceItem.from, replaceItem.to);
         }
 
-        const text = replaceItem?.text || t(`pages.${path}`);
+        const text = replaceItem?.text || path;
         const to = replacedPath || defaultTo;
 
         return (

@@ -3,7 +3,7 @@ import Input from "../../../../../components/inputs/Input";
 import { useCallback, useEffect, useState } from "react";
 import { useDebounce } from "use-debounce";
 
-const CategoriesFilter = ({ filters, setFilters }) => {
+const CategoriesFilter = ({ filters, setFilters, t }) => {
   const [local, setLocal] = useState(filters);
 
   const [debouncedValue] = useDebounce(local, 500);
@@ -21,27 +21,27 @@ const CategoriesFilter = ({ filters, setFilters }) => {
     <Filters filters={filters} setFilters={setFilters}>
       <Input
         name="name_ar"
-        placeholder="search by name_ar"
+        placeholder={t("tags.search_by_ar")}
         value={local?.name_ar ?? ""}
         notRequired
         onChange={handleChange}
-        label="name_ar"
+        label={t("tags.name_ar")}
       />
       <Input
         name="name_en"
-        placeholder="search by name_en"
+        placeholder={t("tags.search_by_en")}
         value={local?.name_en ?? ""}
         notRequired
         onChange={handleChange}
-        label="name_en"
+        label={t("tags.name_en")}
       />
       <Input
         name="name_ku"
-        placeholder="search by name_ku"
+        placeholder={t("tags.search_by_ku")}
         value={local?.name_ku ?? ""}
         notRequired
         onChange={handleChange}
-        label="name_ku"
+        label={t("tags.name_ku")}
       />
     </Filters>
   );

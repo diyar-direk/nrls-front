@@ -41,8 +41,8 @@ const AddSurvey = ({ formik, t }) => {
           value={formik.values.question}
           onChange={formik.handleChange}
           errorText={t(formik.errors.question)}
-          label={t("question")}
-          placeholder="enter question text"
+          label={t("posts.question")}
+          placeholder={t("posts.question_placeholder")}
           elementType="textarea"
           rows={2}
         />
@@ -52,19 +52,21 @@ const AddSurvey = ({ formik, t }) => {
           value={formik.values.closes_at}
           onChange={formik.handleChange}
           errorText={t(formik.errors.closes_at)}
-          label={t("closes_at")}
+          label={t("common.closes_at")}
           type="date"
         />
 
         <SelectOptionInput
           onSelectOption={(e) => formik.setFieldValue("is_active", e.value)}
-          placeholder={formik?.values?.is_active ? "active" : "inactive"}
-          errorText={formik.errors?.is_active}
-          label="is_active"
+          placeholder={
+            formik?.values?.is_active ? t("posts.active") : t("posts.inactive")
+          }
+          errorText={t(formik.errors?.is_active)}
+          label={t("posts.is_active")}
           notRequired
           options={[
-            { text: "active", value: true },
-            { text: "inactive", value: false },
+            { text: t("posts.active"), value: true },
+            { text: t("posts.inactive"), value: false },
           ]}
         />
 
@@ -74,9 +76,9 @@ const AddSurvey = ({ formik, t }) => {
               name={`options[${index}].option_text`}
               value={opt.option_text}
               onChange={formik.handleChange}
-              placeholder={`Option ${index + 1}`}
-              label={`Option ${index + 1}`}
-              errorText={formik.errors?.options?.[index]?.option_text}
+              placeholder={`${t("posts.option_placeholder")} ${index + 1}`}
+              label={`${t("posts.option")} ${index + 1}`}
+              errorText={t(formik.errors?.options?.[index]?.option_text)}
               elementType="textarea"
               rows={3}
             />
@@ -91,7 +93,7 @@ const AddSurvey = ({ formik, t }) => {
                   ? setDeletedInfo({ id: opt.id, index })
                   : removeOption(index)
               }
-              title="delete option"
+              title={t("common.delete")}
             />
           </div>
         ))}
@@ -107,9 +109,8 @@ const AddSurvey = ({ formik, t }) => {
                 ...formik.values.options,
                 { option_text: "" },
               ])
-            }
-          >
-            Add Option
+            }>
+            {t("posts.add_option")}
           </Button>
         </div>
       </div>

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMemo } from "react";
 import { Link } from "react-router";
 
-const CardBody = ({ isDraft, data, authorPage, language }) => {
+const CardBody = ({ isDraft, data, authorPage, language, t }) => {
   const background = useMemo(() => {
     const type = data?.content_type?.toLowerCase();
     return `color-mix(in oklab,var(--color-${type}) 90%,transparent)`;
@@ -16,9 +16,8 @@ const CardBody = ({ isDraft, data, authorPage, language }) => {
           style={{
             background,
             color: `white`,
-          }}
-        >
-          {data?.content_type}
+          }}>
+          {t(`content_types.${data?.content_type}`)}
         </button>
         <button>
           {data?.category?.[`name_${language}`] || data?.category_name}
@@ -39,8 +38,7 @@ const CardBody = ({ isDraft, data, authorPage, language }) => {
           <Link
             className="icon link-hover"
             to={!isDraft && authorPage(data?.author?.id)}
-            onClick={(e) => e.stopPropagation()}
-          >
+            onClick={(e) => e.stopPropagation()}>
             <FontAwesomeIcon icon={faUser} />
             {data?.author?.full_name}
           </Link>

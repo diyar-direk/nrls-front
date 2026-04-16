@@ -10,6 +10,7 @@ import IconButton from "./../buttons/IconButton";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { useClickOutside } from "../../hooks/useClickOutside";
 import { useTranslation } from "react-i18next";
+import { useCallback } from "react";
 
 const Header = () => {
   const { user } = useAuth();

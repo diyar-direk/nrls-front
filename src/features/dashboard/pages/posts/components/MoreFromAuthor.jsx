@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { Link } from "react-router";
 import Button from "../../../../../components/buttons/Button";
 import { postViewImg } from "./../../../../../utils/postViewImg";
+import { useTranslation } from "react-i18next";
 
 const MoreFromAuthor = ({ author, id, authorView, view }) => {
   const { data, isLoading } = useFetchData({
@@ -19,6 +20,8 @@ const MoreFromAuthor = ({ author, id, authorView, view }) => {
     [data],
   );
 
+  const { t } = useTranslation();
+
   if (isLoading) return <Skeleton height="50px" />;
 
   if (!results?.count) return;
@@ -26,7 +29,7 @@ const MoreFromAuthor = ({ author, id, authorView, view }) => {
   return (
     <>
       <p className="section-title">
-        more from
+        {t("common.other_from")}
         <Link className="author-name link-hover" to={authorView(author?.id)}>
           {author?.full_name}
         </Link>

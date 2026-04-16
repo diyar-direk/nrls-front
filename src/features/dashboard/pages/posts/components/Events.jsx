@@ -14,7 +14,8 @@ const Events = ({ post, actions }) => {
     post: post?.id,
     page_size: 1,
   });
-const {t} = useTranslation();
+  const { t } = useTranslation();
+
   return (
     <>
       {(actions || data?.totalCount > 0) && (
@@ -28,10 +29,10 @@ const {t} = useTranslation();
           <Link
             to={dashboardRouts.events.add}
             state={{ post }}
-            className="flex-1"
-          >
+            className="flex-1">
             <Button btnStyleType="transparent" className="w-100">
-              <FontAwesomeIcon icon={icons.add} /> {t("common.add")} {t("pages.event")}
+              <FontAwesomeIcon icon={icons.add} /> {t("common.add")}{" "}
+              {t("pages.event")}
             </Button>
           </Link>
         )}
@@ -42,10 +43,9 @@ const {t} = useTranslation();
                 ? dashboardRouts.post.events(post?.id)
                 : homeRoutes.posts.events(post?.content_type, post?.id)
             }
-            className="flex-1"
-          >
+            className="flex-1">
             <Button btnStyleType="transparent" className="w-100">
-              {t("common.events")} ({data?.totalCount})
+              {t("events.view_all")} ({data?.totalCount})
             </Button>
           </Link>
         )}

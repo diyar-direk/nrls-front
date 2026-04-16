@@ -16,6 +16,7 @@ const Publications = ({ language }) => {
     content_type_multi: publicationTyps,
     is_published: true,
   });
+  const { t } = useTranslation();
 
   if (isLoading)
     return (
@@ -27,13 +28,12 @@ const Publications = ({ language }) => {
     );
 
   if (!data?.totalCount) return;
-    const { t } = useTranslation();
+
   return (
     <section className="container main-section body-color">
       <MainTitle
         state={{ content_type_multi: publicationTyps }}
-        name={"publication"}
-      >
+        name={"publication"}>
         {t("pages.publication")}
       </MainTitle>
       <main className="news-style-2 publications">

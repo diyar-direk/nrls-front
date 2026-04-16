@@ -75,12 +75,12 @@ const UpdateAuthor = () => {
 
   return (
     <>
-      <Breadcrumbs replace={[{ from: id, text: data?.full_name }]} />
+      <Breadcrumbs replace={[{ from: id, text: data?.full_name,fullTextReplace:true }]} />
 
       <form className="dashboard-form" onSubmit={formik.handleSubmit}>
         <UploadPhoto
           name="profile_image"
-          title="profile_image"
+          title={t("author.profile_image")}
           errorText={t(formik.errors?.profile_image)}
           notRequired
           value={formik.values.profile_image}
@@ -97,16 +97,16 @@ const UpdateAuthor = () => {
             value={formik.values.full_name}
             onChange={formik.handleChange}
             errorText={t(formik.errors.full_name)}
-            label={t("full_name")}
-            placeholder={t("full_name_placeholder")}
+            label={t("author.full_name")}
+            placeholder={t("author.full_name_placeholder")}
           />
           <Input
             name="email"
             value={formik.values.email}
             onChange={formik.handleChange}
             errorText={t(formik.errors.email)}
-            label={t("email")}
-            placeholder={t("email_placeholder")}
+            label={t("author.email")}
+            placeholder={t("user.placeholders.email")}
           />
 
           <Input
@@ -114,8 +114,8 @@ const UpdateAuthor = () => {
             value={formik.values.bio}
             onChange={formik.handleChange}
             errorText={t(formik.errors.bio)}
-            label={t("bio")}
-            placeholder={t("bio_placeholder")}
+            label={t("author.bio")}
+            placeholder={t("author.bio_placeholder")}
             elementType="textarea"
             rows={5}
             notRequired

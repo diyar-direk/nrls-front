@@ -2,16 +2,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import IconButton from "../../../components/buttons/IconButton";
 import { languages } from "../../../constant/languages";
 import { useClickOutside } from "../../../hooks/useClickOutside";
-import { useCallback } from "react";
 import { faLanguage } from "@fortawesome/free-solid-svg-icons";
-import { useClickOutside } from "../../../hooks/useClickOutside";
 import { useTranslation } from "react-i18next";
+import { useCallback } from "react";
 
 const Language = () => {
   const { isOpen, toggleOpen, ref, setIsOpen } = useClickOutside();
 
   const { i18n } = useTranslation();
   const { t } = useTranslation();
+
   const selectLanguage = useCallback(
     (e) => {
       i18n.changeLanguage(e);
@@ -23,7 +23,10 @@ const Language = () => {
 
   return (
     <div className="language" ref={ref}>
-      <IconButton color="secondry-color" title={t("common.language")} onClick={toggleOpen}>
+      <IconButton
+        color="secondry-color"
+        title={t("common.language")}
+        onClick={toggleOpen}>
         <FontAwesomeIcon icon={faLanguage} />
       </IconButton>
       {isOpen && (
@@ -32,8 +35,7 @@ const Language = () => {
             <p
               key={e.value}
               onClick={() => selectLanguage(e.value)}
-              className={i18n.language === e.value ? "active" : ""}
-            >
+              className={i18n.language === e.value ? "active" : ""}>
               {e.title}
             </p>
           ))}

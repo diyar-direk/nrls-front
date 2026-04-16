@@ -6,7 +6,6 @@ import { Link, useNavigate, useParams } from "react-router";
 import { useTranslation } from "react-i18next";
 import Breadcrumbs from "../../../../../components/breadcrumbs/Breadcrumbs";
 import Button from "../../../../../components/buttons/Button";
-import { postSchema } from "./../../../../../schema/post";
 import EditorSection from "./../components/EditorSection";
 import { useEffect, useMemo, useState } from "react";
 import InfoInputsSection from "./../components/InfoInputsSection";
@@ -28,6 +27,7 @@ import axiosInstance from "../../../../../utils/axios";
 import UpdateFilesForm from "./../components/UpdateFilesForm";
 import { dashboardRouts } from "../../../../../constant/pageRoutes";
 import { postViewImg } from "../../../../../utils/postViewImg";
+import { postSchemaUpdate } from "../../../../../schema/post";
 
 const api = new APIClient(endPoints.posts);
 
@@ -71,17 +71,20 @@ const UpdatePost = () => {
       is_published: data?.is_published || true,
       tags: data?.tags || [],
     },
-    validationSchema: postSchema,
+    validationSchema: postSchemaUpdate,
     onSubmit: (d) => {
       if (Object.keys(mediaFormik.errors)?.length) return;
       const data = formatInputsData(d);
       const form = new FormData();
 
       Object.entries(data).map(([key, value]) => {
-        if (key !== "featured_image") {
+        if (key !== "featured_image" && key !== "published_at") {
           form.append(key, value);
         }
       });
+
+      if (d.published_at > new Date())
+        form.append("published_at", d.published_at);
 
       if (d.featured_image?.file) {
         form.append("featured_image", d.featured_image.file);
@@ -181,17 +184,18 @@ const UpdatePost = () => {
 
   return (
     <>
-      <Breadcrumbs replace={[{ from: id, text: data?.title }]} />
+      <Breadcrumbs
+        replace={[{ from: id, text: data?.title, fullTextReplace: true }]}
+      />
 
       <PostTabs errors={formik.errors} setTab={setTab} tab={tab}>
         <p
           className={`${tab === "files" ? "active" : ""} ${Object.keys(mediaFormik.errors)?.length ? "error" : ""}`}
-          onClick={() => setTab("files")}
-        >
+          onClick={() => setTab("files")}>
           {t("pages.files")}
         </p>
         <Link to={dashboardRouts.post.addSurvey(id)} state={data}>
-          <p>{t("posts.survey")}</p>
+          <p>{t("pages.survey")}</p>
         </Link>
       </PostTabs>
 
@@ -235,7 +239,8 @@ const UpdatePost = () => {
             <div className="add-file-container">
               {mediaFileType?.map((e) => (
                 <p className="add-btn" key={e} onClick={() => addMediaFn(e)}>
-                  <FontAwesomeIcon icon={icons[e]} /> {t("common.add")} {t(`media_types.${e}`)}
+                  <FontAwesomeIcon icon={icons[e]} /> {t("common.add")}{" "}
+                  {t(`media_types.${e}`)}
                 </p>
               ))}
             </div>

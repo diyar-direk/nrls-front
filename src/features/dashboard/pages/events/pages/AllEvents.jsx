@@ -47,7 +47,7 @@ const AllEvents = () => {
     () => [
       {
         name: "post",
-        headerName: "post",
+        headerName: "pages.posts",
         getCell: ({ row }) => (
           <Link to={dashboardRouts.post.view(row.post)} className="link-hover">
             {row.post_title}
@@ -56,32 +56,33 @@ const AllEvents = () => {
       },
       {
         name: "event_type",
-        headerName: "event_type",
+        headerName: "events.event_type",
+        getCell: ({ row, t }) => `${t(`events.types.${row.event_type}`)}`,
       },
       {
         name: "event_date",
-        headerName: "event_date",
+        headerName: "events.event_date",
         sort: true,
         getCell: ({ row }) => dateFormatter(row.event_date),
       },
       {
         name: "location",
-        headerName: "location",
+        headerName: "events.location",
       },
       {
         name: "attendees_count",
-        headerName: "attendees_count",
+        headerName: "events.attendees_count",
         sort: true,
       },
       {
         name: "created_at",
-        headerName: "created_at",
+        headerName: "common.created_at",
         sort: true,
         getCell: ({ row }) => dateFormatter(row.created_at, "fullDate"),
       },
       {
         name: "count",
-        headerName: "count",
+        headerName: "common.count",
         getCell: ({ row }) => (
           <div className="center gap-10">
             <Button
@@ -92,8 +93,7 @@ const AllEvents = () => {
                   id: row.id,
                   url: "increment-attendees",
                 })
-              }
-            >
+              }>
               <FontAwesomeIcon icon={faPlus} />
             </Button>
 
@@ -105,8 +105,7 @@ const AllEvents = () => {
                   id: row.id,
                   url: "decrement-attendees",
                 })
-              }
-            >
+              }>
               <FontAwesomeIcon icon={faMinus} />
             </Button>
           </div>
@@ -115,7 +114,7 @@ const AllEvents = () => {
 
       {
         name: "actions",
-        headerName: "actions",
+        headerName: "common.actions",
         getCell: ({ row }) => (
           <div className="center">
             <Link to={dashboardRouts.events.update(row.id)}>
@@ -146,7 +145,7 @@ const AllEvents = () => {
             setSelectedItems={setSelectedItems}
           />
           <Add path={dashboardRouts.events.add} />
-          <EventsFilter filters={filter} setFilters={setFilters} />
+          <EventsFilter filters={filter} setFilters={setFilters} t={t} />
         </TableToolBar>
         <Table
           colmuns={column}

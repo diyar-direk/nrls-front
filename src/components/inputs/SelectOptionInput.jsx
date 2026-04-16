@@ -3,6 +3,7 @@ import "./inputs.css";
 import Button from "../buttons/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { useTranslation } from "react-i18next";
 
 /**
  * @typedef {Object} OptionItem
@@ -99,10 +100,11 @@ const SelectOptionInput = ({
     () => `${errorText ? "input-error-style" : ""} placeholder center relative`,
     [errorText],
   );
+  const { t } = useTranslation();
 
   const placeholderValue = useMemo(() => {
     const text = value || placeholder;
-    return text || `select ${label}`;
+    return text || `${t("common.select")} ${label}`;
   }, [value, placeholder, label]);
 
   return (
@@ -111,8 +113,7 @@ const SelectOptionInput = ({
         <label
           onFocus={() => setIsOpen(true)}
           onClick={toggleOptionArea}
-          className={labelClassName}
-        >
+          className={labelClassName}>
           {labelIcon && <FontAwesomeIcon icon={labelIcon} />}
           {label}
         </label>
@@ -137,8 +138,7 @@ const SelectOptionInput = ({
               <h3
                 key={o.text || i}
                 onClick={(e) => handleSelect(o, e)}
-                {...o.props}
-              >
+                {...o.props}>
                 {o.icon && <FontAwesomeIcon icon={o.icon} />}
                 {o.text}
               </h3>

@@ -1,6 +1,9 @@
 {
   "common": {
     "all": "الكل",
+    "views": "المشاهدات",
+    "closes_at": "يغلق في",
+    "show": "عرض",
     "delete": "حذف",
     "edit": "تعديل",
     "add": "إضافة",
@@ -72,14 +75,26 @@
     "oldest_comments": "أقدم التعليقات",
     "accept": "قبول",
     "reject": "رفض",
-    "are_you_sure": "هل أنت متأكد"
+    "are_you_sure": "هل أنت متأكد",
+    "other_from": "منشورات اخرى للكاتب",
+    "select_original_post": "اختر المنشور الأصلي",
+    "title": "العنوان",
+    "title_placeholder": "أدخل العنوان هنا",
+    "excerpt": "الملخص",
+    "select": "اختر",
+    "count": "تعديل العدد",
+    "excerpt_placeholder": "أدخل الملخص هنا",
+    "info":"بيانات اضافية"
   },
   "media_types": {
     "image": "صورة",
     "video": "فيديو",
     "audio": "صوت",
     "document": "مستند",
-    "pdf": "PDF"
+    "pdf": "PDF",
+    "upload": "رفع",
+    "drop": "افلت هنا",
+    "drag": "او اسحب وافلت"
   },
 
   "table": {
@@ -107,6 +122,7 @@
   },
   "pages": {
     "home": "الرئيسية",
+    "update": "تعديل",
     "login": "تسجيل الدخول",
     "logout": "تسجيل الخروج",
     "dashboard": "لوحة التحكم",
@@ -121,6 +137,7 @@
     "categories": "الأقسام",
     "tags": "العلامات",
     "authors": "المؤلفين",
+    "author": "المؤلف",
     "backup": "النسخ الاحتياطي",
     "studies": "الدراسات",
     "analytics": "التحليلات",
@@ -146,6 +163,7 @@
   "contact": {
     "send_message": "أرسل رسالة",
     "form_description": "املأ النموذج وسنعود إليك في أقرب وقت ممكن.",
+    "description": "يمكنكم التواصل مع إدارة المركز عبر وسائل التواصل الاجتماعي التالية",
     "name": "الاسم",
     "subject": "الموضوع",
     "message": "الرسالة",
@@ -184,7 +202,15 @@
     "published_at": "تاريخ النشر",
     "author": "المؤلف",
     "categories": "الأقسام",
-    "tags": "العلامات"
+    "tags": "العلامات",
+    "question": "نص السؤال",
+    "question_placeholder": "اكتب نص السؤال",
+    "option_placeholder": "اكتب نص الاختيار",
+    "option": "الاختيار",
+    "is_active": "حالة الاستفتاء",
+    "active": "نشط",
+    "add_option": "إضافة اختيار",
+    "inactive": "غير نشط"
   },
   "post_tabs": {
     "format": "المحتوى والتنسيق",
@@ -240,7 +266,7 @@
     "password": "كلمة المرور",
     "password_conf": "تأكيد كلمة المرور",
     "account_status": "حالة الحساب",
-    "is_active": "نشط",
+    "is_active": "حالة الحساب",
     "active": "نشط",
     "inactive": "غير نشط",
     "created_by": "أنشأ بواسطة",
@@ -270,7 +296,8 @@
       "delete_confirm": "هل أنت متأكد من حذف هذا المستخدم؟",
       "password_mismatch": "كلمة المرور غير متطابقة",
       "invalid_email": "البريد الإلكتروني غير صالح"
-    }
+    },
+    "admin": "مدير"
   },
   "backups": {
     "title": "النسخ الاحتياطي",
@@ -384,8 +411,10 @@
   },
   "validation": {
     "required": "هذا الحقل مطلوب",
-    "min_length": "يجب أن يكون على الأقل 2 أحرف",
-    "max_length": "يجب أن يكون على الأكثر 8 أحرف",
+    "min_length": "يجب أن يكون على الأقل 2  من الأحرف",
+    "max_length": "يجب أن لا يكون اكثر من 20 حرف",
+    "min_password": "يجب أن يكون على الأقل 8",
+    "max_password": "يجب أن لا يكون اكثر من 100",
     "email": "يرجى إدخال بريد إلكتروني صالح",
     "password_match": "كلمة المرور غير متطابقة",
     "numeric": "يجب أن يكون رقماً",
@@ -408,5 +437,27 @@
     "refresh": "تحديث",
     "export": "تصدير",
     "import": "استيراد"
+  },
+  "events": {
+    "event_type": "نوع الحدث",
+    "view_all": "عرض جميع الاحداث",
+    "location": "موقع الحدث",
+    "location_placeholder": "اكتب موقع الحدث",
+    "attendees_count": "عدد المشاركين",
+    "event_date": "تاريخ الحدث",
+    "types": {
+      "meeting": "لقاءات",
+      "dialogue_session": "جلسات حوارية",
+      "center_news": "أخبار المركز",
+      "forum": "منتديات"
+    }
+  },
+  "author": {
+    "profile_image": " صورة الملف الشخصي",
+    "email": "البريد الإلكتروني",
+    "bio": "النبذة",
+    "bio_placeholder": "اكتب السيرة الذاتية",
+    "full_name": "الاسم الثلاثي",
+    "full_name_placeholder": "اكتب الاسم الثلاثي"
   }
 }

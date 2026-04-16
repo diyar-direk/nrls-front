@@ -7,7 +7,7 @@ import endPoints from "../../../../../constant/endPoints";
 import SelectOptionInput from "../../../../../components/inputs/SelectOptionInput";
 import { eventType } from "../../../../../constant/enums";
 
-const EventsFilter = ({ filters, setFilters }) => {
+const EventsFilter = ({ filters, setFilters, t }) => {
   const [local, setLocal] = useState(filters);
 
   const [debouncedValue] = useDebounce(local, 500);
@@ -30,38 +30,54 @@ const EventsFilter = ({ filters, setFilters }) => {
       filters={filters}
       setFilters={setFilters}
       FromToFields={[
-        { label: "event date", name: "event_date" },
-        { label: "attendess_count", name: "attendess_count", type: "number" },
-      ]}
-    >
+        { label: t("events.event_date"), name: "event_date" },
+        {
+          label: t("events.attendees_count"),
+          name: "attendees_count",
+          type: "number",
+        },
+      ]}>
       <SelectInputApi
         endPoint={endPoints.posts}
         onChange={(e) => handleSelect("post", e)}
-        placeholder={local?.post?.title || "all"}
-        label="post"
+        placeholder={local?.post?.title || t("common.all")}
+        label={t("pages.posts")}
         optionLabel={(e) => e?.title}
         notRequired
         customOptions={[
-          { title: "all", onChange: () => handleSelect("post", null) },
+          {
+            title: t("common.all"),
+            onChange: () => handleSelect("post", null),
+          },
         ]}
       />
       <SelectOptionInput
         onSelectOption={(e) => handleSelect("event_type", e.value)}
-        placeholder={local?.event_type || "all"}
-        label="event_type"
+        placeholder={
+          filters?.event_type
+            ? t(`events.types.${filters?.event_type}`)
+            : t("common.all")
+        }
+        label={t("events.event_type")}
         notRequired
         customOptions={[
-          { title: "all", onChange: () => handleSelect("event_type", null) },
+          {
+            title: t("common.all"),
+            onChange: () => handleSelect("event_type", null),
+          },
         ]}
-        options={eventType.map((e) => ({ text: e, value: e }))}
+        options={eventType.map((e) => ({
+          text: t(`events.types.${e}`),
+          value: e,
+        }))}
       />
       <Input
         name="location"
-        placeholder="search by location"
+        placeholder={t("common.search")}
         value={local?.location ?? ""}
         notRequired
         onChange={handleChange}
-        label="location"
+        label={t("events.location")}
       />
     </Filters>
   );

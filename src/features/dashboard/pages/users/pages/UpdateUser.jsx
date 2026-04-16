@@ -32,15 +32,23 @@ const UpdateUser = () => {
       is_active: data?.is_active || false,
     },
     validationSchema: Yup.object({
-      full_name: Yup.string().required().min(2).max(20),
+      full_name: Yup.string()
+        .required("validation.required")
+        .min(2, "validation.min_length")
+        .max(20, "validation.max_length"),
 
-      email: Yup.string().required().email(),
+      email: Yup.string()
+        .required("validation.required")
+        .email("validation.email"),
 
-      password: Yup.string().notRequired().min(8).max(100),
+      password: Yup.string()
+        .required("validation.required")
+        .min(8, "validation.min_password")
+        .max(100, "validation.max_password"),
 
       confirm_password: Yup.string()
-        .oneOf([Yup.ref("password"), null])
-        .notRequired(),
+        .oneOf([Yup.ref("password"), null], "validation.password_match")
+        .required("validation.required"),
 
       is_active: Yup.boolean().default(false),
     }),
@@ -74,7 +82,9 @@ const UpdateUser = () => {
 
   return (
     <>
-      <Breadcrumbs replace={[{ from: id, text: data?.username }]} />
+      <Breadcrumbs
+        replace={[{ from: id, text: data?.username, fullTextReplace: true }]}
+      />
 
       <form className="dashboard-form" onSubmit={formik.handleSubmit}>
         <div className="inputs-area">
@@ -84,9 +94,8 @@ const UpdateUser = () => {
             onChange={formik.handleChange}
             errorText={t(formik.errors.password)}
             label={t("user.password")}
-            placeholder={t("user.password_placeholder")}
+            placeholder={t("user.placeholders.password")}
             type="password"
-            notRequired
           />
           <Input
             name="confirm_password"
@@ -94,9 +103,8 @@ const UpdateUser = () => {
             onChange={formik.handleChange}
             errorText={t(formik.errors.confirm_password)}
             label={t("user.password_conf")}
-            placeholder={t("user.password_conf_placeholder")}
+            placeholder={t("user.placeholders.password_conf")}
             type="password"
-            notRequired
           />
 
           <Input
@@ -105,7 +113,7 @@ const UpdateUser = () => {
             onChange={formik.handleChange}
             errorText={t(formik.errors.full_name)}
             label={t("user.full_name")}
-            placeholder={t("user.full_name_placeholder")}
+            placeholder={t("user.placeholders.full_name")}
           />
           <Input
             name="email"
@@ -113,28 +121,26 @@ const UpdateUser = () => {
             onChange={formik.handleChange}
             errorText={t(formik.errors.email)}
             label={t("user.email")}
-            placeholder={t("user.email_placeholder")}
+            placeholder={t("user.placeholders.email")}
           />
 
-          {user?.id != id && (
-            <SelectOptionInput
-              label={t("user.account_status")}
-              placeholder={t(
-                `user.${formik.values?.is_active ? "active" : "inactive"}`,
-              )}
-              options={[
-                {
-                  text: t("user.active"),
-                  value: true,
-                  icon: faCheck,
-                },
-                { text: t("user.inactive"), value: false, icon: faXmark },
-              ]}
-              errorText={t(formik.errors.is_active)}
-              onSelectOption={(e) => formik.setFieldValue("is_active", e.value)}
-              notRequired
-            />
-          )}
+          <SelectOptionInput
+            label={t("user.account_status")}
+            placeholder={t(
+              `user.${formik.values?.is_active ? "active" : "inactive"}`,
+            )}
+            options={[
+              {
+                text: t("user.active"),
+                value: true,
+                icon: faCheck,
+              },
+              { text: t("user.inactive"), value: false, icon: faXmark },
+            ]}
+            errorText={t(formik.errors.is_active)}
+            onSelectOption={(e) => formik.setFieldValue("is_active", e.value)}
+            notRequired
+          />
         </div>
         <Button type="submit"> save </Button>
       </form>

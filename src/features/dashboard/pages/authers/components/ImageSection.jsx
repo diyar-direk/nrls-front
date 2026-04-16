@@ -6,7 +6,7 @@ import ProfileMainInfo from "./ProfileMainInfo";
 import { dashboardRouts } from "../../../../../constant/pageRoutes";
 import "../style/style.css";
 
-const ImageSection = ({ data, id, updateData }) => {
+const ImageSection = ({ data, id, updateData, t }) => {
   return (
     <section className="image-section">
       <div className="img">
@@ -14,7 +14,7 @@ const ImageSection = ({ data, id, updateData }) => {
           <Link to={dashboardRouts.author.update(id)}>
             <IconButton
               icon={icons.update}
-              title="update"
+              title={t("common.update")}
               color="main"
               styleType="transparent"
             />

@@ -23,7 +23,7 @@ import imgServerSrc from "./../../../../../utils/imgServerSrc";
 const column = [
   {
     name: "profile_image",
-    headerName: "profile_image",
+    headerName: "author.profile_image",
     getCell: ({ row }) => (
       <Link className="center" to={dashboardRouts.author.view(row.id)}>
         {row.profile_image ? (
@@ -40,7 +40,7 @@ const column = [
   },
   {
     name: "full_name",
-    headerName: "full_name",
+    headerName: "author.full_name",
     sort: true,
     getCell: ({ row }) => (
       <Link className="link-hover" to={dashboardRouts.author.view(row.id)}>
@@ -50,23 +50,23 @@ const column = [
   },
   {
     name: "email",
-    headerName: "email",
+    headerName: "author.email",
     hidden: true,
   },
   {
     name: "bio",
-    headerName: "bio",
+    headerName: "author.bio",
     hidden: true,
   },
   {
     name: "created_at",
-    headerName: "created_at",
+    headerName: "common.created_at",
     sort: true,
     getCell: ({ row }) => dateFormatter(row.created_at, "fullDate"),
   },
   {
     name: "actions",
-    headerName: "actions",
+    headerName: "common.actions",
     getCell: ({ row }) => (
       <div className="center gap-10">
         <Link to={dashboardRouts.author.update(row.id)}>
@@ -118,7 +118,7 @@ const Authors = () => {
             setSelectedItems={setSelectedItems}
           />
           <Add path={dashboardRouts.author.add} />
-          <AuthorFilter filters={filter} setFilters={setFilters} />
+          <AuthorFilter filters={filter} setFilters={setFilters} t={t} />
         </TableToolBar>
         <Table
           colmuns={column}

@@ -36,7 +36,7 @@ const {t} = useTranslation();
     <>
       <IconButton
         color="secondry-color"
-        title={t("backups.upload")}
+        title={t("backups.create")}
         onClick={() => setIsOpen(true)}
         icon={faCloudUploadAlt}
       />
