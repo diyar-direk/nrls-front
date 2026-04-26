@@ -90,7 +90,7 @@ const AddPost = () => {
       query.invalidateQueries([endPoints.posts]);
       const { id } = d;
       handleAddFiles.mutate(id);
-      if (surveyFormik.values.options) handleAddSurvey.mutate(id);
+      if (surveyFormik.values.question) handleAddSurvey.mutate(id);
     },
   });
 
