@@ -26,7 +26,7 @@ const ConfirmPopUp = ({
   heading,
   confirmText,
   cancelText,
-  undoneText = "this cant be undone",
+  undoneText,
   onConfirm = () => {},
   onClose = () => {},
   confirmButtonProps = {},
@@ -43,21 +43,25 @@ const ConfirmPopUp = ({
           <h1>{heading || t("common.are_you_sure")}</h1>
           <FontAwesomeIcon icon={icons.close} onClick={onClose} />
         </article>
-        <article className="undone">{undoneText}</article>
+        <article className="undone">
+          {undoneText || t("common.undoneText")}
+        </article>
         <div className="btns">
           <Button
             onClick={onClose}
             btnType="cancel"
             type="button"
             btnStyleType="transparent"
-            {...closeButtonProps}>
+            {...closeButtonProps}
+          >
             {cancelText || t("common.cancel")}
           </Button>
           <Button
             type="button"
             onClick={onConfirm}
             btnType="delete"
-            {...confirmButtonProps}>
+            {...confirmButtonProps}
+          >
             {confirmText || t("common.confirm")}
           </Button>
         </div>

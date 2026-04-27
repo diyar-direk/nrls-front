@@ -40,6 +40,7 @@ const Header = () => {
             t={t}
             nestedClick={handleClick}
           />
+
           <NestedMenu
             name={"media"}
             values={mediaTyps}
@@ -73,17 +74,9 @@ const Header = () => {
             {t("header.contact")}
           </NavLink>
 
-          {user ? (
+          {user && (
             <NavLink to={homeRoutes.dashboard} className="link">
               {t("header.dashboard")}
-            </NavLink>
-          ) : (
-            <NavLink
-              to={homeRoutes.login}
-              className="link"
-              onClick={handleClick}
-            >
-              {t("header.login")}
             </NavLink>
           )}
         </nav>

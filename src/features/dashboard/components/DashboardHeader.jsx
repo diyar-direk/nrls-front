@@ -40,7 +40,8 @@ const DashboardHeader = ({ isClosed, toggleClose }) => {
             <IconButton
               color="secondry-color"
               title={t("common.mode")}
-              onClick={changeMode}>
+              onClick={changeMode}
+            >
               <FontAwesomeIcon icon={faMoon} />
             </IconButton>
 

@@ -77,6 +77,7 @@
     "accept": "Qebûl bike",
     "reject": "Red bike",
     "are_you_sure": "Tu piştrast î",
+    "undoneText": "Ev nayê vegerandin",
     "other_from": "Postên din ên nivîskar",
     "select_original_post": "Posta orîjînal hilbijêre",
     "title": "Sernav",
@@ -353,7 +354,7 @@
     "events": "Bûyer",
     "surveys": "Anket",
     "login": "Têkeve",
-    "rojava_center_for_strategic_studies": "Navenda Lêkolînên Stratejîk a Roj Avayê"
+    "rojava_center_for_strategic_studies": "Navenda Roj Ava a Lêkolînên Stratejîk"
   },
   "footer": {
     "copyright": "Mafên çapkirinê 2026 Navenda Lêkolînên Stratejîk a Roj Avayê. Hemû maf parastî ne",

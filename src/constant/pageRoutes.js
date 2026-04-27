@@ -3,7 +3,7 @@ import { icons } from "./icons";
 const homeRoutes = {
   about: "/about",
   contact: "/contact_us",
-  login: "/login",
+  login: "nrls_dashboard/auth/login",
   dashboard: "/dashboard",
   author: {
     view: (id = ":id") => `/author/${id}`,

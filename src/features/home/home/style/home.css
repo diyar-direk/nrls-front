@@ -67,9 +67,10 @@ body.arabic .last-news-container .breacking-news h3 {
   white-space: nowrap;
   font-size: 14px;
   font-weight: 400;
+  animation-direction: reverse;
 }
 body.arabic .last-news-container .breacking-news .ticker .ticker-content {
-  animation-direction: reverse;
+  animation-direction: normal;
 }
 
 .last-news-container .breacking-news .ticker .ticker-content:hover {

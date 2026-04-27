@@ -33,7 +33,7 @@ const SurviesNews = ({ language }) => {
   const { t } = useTranslation();
 
   const handleClick = useCallback(
-    (id, name) => nav(homeRoutes.posts.view(name, id)),
+    (name, id) => nav(homeRoutes.posts.view(name, id)),
     [nav],
   );
 

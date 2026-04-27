@@ -77,6 +77,7 @@
     "accept": "Accept",
     "reject": "Reject",
     "are_you_sure": "Are you sure",
+    "undoneText": "this cant be undone",
     "other_from": "Other posts by the author",
     "select_original_post": "Select original post",
     "title": "Title",

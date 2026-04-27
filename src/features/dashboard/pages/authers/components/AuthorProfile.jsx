@@ -98,6 +98,7 @@ const AuthorProfile = ({ profile_image, full_name, id, updateData }) => {
         name="profile_image"
         hidden
         onChange={handleChange}
+        accept="image/*"
       />
     </>
   );

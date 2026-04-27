@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo, useCallback, useState } from "react";
 import TableHeader from "./TableHeader";
 import TableBody from "./TableBody";
 import "./table.css";
@@ -52,6 +52,14 @@ const Table = ({
   const [columnsState, setColumnsState] = useState(colmuns || []);
   const { setLimit, page_size } = useDashboardContext();
 
+  const onLimitChanging = useCallback(
+    (value) => {
+      setLimit(value);
+      setPage(1);
+    },
+    [setLimit, setPage],
+  );
+
   if (loading) return <TableLoading />;
 
   if (error) return <TabelError error={error} onRefetch={onRefetch} />;
@@ -71,7 +79,7 @@ const Table = ({
                 { text: 15, value: 15 },
                 { text: 20, value: 20 },
               ]}
-              onSelectOption={(e) => setLimit(e.value)}
+              onSelectOption={(e) => onLimitChanging(e.value)}
             />
           )}
           <CloumnsVisible

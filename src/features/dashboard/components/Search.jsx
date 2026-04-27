@@ -23,7 +23,7 @@ const Search = () => {
   const onNavigate = useCallback(() => setSearch(""), []);
 
   return (
-    <div className="flex-1 search relative">
+    <div className="search relative">
       <label>
         <input
           type="text"
@@ -32,21 +32,20 @@ const Search = () => {
           onChange={(e) => setSearch(e.target.value.toLowerCase())}
         />
         <FontAwesomeIcon icon={icons.search} />
-
-        {search && (
-          <div className="results">
-            {resluts?.length === 0 ? (
-              <h5> {t("table.no_results")} </h5>
-            ) : (
-              resluts?.map((e) => (
-                <Link to={e.to} key={e.to} onClick={onNavigate}>
-                  {t(e.title)}
-                </Link>
-              ))
-            )}
-          </div>
-        )}
       </label>
+      {search && (
+        <div className="results">
+          {resluts?.length === 0 ? (
+            <h5> {t("table.no_results")} </h5>
+          ) : (
+            resluts?.map((e) => (
+              <Link to={e.to} key={e.to} onClick={onNavigate}>
+                {t(e.title)}
+              </Link>
+            ))
+          )}
+        </div>
+      )}
     </div>
   );
 };
