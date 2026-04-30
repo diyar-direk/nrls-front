@@ -28,7 +28,7 @@ const AllTypes = () => {
   const { t } = useTranslation();
 
   const { data, isLoading, error, refetch } = useFetchData({
-    endPoints: endPoints.conentType,
+    endPoints: endPoints.contentType,
     page,
     page_size,
     ordering: sort,
