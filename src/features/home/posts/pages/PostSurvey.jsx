@@ -13,11 +13,14 @@ import { useTranslation } from "react-i18next";
 const PostSurvey = () => {
   const { id } = useParams();
   const { state } = useLocation();
+  const { content_type } = state || {};
 
   const { data, isFetching, loadMoreRef } = useInfiniteFetch({
     endPoint: `${endPoints.surveyPost}${id}/`,
     page_size: 2,
   });
+  const { i18n } = useTranslation();
+  const language = i18n?.language;
 
   const results = useMemo(() => data?.pages?.flatMap((e) => e.data), [data]);
 
@@ -39,10 +42,24 @@ const PostSurvey = () => {
     },
   });
   const { t } = useTranslation();
+
   return (
     <>
       <Breadcrumbs
-        replace={[{ from: id, text: state, fullTextReplace: true }]}
+        replace={[
+          {
+            from: content_type?.name_en,
+            text: content_type?.[`name_${language}`],
+            fullTextReplace: true,
+            props: { state: { content_type } },
+          },
+          {
+            from: id,
+            text: results?.[0]?.post_title,
+            fullTextReplace: true,
+            props: { state: { content_type } },
+          },
+        ]}
       />
       <section className="main-section container">
         <main className="survey-container ">

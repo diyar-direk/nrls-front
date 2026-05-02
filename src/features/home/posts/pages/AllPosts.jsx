@@ -15,7 +15,6 @@ import PostFilters from "../components/PostFilters";
 import { useTranslation } from "react-i18next";
 import "../style/style.css";
 import Breadcrumbs from "./../../../../components/breadcrumbs/Breadcrumbs";
-import { allTyps } from "../../../../constant/enums";
 
 const AllPosts = () => {
   const { i18n } = useTranslation();
@@ -25,20 +24,11 @@ const AllPosts = () => {
   const language = useMemo(() => i18n.language, [i18n.language]);
 
   const { state } = useLocation();
-  const {
-    tags,
-    content_type: type,
-    category,
-    content_type_multi,
-  } = state || {};
-
-  const content_type = useMemo(() => {
-    if (type) return type;
-    else if (!category && !tags && allTyps.includes(name)) return name;
-  }, [type, category, tags, name]);
+  const { tags, content_type, category } = state || {};
+  const hasState = tags || content_type || category;
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const searchParam = searchParams.get("search") ?? "";
+  const searchParam = searchParams.get("search") || (!hasState ? name : "");
 
   const [debouncedValue] = useDebounce(searchParam, 500);
 
@@ -48,12 +38,11 @@ const AllPosts = () => {
     () => ({
       search: debouncedValue,
       tags,
-      content_type: content_type,
+      content_type,
       category,
-      content_type_multi,
       ...filters,
     }),
-    [filters, debouncedValue, tags, content_type, category, content_type_multi],
+    [filters, debouncedValue, tags, content_type, category],
   );
 
   const [sort, setSort] = useState({ published_at: "-published_at" });
@@ -78,6 +67,7 @@ const AllPosts = () => {
   const [openFilters, setOpenFilters] = useState(false);
 
   const toggleFilters = useCallback(() => setOpenFilters((p) => !p), []);
+
   const handleSearch = useCallback(
     (e) => {
       const { value } = e.target;
@@ -91,29 +81,21 @@ const AllPosts = () => {
   );
 
   const { t } = useTranslation();
+
   return (
-    <div
-      style={
-        filters?.content_type && {
-          "--main-color": `var(--color-${filters?.content_type})`,
-        }
-      }
-    >
+    <>
       <Breadcrumbs
         replace={[
           {
             from: name,
-            fullTextReplace: Boolean(tags || searchParam || category),
+            text: hasState?.[`name_${language}`] || name,
+            fullTextReplace: true,
           },
         ]}
       />
       <section className="main-section container">
         <h1 className="post-section-name">
-          {content_type
-            ? t(`pages.${content_type}`)
-            : content_type_multi
-              ? t(`content_types.${name}`)
-              : name}
+          {hasState?.[`name_${language}`] || name}
         </h1>
 
         <div className="post-filters">
@@ -143,7 +125,9 @@ const AllPosts = () => {
               key={e.id}
               data={e}
               authorPage={homeRoutes.author.view}
-              postPage={(e) => homeRoutes.posts.view(e?.content_type, e.id)}
+              postPage={(e) =>
+                homeRoutes.posts.view(e?.content_type?.name_en, e.id)
+              }
             />
           ))}
           {isFetching && (
@@ -159,11 +143,12 @@ const AllPosts = () => {
             onClose={toggleFilters}
             filters={filters}
             setFilters={setFilters}
-            content_type_multi={content_type_multi}
+            category={category}
+            content_type={content_type}
           />
         )}
       </section>
-    </div>
+    </>
   );
 };
 

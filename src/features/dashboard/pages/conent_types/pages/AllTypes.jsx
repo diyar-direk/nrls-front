@@ -58,6 +58,10 @@ const AllTypes = () => {
       sort: true,
     },
     {
+      name: "categories_count",
+      headerName: t("content_types.categories_count"),
+    },
+    {
       name: "created_at",
       headerName: t("common.created_at"),
       sort: true,

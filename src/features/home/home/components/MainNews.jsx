@@ -9,7 +9,10 @@ import { postViewImg } from "./../../../../utils/postViewImg";
 const MainNews = ({ data, language }) => {
   const nav = useNavigate();
   const handleNavigate = useCallback(
-    () => nav(homeRoutes.posts.view(data?.content_type?.name_en, data?.id)),
+    () =>
+      nav(homeRoutes.posts.view(data?.content_type?.name_en, data?.id), {
+        state: { content_type: data?.content_type },
+      }),
     [data, nav],
   );
 
@@ -22,21 +25,28 @@ const MainNews = ({ data, language }) => {
       <img src={postViewImg(data)} alt="" />
       <article>
         <div className="btns">
-          <Link
-            className="type"
-            to={homeRoutes.posts.page(data?.content_type?.[`name_${language}`])}
-            onClick={stopPropagation}
-            state={{ content_type: data.content_type }}
-          >
-            {data?.content_type?.[`name_${language}`]}
-          </Link>
-          <Link
-            to={homeRoutes.posts.page(data?.category?.[`name_${language}`])}
-            onClick={stopPropagation}
-            state={{ category: data.category }}
-          >
-            {data?.category?.[`name_${language}`] || data?.category_name}
-          </Link>
+          {data?.content_type && (
+            <Link
+              className="type"
+              to={homeRoutes.posts.page(
+                data?.content_type?.[`name_${language}`],
+              )}
+              onClick={stopPropagation}
+              state={{ content_type: data.content_type }}
+            >
+              {data?.content_type?.[`name_${language}`]}
+            </Link>
+          )}
+
+          {data?.category && (
+            <Link
+              to={homeRoutes.posts.page(data?.category?.[`name_${language}`])}
+              onClick={stopPropagation}
+              state={{ category: data.category }}
+            >
+              {data?.category?.[`name_${language}`] || data?.category_name}
+            </Link>
+          )}
         </div>
         <h2 className="two-line-ellipsis">{data.title}</h2>
         <p className="two-line-ellipsis">{data.excerpt}</p>

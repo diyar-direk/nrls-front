@@ -29,7 +29,8 @@ const Events = ({ post, actions }) => {
           <Link
             to={dashboardRouts.events.add}
             state={{ post }}
-            className="flex-1">
+            className="flex-1"
+          >
             <Button btnStyleType="transparent" className="w-100">
               <FontAwesomeIcon icon={icons.add} /> {t("common.add")}{" "}
               {t("pages.event")}
@@ -41,9 +42,11 @@ const Events = ({ post, actions }) => {
             to={
               actions
                 ? dashboardRouts.post.events(post?.id)
-                : homeRoutes.posts.events(post?.content_type, post?.id)
+                : homeRoutes.posts.events(post?.content_type.name_en, post?.id)
             }
-            className="flex-1">
+            state={{ content_type: post?.content_type }}
+            className="flex-1"
+          >
             <Button btnStyleType="transparent" className="w-100">
               {t("events.view_all")} ({data?.totalCount})
             </Button>

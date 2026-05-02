@@ -21,14 +21,20 @@ const PostViewMainInfo = ({ data, authorView, language }) => {
         </Link>
       )}
 
-      <div>
-        <p>{t("common.content_type")}</p>
-        <span>{t(`content_types.${data?.content_type}`)}</span>
-      </div>
-      <div>
-        <p>{t("common.category")}</p>
-        <span>{data?.category?.[`name_${language}`]}</span>
-      </div>
+      {data?.content_type && (
+        <div>
+          <p>{t("common.content_type")}</p>
+          <span>{data?.content_type?.[`name_${language}`]}</span>
+        </div>
+      )}
+
+      {data?.category && (
+        <div>
+          <p>{t("common.category")}</p>
+          <span>{data?.category?.[`name_${language}`]}</span>
+        </div>
+      )}
+
       <div>
         <p>{t("common.views")}</p>
         <span>{data?.view_count}</span>

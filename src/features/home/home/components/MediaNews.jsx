@@ -1,22 +1,19 @@
 import MainTitle from "../../../../components/main_title/MainTitle";
 import Skeleton from "../../../../components/skeleton/Skeleton";
 import endPoints from "../../../../constant/endPoints";
-import { mediaTyps } from "../../../../constant/enums";
-import { useTranslation } from "react-i18next";
 import { useFetchData } from "../../../../hooks/useFetchData";
 import SecondStyleMainNews from "./SecondStyleMainNews";
 import SecondStyleSubNews from "./SecondStyleSubNews";
 
-const MediaNews = ({ language }) => {
+const MediaNews = ({ language, content_type }) => {
   const { data, isLoading } = useFetchData({
     endPoints: endPoints.posts,
     page_size: 7,
     ordering: { published_at: "-published_at" },
     language,
     is_published: true,
+    content_type: content_type?.id,
   });
-
-  const { t } = useTranslation();
 
   if (isLoading)
     return (
@@ -31,9 +28,7 @@ const MediaNews = ({ language }) => {
 
   return (
     <section className="container main-section">
-      <MainTitle state={{ content_type_multi: mediaTyps }} name="media">
-        {t("pages.media")}
-      </MainTitle>
+      <MainTitle content_type={content_type} lang={language} />
 
       <main className="news-style-2">
         <SecondStyleSubNews

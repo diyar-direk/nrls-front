@@ -7,24 +7,31 @@ import Publications from "../components/Publications";
 import LastNews from "../components/LastNews";
 import { useTranslation } from "react-i18next";
 import { useMemo } from "react";
+import { useOutletContext } from "react-router";
 
 const Home = () => {
   const { i18n } = useTranslation();
   const language = useMemo(() => i18n.language, [i18n.language]);
 
+  const { types } = useOutletContext();
+
+  const componentsOrder = [
+    TopicsNews,
+    MediaNews,
+    EventNews,
+    SurviesNews,
+    Publications,
+  ];
+
   return (
     <div className="sub-news-container">
       <LastNews language={language} />
 
-      <TopicsNews language={language} />
+      {types?.map((e, i) => {
+        const Component = componentsOrder[i % componentsOrder.length];
 
-      <MediaNews language={language} />
-
-      <EventNews language={language} />
-
-      <SurviesNews language={language} />
-
-      <Publications />
+        return <Component key={e.id} content_type={e} language={language} />;
+      })}
     </div>
   );
 };

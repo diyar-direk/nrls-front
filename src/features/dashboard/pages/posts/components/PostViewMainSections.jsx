@@ -40,13 +40,15 @@ const PostViewMainSections = ({
 
         <div
           className="cover-image"
-          onClick={() => setShowImg(postViewImg(data))}>
+          onClick={() => setShowImg(postViewImg(data))}
+        >
           <img src={postViewImg(data)} alt="" />
         </div>
 
         <div
           className="ql-editor border-bottom"
-          dangerouslySetInnerHTML={{ __html: data?.content }}></div>
+          dangerouslySetInnerHTML={{ __html: data?.content }}
+        ></div>
 
         {data?.tags?.length > 0 && (
           <div className="tags border-bottom">
@@ -59,7 +61,8 @@ const PostViewMainSections = ({
                     ? allPostsView(e)
                     : allPostsView
                 }
-                state={{ tags: e }}>
+                state={{ tags: e }}
+              >
                 {e[`name_${language}`]}
               </Link>
             ))}
@@ -72,6 +75,7 @@ const PostViewMainSections = ({
           actions={actions}
           viewSurvey={viewSurvey}
           t={t}
+          content_type={data?.content_type}
         />
 
         <PostComments id={data?.id} actions={actions} />

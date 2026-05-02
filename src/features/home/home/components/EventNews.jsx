@@ -9,19 +9,16 @@ import Skeleton from "../../../../components/skeleton/Skeleton";
 import PostCard from "../../../../components/post/PostCard";
 import { postViewImg } from "../../../../utils/postViewImg";
 import dateFormatter from "../../../../utils/dateFormatter";
-import { useTranslation } from "react-i18next";
 
-const EventNews = ({ language }) => {
+const EventNews = ({ language, content_type }) => {
   const { data, isLoading } = useFetchData({
     endPoints: endPoints.posts,
     page_size: 6,
     ordering: { published_at: "-published_at" },
     language,
-    content_type: "event",
     is_published: true,
+    content_type: content_type?.id,
   });
-
-  const { t } = useTranslation();
 
   if (isLoading)
     return (
@@ -36,9 +33,7 @@ const EventNews = ({ language }) => {
 
   return (
     <section className="container main-section documentaries">
-      <MainTitle state={{ content_type: "event" }} name={"event"}>
-        {t("pages.event")}
-      </MainTitle>
+      <MainTitle content_type={content_type} lang={language} />
 
       <main className="grid-3">
         {data?.data?.slice(0, 3).map((e) => (
@@ -46,7 +41,11 @@ const EventNews = ({ language }) => {
             authorPage={homeRoutes.author.view}
             data={e}
             key={e.id}
-            postPage={(e) => homeRoutes.posts.view(e?.content_type, e.id)}
+            postPage={(e) =>
+              homeRoutes.posts.view(e?.content_type?.name_en, e.id, {
+                state: { content_type: e?.content_type },
+              })
+            }
             className={"card-style-1"}
           />
         ))}
@@ -57,7 +56,8 @@ const EventNews = ({ language }) => {
           <Link
             className="documentary"
             key={e.id}
-            to={homeRoutes.posts.view(e.content_type, e.id)}
+            to={homeRoutes.posts.view(e.content_type?.name_en, e.id)}
+            state={{ content_type: e.content_type }}
           >
             <div className="img">
               <img src={postViewImg(e)} alt="" />

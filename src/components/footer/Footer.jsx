@@ -5,13 +5,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { socialLinks } from "../../constant/socialLinks";
 import { homeRoutes } from "../../constant/pageRoutes";
 import { useAuth } from "../../context/AuthContext";
-import { mediaTyps, publicationTyps, topicTyps } from "../../constant/enums";
 import { useTranslation } from "react-i18next";
 
-const Footer = () => {
+const Footer = ({ types }) => {
   const { user } = useAuth();
 
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const language = i18n?.language;
 
   return (
     <footer className="home-footer container">
@@ -34,10 +34,8 @@ const Footer = () => {
           <Link to="/">{t("footer.home")}</Link>
           <Link to={homeRoutes.about}>{t("footer.about")}</Link>
           <Link to={homeRoutes.contact}>{t("footer.contact")}</Link>
-          {user ? (
+          {user && (
             <Link to={homeRoutes.dashboard}>{t("pages.dashboard")}</Link>
-          ) : (
-            <Link to={homeRoutes.login}>{t("footer.login")}</Link>
           )}
         </div>
       </main>
@@ -45,19 +43,11 @@ const Footer = () => {
       <main>
         <h2 className="title">{t("footer.categories")}</h2>
         <div className="links">
-          <Link to={"/event"}>{t("content_types.event")}</Link>
-          <Link to={"/survey"}>{t("content_types.survey")}</Link>
-          <Link to={"/topics"} state={{ content_type_multi: topicTyps }}>
-            {t("content_types.topics")}
-          </Link>
-          <Link to={"/media"} state={{ content_type_multi: mediaTyps }}>
-            {t("content_types.media")}
-          </Link>
-          <Link
-            to={"/publication"}
-            state={{ content_type_multi: publicationTyps }}>
-            {t("content_types.publication")}
-          </Link>
+          {types?.map((e) => (
+            <Link to={e.name_en} key={e.id} state={{ content_type: e }}>
+              {e[`name_${language}`]}
+            </Link>
+          ))}
         </div>
       </main>
 

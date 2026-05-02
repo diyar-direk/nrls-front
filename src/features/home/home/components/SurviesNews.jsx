@@ -17,13 +17,13 @@ import { useCallback } from "react";
 import MainTitle from "../../../../components/main_title/MainTitle";
 import { useTranslation } from "react-i18next";
 
-const SurviesNews = ({ language }) => {
+const SurviesNews = ({ language, content_type }) => {
   const { data, isLoading } = useFetchData({
     endPoints: endPoints.posts,
     page_size: 4,
     ordering: { published_at: "-published_at" },
     language,
-    content_type: "survey",
+    content_type: content_type?.id,
     is_published: true,
   });
   const stopPropagation = useCallback((e) => e.stopPropagation(), []);
@@ -33,7 +33,7 @@ const SurviesNews = ({ language }) => {
   const { t } = useTranslation();
 
   const handleClick = useCallback(
-    (name, id) => nav(homeRoutes.posts.view(name, id)),
+    (name, id, state) => nav(homeRoutes.posts.view(name, id), { state }),
     [nav],
   );
 
@@ -49,16 +49,18 @@ const SurviesNews = ({ language }) => {
 
   return (
     <section className="container main-section">
-      <MainTitle state={{ content_type: "survey" }} name={"survey"}>
-        {t("pages.survey")}
-      </MainTitle>
+      <MainTitle content_type={content_type} lang={language} />
 
       <main className="topics-container grid-2">
         {data?.data?.map((e) => (
           <div
             className="topic"
             key={e.id}
-            onClick={() => handleClick(e.content_type, e.id)}
+            onClick={() =>
+              handleClick(e.content_type.name_en, e.id, {
+                content_type: e.content_type,
+              })
+            }
           >
             <div className="img">
               <img src={postViewImg(e)} alt="" />
@@ -68,15 +70,17 @@ const SurviesNews = ({ language }) => {
               <p className="one-line-ellipsis">{e.excerpt}</p>
 
               <div className="icons">
-                <Link
-                  to={homeRoutes.posts.page(e?.category?.[`name_${language}`])}
-                  onClick={stopPropagation}
-                  state={{ category: e.category }}
-                  className="icon link-hover"
-                >
-                  <FontAwesomeIcon icon={faTags} />
-                  {e?.category?.[`name_${language}`] || e?.category_name}
-                </Link>
+                {e?.category && (
+                  <Link
+                    to={homeRoutes.posts.page(e?.category?.name_en)}
+                    onClick={stopPropagation}
+                    state={{ category: e.category }}
+                    className="icon link-hover"
+                  >
+                    <FontAwesomeIcon icon={faTags} />
+                    {e?.category?.[`name_${language}`] || e?.category_name}
+                  </Link>
+                )}
 
                 <span className="icon">
                   <FontAwesomeIcon icon={faEye} />

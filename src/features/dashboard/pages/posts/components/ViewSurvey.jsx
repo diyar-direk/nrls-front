@@ -11,7 +11,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axiosInstance from "../../../../../utils/axios";
 import { useTranslation } from "react-i18next";
 
-const ViewSurvey = ({ id, actions, viewSurvey }) => {
+const ViewSurvey = ({ id, actions, viewSurvey, content_type }) => {
   const { data } = useFetchData({
     endPoints: `${endPoints.surveyPost}${id}/`,
     page_size: 1,
@@ -60,7 +60,7 @@ const ViewSurvey = ({ id, actions, viewSurvey }) => {
       )}
       {data?.totalCount > 1 && (
         <div className="update-icon">
-          <Link to={viewSurvey(id)} state={firstSurvey?.post_title}>
+          <Link to={viewSurvey(id)} state={{ content_type }}>
             <Button btnStyleType="transparent">
               <FontAwesomeIcon icon={faListUl} /> {t("header.surveys")} (
               {data?.totalCount})

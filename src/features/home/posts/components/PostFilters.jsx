@@ -6,7 +6,13 @@ import Input from "../../../../components/inputs/Input";
 import SelectInputApi from "../../../../components/inputs/SelectInputApi";
 import Button from "../../../../components/buttons/Button";
 
-const PostFilters = ({ onClose, filters, setFilters }) => {
+const PostFilters = ({
+  onClose,
+  filters,
+  setFilters,
+  category,
+  content_type,
+}) => {
   const [localFilters, setLocalFilters] = useState(filters || {});
 
   const handleChange = useCallback((e) => {
@@ -30,22 +36,26 @@ const PostFilters = ({ onClose, filters, setFilters }) => {
   return (
     <PopUp isOpen className="filters-popup" onClose={onClose}>
       <div className="filters-container">
-        <SelectInputApi
-          endPoint={endPoints.categories}
-          onChange={(e) => handleOptionInp("category", e)}
-          placeholder={
-            localFilters?.category?.[`name_${language}`] || t("common.all")
-          }
-          label={t("pages.categories")}
-          optionLabel={(e) => e?.[`name_${language}`]}
-          customOptions={[
-            {
-              title: t("common.all"),
-              onChange: () => handleOptionInp("category", ""),
-            },
-          ]}
-          notRequired
-        />
+        {!category && content_type?.categories_count > 0 && (
+          <SelectInputApi
+            endPoint={endPoints.categories}
+            onChange={(e) => handleOptionInp("category", e)}
+            placeholder={
+              localFilters?.category?.[`name_${language}`] || t("common.all")
+            }
+            label={t("pages.categories")}
+            optionLabel={(e) => e?.[`name_${language}`]}
+            customOptions={[
+              {
+                title: t("common.all"),
+                onChange: () => handleOptionInp("category", ""),
+              },
+            ]}
+            notRequired
+            params={{ content_type: content_type?.id }}
+          />
+        )}
+
         <SelectInputApi
           endPoint={endPoints.tags}
           onChange={(e) => handleOptionInp("tags", e)}

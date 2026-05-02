@@ -9,7 +9,7 @@ import { postViewImg } from "../../../../utils/postViewImg";
 const SubNews = ({ data, language }) => {
   const nav = useNavigate();
   const handleNavigate = useCallback(
-    (id, name) => nav(homeRoutes.posts.view(name, id)),
+    (id, name, state) => nav(homeRoutes.posts.view(name, id), { state }),
     [nav],
   );
   const stopPropagation = useCallback((e) => e.stopPropagation(), []);
@@ -23,29 +23,33 @@ const SubNews = ({ data, language }) => {
           className="sub-news"
           key={e.id}
           onClick={() =>
-            handleNavigate(e.id, e?.content_type?.[`name_${language}`])
+            handleNavigate(e.id, e?.content_type?.name_en, {
+              content_type: e.content_type,
+            })
           }
         >
           <img src={postViewImg(e)} alt="" />
           <article>
             <div className="btns">
-              <Link
-                className="type"
-                to={homeRoutes.posts.page(
-                  e?.content_type?.[`name_${language}`],
-                )}
-                onClick={stopPropagation}
-                state={{ content_type: e.content_type }}
-              >
-                {e?.content_type?.[`name_${language}`]}
-              </Link>
-              <Link
-                to={homeRoutes.posts.page(e?.category?.[`name_${language}`])}
-                onClick={stopPropagation}
-                state={{ category: e.category }}
-              >
-                {e?.category?.[`name_${language}`] || e?.category_name}
-              </Link>
+              {e.content_type && (
+                <Link
+                  className="type"
+                  to={homeRoutes.posts.page(e?.content_type?.name_en)}
+                  onClick={stopPropagation}
+                  state={{ content_type: e.content_type }}
+                >
+                  {e?.content_type?.[`name_${language}`]}
+                </Link>
+              )}
+              {e.category && (
+                <Link
+                  to={homeRoutes.posts.page(e?.category?.name_en)}
+                  onClick={stopPropagation}
+                  state={{ category: e.category }}
+                >
+                  {e?.category?.[`name_${language}`] || e?.category_name}
+                </Link>
+              )}
             </div>
             <h2 className="one-line-ellipsis">{e.title}</h2>
 

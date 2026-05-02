@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router";
+import { Link, useLocation, useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { useMemo } from "react";
@@ -21,6 +21,8 @@ const api = new APIClient(endPoints.posts);
 
 const ViewPost = () => {
   const { id } = useParams();
+  const { state } = useLocation();
+  const { content_type } = state || {};
 
   const { data, error, isLoading, refetch } = useQuery({
     queryKey: [endPoints.posts, id],
@@ -34,11 +36,19 @@ const ViewPost = () => {
   if (isLoading) return <Skeleton height="400px" />;
 
   if (error) return <HandleError error={error} refetch={refetch} />;
-  
+
   return (
     <>
       <Breadcrumbs
-        replace={[{ from: id, text: data?.title, fullTextReplace: true }]}
+        replace={[
+          {
+            from: content_type?.name_en,
+            text: content_type?.[`name_${language}`],
+            fullTextReplace: true,
+            props: { state: { content_type } },
+          },
+          { from: id, text: data?.title, fullTextReplace: true },
+        ]}
       />
       <div className="main-section container">
         {data?.original_post && (
@@ -54,7 +64,7 @@ const ViewPost = () => {
             language={language}
             allPostsView={(e) => homeRoutes.posts.page(e[`name_${language}`])}
             viewSurvey={(id) =>
-              homeRoutes.posts.viewSurvey(data?.content_type, id)
+              homeRoutes.posts.viewSurvey(data?.content_type?.name_en, id)
             }
           />
 
@@ -70,7 +80,7 @@ const ViewPost = () => {
             />
 
             <div className="actions">
-              <SharePost id={id} name={data?.content_type} />
+              <SharePost id={id} name={data?.content_type?.name_en} />
             </div>
 
             <Events post={data} />

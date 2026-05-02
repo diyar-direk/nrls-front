@@ -8,6 +8,7 @@ import { sliceText } from "../../utils/sliceText.js";
  * @typedef {Object} ReplaceItem
  * @property {string} from
  * @property {string} [to]
+ * @property {object} [props]
  * @property {string} [text]
  * @property {boolean} [fullPath=false]
  * @property {boolean} [fullTextReplace=false]
@@ -57,6 +58,7 @@ const Breadcrumbs = ({ replace = [] }) => {
         }
 
         const text = replaceItem?.text || path;
+
         const to = replacedPath || defaultTo;
 
         return (
@@ -68,7 +70,7 @@ const Breadcrumbs = ({ replace = [] }) => {
                   : sliceText(t(`pages.${text}`))}
               </span>
             ) : (
-              <Link to={to}>
+              <Link to={to} {...replaceItem?.props}>
                 {replaceItem?.fullTextReplace
                   ? sliceText(text)
                   : sliceText(t(`pages.${text}`))}

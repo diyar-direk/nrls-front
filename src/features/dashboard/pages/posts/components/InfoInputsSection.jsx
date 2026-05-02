@@ -48,6 +48,7 @@ const InfoInputsSection = ({ formik, language }) => {
         errorText={!formik.values.category && t(formik.errors.category)}
         label={t("common.category")}
         optionLabel={(e) => `${e.name_en} - ${e.name_ar} - ${e.name_ku}`}
+        params={{ content_type: formik.values?.content_type?.id || null }}
       />
       <SelectInputApi
         endPoint={endPoints.authors}

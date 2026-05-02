@@ -4,14 +4,14 @@ import { NavLink, useNavigate } from "react-router";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const NestedMenu = ({ name, values, t, nestedClick }) => {
+const NestedMenu = ({ nestedClick, data, lang }) => {
   const nav = useNavigate();
 
   const handleNavigate = useCallback(() => {
-    nav(homeRoutes.posts.page(name), {
-      state: { content_type_multi: values },
+    nav(homeRoutes.posts.page(data?.name_en), {
+      state: { content_type: data },
     });
-  }, [nav, name, values]);
+  }, [nav, data]);
 
   const handleClick = useCallback(
     (e) => {
@@ -24,16 +24,17 @@ const NestedMenu = ({ name, values, t, nestedClick }) => {
   return (
     <div className="link" onClick={handleNavigate}>
       <div>
-        {t(`header.${name}`)} <FontAwesomeIcon icon={faChevronDown} />
+        {data?.[`name_${lang}`]} <FontAwesomeIcon icon={faChevronDown} />
       </div>
       <article>
-        {values.map((type) => (
+        {data?.categories_list?.map((t) => (
           <NavLink
-            key={type}
-            to={`/${type}`}
+            key={t.id}
             onClick={handleClick}
-            state={{ content_type_multi: [], content_type: type }}>
-            {t(`content_types.${type}`)}
+            to={t.name_en}
+            state={{ category: t }}
+          >
+            {t?.[`name_${lang}`]}
           </NavLink>
         ))}
       </article>

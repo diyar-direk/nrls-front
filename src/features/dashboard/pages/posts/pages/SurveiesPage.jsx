@@ -1,4 +1,4 @@
-import { useLocation, useParams } from "react-router";
+import { useParams } from "react-router";
 import Breadcrumbs from "../../../../../components/breadcrumbs/Breadcrumbs";
 import { useInfiniteFetch } from "../../../../../hooks/useInfiniteFetch";
 import endPoints from "../../../../../constant/endPoints";
@@ -12,7 +12,6 @@ import { useTranslation } from "react-i18next";
 
 const SurveiesPage = () => {
   const { id } = useParams();
-  const { state } = useLocation();
 
   const { data, isFetching, loadMoreRef } = useInfiniteFetch({
     endPoint: `${endPoints.surveyPost}${id}/`,
@@ -44,7 +43,9 @@ const SurveiesPage = () => {
   return (
     <>
       <Breadcrumbs
-        replace={[{ from: id, text: state, fullTextReplace: true }]}
+        replace={[
+          { from: id, text: results?.[0]?.post_title, fullTextReplace: true },
+        ]}
       />
       <main className="survey-container ">
         {results?.map((e) => (

@@ -1,16 +1,23 @@
 import { Outlet } from "react-router";
 import Header from "./header/Header";
 import Footer from "./footer/Footer";
+import endPoints from "../constant/endPoints";
+import { useFetchData } from "./../hooks/useFetchData";
 
 const Layout = () => {
+  const { data } = useFetchData({
+    endPoints: endPoints.contentType,
+    ordering: { priority: "priority" },
+  });
+
   return (
     <>
-      <Header />
+      <Header types={data?.data} />
 
       <main style={{ minHeight: "70vh" }}>
-        <Outlet />
+        <Outlet context={{ types: data?.data }} />
       </main>
-      <Footer />
+      <Footer types={data?.data} />
     </>
   );
 };

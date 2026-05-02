@@ -3,7 +3,6 @@ import { NavLink } from "react-router";
 import { homeRoutes } from "../../constant/pageRoutes";
 import Search from "./Search";
 import { useAuth } from "../../context/AuthContext";
-import { mediaTyps, publicationTyps, topicTyps } from "../../constant/enums";
 import NestedMenu from "./NestedMenu";
 import TopHeader from "./TopHeader";
 import IconButton from "./../buttons/IconButton";
@@ -12,9 +11,10 @@ import { useClickOutside } from "../../hooks/useClickOutside";
 import { useTranslation } from "react-i18next";
 import { useCallback } from "react";
 
-const Header = () => {
+const Header = ({ types }) => {
   const { user } = useAuth();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const language = i18n?.language;
   const { isOpen, ref, toggleOpen, setIsOpen } = useClickOutside();
 
   const handleClick = useCallback(() => {
@@ -34,33 +34,26 @@ const Header = () => {
             {t("header.home")}
           </NavLink>
 
-          <NestedMenu
-            name={"topics"}
-            values={topicTyps}
-            t={t}
-            nestedClick={handleClick}
-          />
-
-          <NestedMenu
-            name={"media"}
-            values={mediaTyps}
-            t={t}
-            nestedClick={handleClick}
-          />
-          <NestedMenu
-            name={"publication"}
-            values={publicationTyps}
-            t={t}
-            nestedClick={handleClick}
-          />
-
-          <NavLink to={"/event"} className="link" onClick={handleClick}>
-            {t("header.events")}
-          </NavLink>
-
-          <NavLink to={"/survey"} className="link" onClick={handleClick}>
-            {t("header.surveys")}
-          </NavLink>
+          {types?.map((e) =>
+            e.categories_count ? (
+              <NestedMenu
+                nestedClick={handleClick}
+                data={e}
+                lang={language}
+                key={e.id}
+              />
+            ) : (
+              <NavLink
+                to={e.name_en}
+                className="link"
+                onClick={handleClick}
+                key={e.id}
+                state={{ content_type: e }}
+              >
+                {e[`name_${language}`]}
+              </NavLink>
+            ),
+          )}
 
           <NavLink to={homeRoutes.about} className="link" onClick={handleClick}>
             {t("header.about")}

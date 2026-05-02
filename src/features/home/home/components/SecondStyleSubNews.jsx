@@ -12,9 +12,8 @@ const SecondStyleSubNews = ({ data }) => {
       {data?.map((e) => (
         <Link
           key={e.id}
-          to={homeRoutes.posts.view(e?.content_type?.name_en, e.id, {
-            state: { content_type: e?.content_type },
-          })}
+          to={homeRoutes.posts.view(e?.content_type?.name_en, e.id)}
+          state={{ content_type: e?.content_type }}
         >
           <article>
             <h3 className="two-line-ellipsis">{e.title}</h3>
