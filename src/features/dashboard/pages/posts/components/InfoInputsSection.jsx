@@ -38,6 +38,7 @@ const InfoInputsSection = ({ formik, language }) => {
         optionLabel={(e) => `${e.name_en} - ${e.name_ar} - ${e.name_ku}`}
         params={{ ordering: { priority: "priority" } }}
       />
+      
       <SelectInputApi
         endPoint={endPoints.categories}
         onChange={(e) => selectCategory(e)}
