@@ -50,7 +50,7 @@ const MoreInfoInputs = ({ formik, t }) => {
         placeholder={`${t("common.select")} ${t("pages.tags")}`}
         errorText={t(formik.errors.tags)}
         label={t("pages.tags")}
-        optionLabel={(e) => `${e.name_en} - ${e.name_ar} - ${e.name_ku}`}
+        optionLabel={(e) => `${e?.name_en} - ${e?.name_ar} - ${e?.name_ku}`}
         isArray
         value={formik.values.tags}
         notRequired

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import dateFormatter from "../../../../../utils/dateFormatter";
 import { useDashboardContext } from "../../../../../context/DashboardContext";
 import { useFetchData } from "../../../../../hooks/useFetchData";
@@ -34,48 +34,52 @@ const Categories = () => {
     search,
     ...formatInputsData(filter),
   });
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
-  const column = [
-    {
-      name: "name_ar",
-      headerName: t("tags.name_ar"),
-      sort: true,
-    },
-    {
-      name: "name_en",
-      headerName: t("tags.name_en"),
-      sort: true,
-    },
-    {
-      name: "name_ku",
-      headerName: t("tags.name_ku"),
-      sort: true,
-    },
-    {
-      name: "content_type_name",
-      headerName: t("common.content_type"),
-    },
-    {
-      name: "created_at",
-      headerName: t("common.created_at"),
-      sort: true,
-      getCell: ({ row }) => dateFormatter(row.created_at, "fullDate"),
-    },
-    {
-      name: "actions",
-      headerName: t("common.actions"),
-      getCell: ({ row }) => (
-        <div className="center">
-          <Link to={dashboardRouts.tag.update(row.id)}>
-            <Button btnStyleType="transparent">
-              <FontAwesomeIcon icon={icons.update} />
-            </Button>
-          </Link>
-        </div>
-      ),
-    },
-  ];
+  const column = useMemo(
+    () => [
+      {
+        name: "name_ar",
+        headerName: "tags.name_ar",
+        sort: true,
+      },
+      {
+        name: "name_en",
+        headerName: "tags.name_en",
+        sort: true,
+      },
+      {
+        name: "name_ku",
+        headerName: "tags.name_ku",
+        sort: true,
+      },
+      {
+        name: "content_type",
+        headerName: "common.content_type",
+        getCell: ({ row }) => row.content_type?.[`name_${i18n.language}`],
+      },
+      {
+        name: "created_at",
+        headerName: "common.created_at",
+        sort: true,
+        getCell: ({ row }) => dateFormatter(row.created_at, "fullDate"),
+      },
+      {
+        name: "actions",
+        headerName: "common.actions",
+        getCell: ({ row }) => (
+          <div className="center">
+            <Link to={dashboardRouts.tag.update(row.id)}>
+              <Button btnStyleType="transparent">
+                <FontAwesomeIcon icon={icons.update} />
+              </Button>
+            </Link>
+          </div>
+        ),
+      },
+    ],
+    [i18n.language],
+  );
 
   return (
     <>

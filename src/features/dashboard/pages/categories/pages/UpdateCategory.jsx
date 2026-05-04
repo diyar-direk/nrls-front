@@ -70,7 +70,7 @@ const UpdateCategory = () => {
             }
             errorText={t(formik.errors.content_type)}
             label={t("common.content_type")}
-            optionLabel={(e) => `${e.name_en} - ${e.name_ar} - ${e.name_ku}`}
+            optionLabel={(e) => `${e?.name_en} - ${e?.name_ar} - ${e?.name_ku}`}
           />
           <Input
             name="name_ar"

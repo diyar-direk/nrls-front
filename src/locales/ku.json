@@ -161,6 +161,8 @@
     "breaking_news": "Dawî",
     "topics": "Mijar",
     "content_type": "Cureyê naverokê",
+    "add_content_type": "Cureyê naverokê zêde bike",
+    "content_types": "Cureyên naverokê",
     "publication": "Weşan",
     "add_author": "Nivîskar zêde bike",
     "add_tag": "Etîket zêde bike",
@@ -230,7 +232,8 @@
     "priority": "pêşeyî",
     "media": "Medya",
     "publication": "Weşan",
-    "files": "Dosya"
+    "files": "Dosya",
+    "categories_count": "Beşên di nav"
   },
   "studies": "Lêkolîn",
   "dashboardRoutes": {

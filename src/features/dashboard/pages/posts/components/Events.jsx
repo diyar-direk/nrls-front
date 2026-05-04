@@ -42,7 +42,7 @@ const Events = ({ post, actions }) => {
             to={
               actions
                 ? dashboardRouts.post.events(post?.id)
-                : homeRoutes.posts.events(post?.content_type.name_en, post?.id)
+                : homeRoutes.posts.events(post?.content_type?.name_en, post?.id)
             }
             state={{ content_type: post?.content_type }}
             className="flex-1"

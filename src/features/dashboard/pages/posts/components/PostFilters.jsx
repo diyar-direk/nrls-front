@@ -39,7 +39,7 @@ const PostFilters = ({ onClose, filters, setFilters }) => {
             localFilters?.content_type?.[`name_${language}`] || t("common.all")
           }
           label={t("common.content_type")}
-          optionLabel={(e) => `${e.name_en} - ${e.name_ar} - ${e.name_ku}`}
+          optionLabel={(e) => `${e?.name_en} - ${e?.name_ar} - ${e?.name_ku}`}
           notRequired
           customOptions={[
             {

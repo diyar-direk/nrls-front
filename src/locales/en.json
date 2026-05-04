@@ -161,6 +161,8 @@
     "breaking_news": "Latest",
     "topics": "Topics",
     "content_type": "Content type",
+    "add_content_type": "add Content type",
+    "content_types": "Content types",
     "publication": "Publications",
     "add_author": "Add author",
     "add_tag": "Add tag",
@@ -230,7 +232,8 @@
     "priority": "priority",
     "media": "Media",
     "publication": "Publications",
-    "files": "Files"
+    "files": "Files",
+    "categories_count": "Categories inside it"
   },
   "studies": "Studies",
   "dashboardRoutes": {

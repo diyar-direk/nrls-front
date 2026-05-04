@@ -48,6 +48,7 @@ const AddType = () => {
             onChange={formik.handleChange}
             errorText={t(formik.errors.name_ar)}
             label={t("tags.name_ar")}
+            placeholder={t("tags.search_by_ar")}
           />
           <Input
             name="name_en"
@@ -55,6 +56,7 @@ const AddType = () => {
             onChange={formik.handleChange}
             errorText={t(formik.errors.name_en)}
             label={t("tags.name_en")}
+            placeholder={t("tags.search_by_en")}
           />
           <Input
             name="name_ku"
@@ -62,14 +64,16 @@ const AddType = () => {
             onChange={formik.handleChange}
             errorText={t(formik.errors.name_ku)}
             label={t("tags.name_ku")}
+            placeholder={t("tags.search_by_ku")}
           />
           <Input
             name="priority"
             value={formik.values.priority}
             onChange={formik.handleChange}
             errorText={t(formik.errors.priority)}
-            label={t("conent_types.priority")}
+            label={t("content_types.priority")}
             type="number"
+            placeholder="ex: 10"
           />
         </div>
         <Button type="submit"> {t("common.save")} </Button>

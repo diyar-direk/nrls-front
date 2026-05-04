@@ -62,7 +62,7 @@ const ViewPost = () => {
             authorView={homeRoutes.author.view}
             data={data}
             language={language}
-            allPostsView={(e) => homeRoutes.posts.page(e[`name_${language}`])}
+            allPostsView={(e) => homeRoutes.posts.page(e?.[`name_${language}`])}
             viewSurvey={(id) =>
               homeRoutes.posts.viewSurvey(data?.content_type?.name_en, id)
             }

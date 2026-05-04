@@ -15,7 +15,7 @@ const BreakingNews = ({ data }) => {
           {data?.map((e) => (
             <Link
               key={e.id}
-              to={homeRoutes.posts.view(e.content_type.name_en, e.id)}
+              to={homeRoutes.posts.view(e.content_type?.name_en, e.id)}
               state={{ content_type: e.content_type }}
             >
               {e.title?.length < 100 ? e.title : `${e.title.slice(0, 100)} ...`}

@@ -35,9 +35,10 @@ const InfoInputsSection = ({ formik, language }) => {
         }
         errorText={t(formik.errors.content_type)}
         label={t("common.content_type")}
-        optionLabel={(e) => `${e.name_en} - ${e.name_ar} - ${e.name_ku}`}
+        optionLabel={(e) => `${e?.name_en} - ${e?.name_ar} - ${e?.name_ku}`}
         params={{ ordering: { priority: "priority" } }}
       />
+
       <SelectInputApi
         endPoint={endPoints.categories}
         onChange={(e) => selectCategory(e)}
@@ -47,7 +48,7 @@ const InfoInputsSection = ({ formik, language }) => {
         }
         errorText={!formik.values.category && t(formik.errors.category)}
         label={t("common.category")}
-        optionLabel={(e) => `${e.name_en} - ${e.name_ar} - ${e.name_ku}`}
+        optionLabel={(e) => `${e?.name_en} - ${e?.name_ar} - ${e?.name_ku}`}
         params={{ content_type: formik.values?.content_type?.id || null }}
       />
       <SelectInputApi

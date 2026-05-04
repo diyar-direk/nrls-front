@@ -105,7 +105,7 @@ const SelectOptionInput = ({
   const placeholderValue = useMemo(() => {
     const text = value || placeholder;
     return text || `${t("common.select")} ${label}`;
-  }, [value, placeholder, label]);
+  }, [value, placeholder, label, t]);
 
   return (
     <div {...wrapperProps} className={wrapperClassName}>
@@ -113,7 +113,8 @@ const SelectOptionInput = ({
         <label
           onFocus={() => setIsOpen(true)}
           onClick={toggleOptionArea}
-          className={labelClassName}>
+          className={labelClassName}
+        >
           {labelIcon && <FontAwesomeIcon icon={labelIcon} />}
           {label}
         </label>
@@ -138,7 +139,8 @@ const SelectOptionInput = ({
               <h3
                 key={o.text || i}
                 onClick={(e) => handleSelect(o, e)}
-                {...o.props}>
+                {...o.props}
+              >
                 {o.icon && <FontAwesomeIcon icon={o.icon} />}
                 {o.text}
               </h3>

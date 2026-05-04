@@ -162,6 +162,8 @@
     "breaking_news": "الأحدث",
     "topics": "المواضيع",
     "content_type": "نوع المحتوى",
+    "add_content_type": "إضافة نوع محتوى",
+    "content_types": "انواع المحتوى",
     "publication": "المنشورات",
     "add_author": "إضافة مؤلف",
     "add_tag": "إضافة علامة",
@@ -231,7 +233,8 @@
     "priority": "الأولوية",
     "media": "الوسائط",
     "publication": "المنشورات",
-    "files": "الملفات"
+    "files": "الملفات",
+    "categories_count": "عدد اقسامه"
   },
   "studies": "الدراسات",
   "dashboardRoutes": {

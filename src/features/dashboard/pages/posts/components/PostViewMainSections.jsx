@@ -63,7 +63,7 @@ const PostViewMainSections = ({
                 }
                 state={{ tags: e }}
               >
-                {e[`name_${language}`]}
+                {e?.[`name_${language}`]}
               </Link>
             ))}
           </div>

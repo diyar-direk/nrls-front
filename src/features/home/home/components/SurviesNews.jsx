@@ -57,7 +57,7 @@ const SurviesNews = ({ language, content_type }) => {
             className="topic"
             key={e.id}
             onClick={() =>
-              handleClick(e.content_type.name_en, e.id, {
+              handleClick(e.content_type?.name_en, e.id, {
                 content_type: e.content_type,
               })
             }

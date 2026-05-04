@@ -18,6 +18,52 @@ import { icons } from "../../../../../constant/icons";
 import Button from "../../../../../components/buttons/Button";
 import TypesFilters from "./../components/TypesFilters";
 
+const column = [
+  {
+    name: "name_ar",
+    headerName: "tags.name_ar",
+    sort: true,
+  },
+  {
+    name: "name_en",
+    headerName: "tags.name_en",
+    sort: true,
+  },
+  {
+    name: "name_ku",
+    headerName: "tags.name_ku",
+    sort: true,
+  },
+  {
+    name: "priority",
+    headerName: "content_types.priority",
+    sort: true,
+  },
+  {
+    name: "categories_count",
+    headerName: "content_types.categories_count",
+  },
+  {
+    name: "created_at",
+    headerName: "common.created_at",
+    sort: true,
+    getCell: ({ row }) => dateFormatter(row.created_at, "fullDate"),
+  },
+  {
+    name: "actions",
+    headerName: "common.actions",
+    getCell: ({ row }) => (
+      <div className="center">
+        <Link to={dashboardRouts.conentType.update(row.id)}>
+          <Button btnStyleType="transparent">
+            <FontAwesomeIcon icon={icons.update} />
+          </Button>
+        </Link>
+      </div>
+    ),
+  },
+];
+
 const AllTypes = () => {
   const [page, setPage] = useState(1);
   const [selectedItems, setSelectedItems] = useState(new Set());
@@ -36,58 +82,12 @@ const AllTypes = () => {
     ...formatInputsData(filter),
   });
 
-  const column = [
-    {
-      name: "name_ar",
-      headerName: t("tags.name_ar"),
-      sort: true,
-    },
-    {
-      name: "name_en",
-      headerName: t("tags.name_en"),
-      sort: true,
-    },
-    {
-      name: "name_ku",
-      headerName: t("tags.name_ku"),
-      sort: true,
-    },
-    {
-      name: "priority",
-      headerName: t("content_types.priority"),
-      sort: true,
-    },
-    {
-      name: "categories_count",
-      headerName: t("content_types.categories_count"),
-    },
-    {
-      name: "created_at",
-      headerName: t("common.created_at"),
-      sort: true,
-      getCell: ({ row }) => dateFormatter(row.created_at, "fullDate"),
-    },
-    {
-      name: "actions",
-      headerName: t("common.actions"),
-      getCell: ({ row }) => (
-        <div className="center">
-          <Link to={dashboardRouts.conentType.update(row.id)}>
-            <Button btnStyleType="transparent">
-              <FontAwesomeIcon icon={icons.update} />
-            </Button>
-          </Link>
-        </div>
-      ),
-    },
-  ];
-
   return (
     <>
       <Breadcrumbs />
 
       <div className="table-container">
-        <TableToolBar title={t("pages.conent_types")}>
+        <TableToolBar title={t("pages.content_types")}>
           <Search setSearch={setSearch} setPage={setPage} />
           <Delete
             data={data?.data}

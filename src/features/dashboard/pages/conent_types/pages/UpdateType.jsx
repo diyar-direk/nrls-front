@@ -84,7 +84,7 @@ const UpdateType = () => {
             value={formik.values.priority}
             onChange={formik.handleChange}
             errorText={t(formik.errors.priority)}
-            label={t("conent_types.priority")}
+            label={t("content_types.priority")}
             type="number"
           />
         </div>
