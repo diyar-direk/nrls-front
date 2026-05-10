@@ -69,7 +69,7 @@ const Categories = () => {
         headerName: "common.actions",
         getCell: ({ row }) => (
           <div className="center">
-            <Link to={dashboardRouts.tag.update(row.id)}>
+            <Link to={dashboardRouts.category.update(row.id)}>
               <Button btnStyleType="transparent">
                 <FontAwesomeIcon icon={icons.update} />
               </Button>
