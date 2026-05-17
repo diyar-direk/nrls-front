@@ -21,7 +21,11 @@ const SideBarMainInfo = ({
         {data?.original_post && (
           <div>
             <p>{t("common.original_post")}</p>
-            <Link className="link-hover" to={view}>
+            <Link
+              className="link-hover"
+              to={view}
+              state={{ content_type: data?.content_type }}
+            >
               {data?.original_post?.title}
             </Link>
           </div>

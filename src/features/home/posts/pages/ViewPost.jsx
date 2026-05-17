@@ -22,7 +22,7 @@ const api = new APIClient(endPoints.posts);
 const ViewPost = () => {
   const { id } = useParams();
   const { state } = useLocation();
-  const { content_type } = state || {};
+  const { content_type: type } = state || {};
 
   const { data, error, isLoading, refetch } = useQuery({
     queryKey: [endPoints.posts, id],
@@ -32,6 +32,11 @@ const ViewPost = () => {
   const { i18n } = useTranslation();
   const language = useMemo(() => i18n.language, [i18n.language]);
   const { t } = useTranslation();
+
+  const content_type = useMemo(
+    () => type || data?.content_type,
+    [type, data?.content_type],
+  );
 
   if (isLoading) return <Skeleton height="400px" />;
 
@@ -45,7 +50,9 @@ const ViewPost = () => {
             from: content_type?.name_en,
             text: content_type?.[`name_${language}`],
             fullTextReplace: true,
-            props: { state: { content_type } },
+            props: {
+              state: { content_type },
+            },
           },
           { from: id, text: data?.title, fullTextReplace: true },
         ]}
@@ -54,7 +61,15 @@ const ViewPost = () => {
         {data?.original_post && (
           <p className="original-post-action one-line-ellipsis">
             {t("common.original_post")}
-            <Link className="link-hover">{data?.original_post?.title}</Link>
+            <Link
+              className="link-hover"
+              to={homeRoutes.posts.view(
+                content_type?.name_en,
+                data?.original_post?.id,
+              )}
+            >
+              {data?.original_post?.title}
+            </Link>
           </p>
         )}
         <section className="post-view-container">
@@ -74,7 +89,7 @@ const ViewPost = () => {
               data={data}
               language={language}
               view={homeRoutes.posts.view(
-                data?.content_type,
+                content_type?.name_en,
                 data?.original_post?.id,
               )}
             />
