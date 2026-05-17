@@ -41,7 +41,9 @@ const Breadcrumbs = ({ replace = [] }) => {
       <Link to="/"> {t("pages.home")} </Link>
 
       {pathes.map((path, i) => {
-        const replaceItem = replace.find((item) => item.from === path);
+        const replaceItem = replace.find(
+          (item) => item.from === decodeURIComponent(path),
+        );
 
         if (replaceItem?.ignore) return null;
 
@@ -57,23 +59,17 @@ const Breadcrumbs = ({ replace = [] }) => {
             replacedPath = defaultTo.replace(replaceItem.from, replaceItem.to);
         }
 
-        const text = replaceItem?.text || path;
+        const text = decodeURIComponent(replaceItem?.text || path);
 
         const to = replacedPath || defaultTo;
 
         return (
           <span key={defaultTo}>
             {isLast ? (
-              <span className="current">
-                {replaceItem?.fullTextReplace
-                  ? sliceText(text)
-                  : sliceText(t(`pages.${text}`))}
-              </span>
+              <span className="current">{sliceText(text)}</span>
             ) : (
               <Link to={to} {...replaceItem?.props}>
-                {replaceItem?.fullTextReplace
-                  ? sliceText(text)
-                  : sliceText(t(`pages.${text}`))}
+                {sliceText(text)}
               </Link>
             )}
           </span>

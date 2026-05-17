@@ -24,6 +24,7 @@ const AllPosts = () => {
   const language = useMemo(() => i18n.language, [i18n.language]);
 
   const { state } = useLocation();
+
   const { tags, content_type, category } = state || {};
   const hasState = tags || content_type || category;
 

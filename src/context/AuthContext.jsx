@@ -145,6 +145,7 @@ export const AuthProvider = () => {
       return data || null;
     },
     retry: false,
+    refetchOnWindowFocus: false,
   });
 
   if (isLoading) return <Loading />;
